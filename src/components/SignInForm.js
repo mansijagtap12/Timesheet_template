@@ -55,7 +55,7 @@ export default function LoginForm() {
 
   return (
     <div className="container-fluid">
-      <div className="row" style={{ height: '85vh' }}>
+      <div className="row" style={{ height: '100vh' }}>
         {/* Left Section - Image */}
         <div
           className="col-md-6 d-flex align-items-center justify-content-center"
