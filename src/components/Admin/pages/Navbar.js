@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
         <a className="navbar-brand brand-logo" href="/">
-        <img src="assets/images/VK2.png" alt="Logo" />
+        <img src="assets/images/VK1.png" alt="Logo" />
         </a>
         <a className="navbar-brand brand-logo-mini" href="/">
           <img src="assets/images/VK_logo_mini.png" alt="logo" />
