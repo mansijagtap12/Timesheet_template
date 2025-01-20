@@ -6,9 +6,11 @@ import Dashboard from "./components/Admin/pages/Dashboard";
 import EmployeeList from "./components/Admin/pages/EmployeeList";
 import EmpRegistrationFrom from "./components/Admin/pages/EmpRegistrationFrom";
 import ChartJSComponent from "./components/Admin/pages/ChartJSComponent";
-import Footer from "./components/Footer";
+import Footer from "./components/Admin/pages/Footer";
 import SignInForm from "./components/SignInForm";
 import SignInForm1 from "./components/SignInForm1";
+import MonthlyTimesheetForm from "./components/Admin/pages/MonthlyTimesheetForm";
+import WeeklyTimesheetForm from "./components/Admin/pages/WeeklyTimesheetForm";
 import "./App.css"; // Optional: Add any global styles for the app
 
 function App() {
@@ -62,6 +64,33 @@ function App() {
             }
           />
 
+          {/* Employee Weekly Timesheet Page */}
+          <Route
+            path="/Employee-weekly-timesheet"
+            element={
+              <div>
+                <Navbar />
+                <div className="container-fluid page-body-wrapper">
+                  <Sidebar />
+                  <WeeklyTimesheetForm />
+                </div>
+              </div>
+            }
+          />
+          {/* Employee monthly Timesheet Page */}
+          <Route
+            path="/Employee-monthly-timesheet"
+            element={
+              <div>
+                <Navbar />
+                <div className="container-fluid page-body-wrapper">
+                  <Sidebar />
+                  <MonthlyTimesheetForm />
+                </div>
+              </div>
+            }
+          />
+
           {/* ChartJS Component Page */}
           <Route
             path="/ChartJSComponent"
@@ -77,8 +106,9 @@ function App() {
           />
         </Routes>
         {/* Footer */}
-        <Footer />
+      
       </div>
+      <Footer/>
     </Router>
   );
 }

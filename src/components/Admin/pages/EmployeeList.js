@@ -8,7 +8,7 @@ const EmployeeList = () => {
           <div className="card-body">
             <div className="page-header">
               <h3 className="page-title">
-                <span className="page-title-icon bg-gradient-primary text-white me-2">
+                <span className="page-title-icon  text-dark me-2">
                   <i className="mdi mdi-format-align-justify"></i>
                 </span>
                 Employee Record
@@ -16,7 +16,7 @@ const EmployeeList = () => {
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
-                    <a href="/">Dashboard</a>
+                    <a href="/dashboard">Dashboard</a>
                   </li>
                   <li class="breadcrumb-item ">
                     <a href="/Employee-Registration-Form">Add Employee</a>

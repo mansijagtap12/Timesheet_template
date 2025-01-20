@@ -77,22 +77,54 @@ const Sidebar = () => {
             </ul>
           </div>
         </li> */}
+       
+        
         <li className="nav-item">
           <a
             className="nav-link"
             data-bs-toggle="collapse"
-            href="#forms"
+            href="#tables"
             aria-expanded="false"
-            aria-controls="forms"
-          >
-            <span className="menu-title">Forms</span>
-            <i className="mdi mdi-format-list-bulleted menu-icon"></i>
+            aria-controls="tables"
+          > <span className="menu-title">Employee</span>
+            <i className="mdi mdi-table-large menu-icon"></i>
           </a>
-          <div className="collapse" id="forms">
+          <div className="collapse" id="tables">
+            <ul className="nav flex-column sub-menu">
+            <li className="nav-item">
+                <a className="nav-link" href="Employee-Registration-Form">
+                  Register Employee
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="employee-list">
+                 EmployeeList
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li className="nav-item">
+          <a
+            className="nav-link"
+            data-bs-toggle="collapse"
+            href="#timesheet"
+            aria-expanded="false"
+            aria-controls="timesheet"
+          >
+            <span className="menu-title">Timesheet</span>
+            <i className="mdi mdi-timer-sand menu-icon"></i>
+          </a>
+          <div className="collapse" id="timesheet">
             <ul className="nav flex-column sub-menu">
               <li className="nav-item">
-                <a className="nav-link" href="Employee-Registration-Form">
-                  Register Emoloyee
+                <a className="nav-link" href="Employee-monthly-timesheet">
+                  Monthly Timesheet
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="Employee-weekly-timesheet">
+                  Weekly Timesheet
                 </a>
               </li>
             </ul>
@@ -114,26 +146,6 @@ const Sidebar = () => {
               <li className="nav-item">
                 <a className="nav-link" href="ChartJSComponent">
                   ChartJs
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li className="nav-item">
-          <a
-            className="nav-link"
-            data-bs-toggle="collapse"
-            href="#tables"
-            aria-expanded="false"
-            aria-controls="tables"
-          > <span className="menu-title">Employee</span>
-            <i className="mdi mdi-table-large menu-icon"></i>
-          </a>
-          <div className="collapse" id="tables">
-            <ul className="nav flex-column sub-menu">
-              <li className="nav-item">
-                <a className="nav-link" href="employee-list">
-                 EmployeeList
                 </a>
               </li>
             </ul>

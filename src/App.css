@@ -6,6 +6,23 @@
   height: 50vmin;
   pointer-events: none;
 }
+/* Add this CSS to your styles */
+.expandable-textarea {
+  transition: all 0.3s ease; /* Smooth transition for size change */
+}
+
+.expandable-textarea:hover {
+  height: 150px; /* Increase the height on hover */
+  width: 100%; /* Make the text box fill the width */
+  font-size: 16px; /* Increase font size on hover */
+}
+
+.expandable-textarea {
+  height: 50px; /* Default height */
+  width: 100%; /* Full width */
+  font-size: 14px; /* Regular font size */
+  resize: vertical; /* Allow vertical resizing */
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
