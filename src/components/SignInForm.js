@@ -68,8 +68,8 @@ export default function LoginForm() {
               backgroundImage: `url('/assets/images/bg1.jpeg')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              width: '60%',
-              height: '60%',
+              width: '100%',
+              height: '100%',
               boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
             }}
           ></div>

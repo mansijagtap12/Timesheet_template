@@ -16,7 +16,7 @@ const SignInForm = () => {
     e.preventDefault();
 
     // Mock login logic (Replace with actual API call)
-    if (email === 'admin@vkraft.com' && password === '123') {
+    if (email === 'test@vkraft.com' && password === '123') {
       navigate('/dashboard'); // Navigate to the dashboard on success
     } else {
       setErrorMessage('Invalid username or password'); // Show error message

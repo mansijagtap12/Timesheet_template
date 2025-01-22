@@ -127,6 +127,11 @@ const Sidebar = () => {
                   Weekly Timesheet
                 </a>
               </li>
+              <li className="nav-item">
+                <a className="nav-link" href="Employee-weekly-timesheetTable">
+                  Weekly Timesheet data table
+                </a>
+              </li>
             </ul>
           </div>
         </li>

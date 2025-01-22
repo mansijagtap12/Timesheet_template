@@ -11,6 +11,7 @@ import SignInForm from "./components/SignInForm";
 import SignInForm1 from "./components/SignInForm1";
 import MonthlyTimesheetForm from "./components/Admin/pages/MonthlyTimesheetForm";
 import WeeklyTimesheetForm from "./components/Admin/pages/WeeklyTimesheetForm";
+import WeeklyTimesheetTable from "./components/Admin/pages/WeeklyTimesheetTable";
 import "./App.css"; // Optional: Add any global styles for the app
 
 function App() {
@@ -19,8 +20,8 @@ function App() {
       <div className="App">
         <Routes>
           {/* Sign-In Page */}
-          <Route path="/" element={<SignInForm />} />
-          <Route path="/login" element={<SignInForm1 />} />
+          <Route path="/login" element={<SignInForm />} />
+          <Route path="/" element={<SignInForm1 />} />
 
           {/* Dashboard Page */}
           <Route
@@ -73,6 +74,19 @@ function App() {
                 <div className="container-fluid page-body-wrapper">
                   <Sidebar />
                   <WeeklyTimesheetForm />
+                </div>
+              </div>
+            }
+          />
+          {/* Employee Weekly Timesheet Page */}
+          <Route
+            path="/Employee-weekly-timesheetTable"
+            element={
+              <div>
+                <Navbar />
+                <div className="container-fluid page-body-wrapper">
+                  <Sidebar />
+                  <WeeklyTimesheetTable />
                 </div>
               </div>
             }

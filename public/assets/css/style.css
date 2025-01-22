@@ -25151,7 +25151,7 @@ dl li {
   -ms-transition: background 0.25s ease;
 }
 .navbar .navbar-brand {
-  width: 110px;
+  width: 150px;
 }
 .navbar .navbar-brand-wrapper {
   transition: width 0.25s ease, background 0.25s ease;

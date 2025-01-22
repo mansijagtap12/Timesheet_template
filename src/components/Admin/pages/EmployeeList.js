@@ -1,6 +1,21 @@
 import React from "react";
+import { FaEdit, FaTrash } from 'react-icons/fa'; // FontAwesome icons for Edit and Trash
 
 const EmployeeList = () => {
+  // Handle Edit action
+  const handleEdit = (employeeId) => {
+    alert(`Edit employee with ID: ${employeeId}`);
+    // Add your edit logic here (e.g., opening a modal to edit employee details)
+  };
+
+  // Handle Delete action
+  const handleDelete = (employeeId) => {
+    console.log(`Delete employee with ID: ${employeeId}`);
+    // Add your delete logic here (e.g., confirming deletion and removing employee from the list)
+  };
+
+
+
   return (
     <div className="content-wrapper">
       <div className="col-lg-12 grid-margin stretch-card">
@@ -37,6 +52,7 @@ const EmployeeList = () => {
                   <th> RM </th>
                   <th> Certification </th>
                   <th> Skills </th>
+                  <th> Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -52,6 +68,21 @@ const EmployeeList = () => {
                   <td> Riya </td>
                   <td> SQL , JAVA </td>
                   <td> UI / UX </td>
+                  <td>
+                    <button
+                    
+                      className="btn btn-outline-success btn-sm me-2"
+                      onClick={() => handleEdit(1)} // Pass employee ID or index
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="btn btn-outline-danger btn-sm me-2"
+                      onClick={() => handleDelete(1)} // Pass employee ID or index
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-1">
@@ -65,6 +96,20 @@ const EmployeeList = () => {
                   <td> Gowtham </td>
                   <td> Devops </td>
                   <td>python </td>
+                  <td>
+                    <button
+                      className="btn btn-outline-success btn-sm me-2"
+                      onClick={() => handleEdit(1)} // Pass employee ID or index
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="btn btn-outline-danger btn-sm me-2"
+                      onClick={() => handleDelete(1)} // Pass employee ID or index
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-1">
@@ -78,6 +123,20 @@ const EmployeeList = () => {
                   <td> Mahendra </td>
                   <td> SQL , JAVA </td>
                   <td> Webmethod </td>
+                  <td>
+                    <button
+                      className="btn btn-outline-success btn-sm me-2"
+                      onClick={() => handleEdit(1)} // Pass employee ID or index
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="btn btn-outline-danger btn-sm me-2"
+                      onClick={() => handleDelete(1)} // Pass employee ID or index
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
                 </tr>{" "}
                 <tr>
                   <td className="py-1">
@@ -91,6 +150,20 @@ const EmployeeList = () => {
                   <td> Mahendra </td>
                   <td> Ui/Ux </td>
                   <td> Webmethod / CamelK </td>
+                  <td>
+                    <button
+                      className="btn btn-outline-success btn-sm me-2"
+                      onClick={() => handleEdit(1)} // Pass employee ID or index
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="btn btn-outline-danger btn-sm me-2"
+                      onClick={() => handleDelete(1)} // Pass employee ID or index
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
                 </tr>{" "}
                 <tr>
                   <td className="py-1">
@@ -104,6 +177,20 @@ const EmployeeList = () => {
                   <td> Mahendra </td>
                   <td> Kafka </td>
                   <td> Webmethod </td>
+                  <td>
+                    <button
+                      className="btn btn-outline-success btn-sm me-2"
+                      onClick={() => handleEdit(1)} // Pass employee ID or index
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="btn btn-outline-danger btn-sm me-2"
+                      onClick={() => handleDelete(1)} // Pass employee ID or index
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-1">
@@ -117,6 +204,20 @@ const EmployeeList = () => {
                   <td> Subhash </td>
                   <td> SQL , JAVA </td>
                   <td> Java </td>
+                  <td>
+                    <button
+                      className="btn btn-outline-success btn-sm me-2"
+                      onClick={() => handleEdit(1)} // Pass employee ID or index
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="btn btn-outline-danger btn-sm me-2"
+                      onClick={() => handleDelete(1)} // Pass employee ID or index
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-1">
@@ -130,6 +231,20 @@ const EmployeeList = () => {
                   <td> Riya </td>
                   <td> SQL , JAVA </td>
                   <td> Wordpress </td>
+                  <td>
+                    <button
+                      className="btn btn-outline-success btn-sm me-2"
+                      onClick={() => handleEdit(1)} // Pass employee ID or index
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="btn btn-outline-danger btn-sm me-2"
+                      onClick={() => handleDelete(1)} // Pass employee ID or index
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
                 </tr>
                 <tr>
                   <td className="py-1">
@@ -143,6 +258,20 @@ const EmployeeList = () => {
                   <td> Subhash </td>
                   <td> SQL , JAVA </td>
                   <td> java </td>
+                  <td>
+                    <button
+                      className="btn btn-outline-success btn-sm me-2"
+                      onClick={() => handleEdit(1)} // Pass employee ID or index
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="btn btn-outline-danger btn-sm me-2"
+                      onClick={() => handleDelete(1)} // Pass employee ID or index
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
