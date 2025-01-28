@@ -31,15 +31,31 @@ const SignInForm = () => {
         backgroundColor: '#f8f9fa', // Optional: Set a background color for the page
       }}
     >
+      {/* Logo in the top-right corner */}
+      <div
+        style={{
+          position: 'fixed',
+          top: '0px',
+          right: '0px',
+          zIndex: '10',
+        }}
+      >
+        <img
+          src="../../assets/images/logo/SUBMARK-2.png"
+          alt="logo"
+          style={{ maxWidth: '100px' }}
+        />
+      </div>
+
       <div
         className="col-md-6 d-flex align-items-center justify-content-center"
       >
         <div className="auth-form-light text-center p-5 w-75">
           <div className="brand-logo text-center">
             <img
-              src="../../assets/images/VK1.png"
+              src="../../assets/images/logo/VK1.png"
               alt="logo"
-              style={{ maxWidth: '200px' }}
+              style={{ maxWidth: '250px' }}
             />
           </div>
   

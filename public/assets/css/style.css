@@ -24081,8 +24081,8 @@ dl li {
 }
 .table th img,
 .table td img {
-  width: 36px;
-  height: 36px;
+  width: 47px;
+  height: 47px;
   border-radius: 100%;
 }
 .table th img.img-45-30,
@@ -25151,7 +25151,7 @@ dl li {
   -ms-transition: background 0.25s ease;
 }
 .navbar .navbar-brand {
-  width: 150px;
+  width: fit-content;
 }
 .navbar .navbar-brand-wrapper {
   transition: width 0.25s ease, background 0.25s ease;
@@ -25181,7 +25181,7 @@ dl li {
   color: #1b2658;
 }
 .navbar .navbar-brand-wrapper .navbar-brand img {
-  width: calc(260px - 120px);
+  width: fit-content;
   max-width: 100%;
   height: 55px;
   margin: auto;
@@ -25191,7 +25191,7 @@ dl li {
   display: none;
 }
 .navbar .navbar-brand-wrapper .navbar-brand.brand-logo-mini img {
-  width: calc(70px - 50px);
+  width: fit-content;
   max-width: 100%;
   height: 35px;
   margin: auto;
@@ -25450,7 +25450,7 @@ dl li {
     flex-direction: row;
   }
   .navbar .navbar-brand-wrapper {
-    width: 75px;
+    width: fit-content;
   }
   .navbar .navbar-brand-wrapper .navbar-brand.brand-logo {
     display: none;

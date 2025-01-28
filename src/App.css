@@ -51,7 +51,10 @@ footer {
 .App-link {
   color: #61dafb;
 }
-
+.bg-custom
+{
+  background-color: rgb(47 244 102);
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -61,14 +64,14 @@ footer {
   }
 }
 .table.table-bordered {
-  border: 1px solid rgba(231, 228, 228, 0.678)!important;
+  border: 1px solid #e2dbdb !important;
 }
 
 .table.table-bordered th,
 .table.table-bordered td {
-  border: 1px solid rgba(231, 228, 228, 0.678)!important;
+  border: 1px solid #e2dbdb !important;
 }
 
 .table.table-bordered tbody tr:hover {
-  background-color: rgba(231, 228, 228, 0.678)!important; /* Optional: Highlight row on hover */
+  background-color: #e2dbdb !important; /* Optional: Highlight row on hover */
 }

@@ -1,15 +1,15 @@
 import React from "react";
 
 
-const Navbar = () => {
+const Navbar = ({ searchTerm, setSearchTerm }) => {
   return (
     <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-        <a className="navbar-brand brand-logo" href="/">
-        <img src="assets/images/VK1.png" alt="Logo" />
+        <a className="navbar-brand brand-logo" href="/"style={{ width: 'fit-content' }}> 
+        <img src="assets/images/logo/VK1.png" alt="Logo" />
         </a>
         <a className="navbar-brand brand-logo-mini" href="/">
-          <img src="assets/images/VK_logo_mini.png" alt="logo" />
+          <img src="assets/images/logo/VK_logo_mini.png" alt="logo" />
         </a>
       </div>
       <div className="navbar-menu-wrapper d-flex align-items-stretch">
@@ -20,7 +20,7 @@ const Navbar = () => {
         >
           <span className="mdi mdi-menu"></span>
         </button>
-        <div className="search-field d-none d-md-block">
+        {/* <div className="search-field d-none d-md-block">
           <form className="d-flex align-items-center h-100" action="#">
             <div className="input-group">
               <div className="input-group-prepend bg-transparent">
@@ -30,10 +30,12 @@ const Navbar = () => {
                 type="text"
                 className="form-control bg-transparent border-0"
                 placeholder="Search projects"
+                value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
           </form>
-        </div>
+        </div> */}
         <ul className="navbar-nav navbar-nav-right">
           <li className="nav-item nav-profile dropdown">
             <a
@@ -44,19 +46,19 @@ const Navbar = () => {
               aria-expanded="false"
             >
               <div className="nav-profile-img">
-                <img src="assets/images/faces/face1.jpg" alt="profile" />
+                <img src="assets/images/emp/yashwanth.jpg" alt="profile" />
                 <span className="availability-status online"></span>
               </div>
               <div className="nav-profile-text">
-                <p className="mb-1 text-black">MAHENDRA U.</p>
+                <p className="mb-1 text-black">SaiKumar M</p>
               </div>
             </a>
             <div
               className="dropdown-menu navbar-dropdown"
               aria-labelledby="profileDropdown"
             >
-              <a className="dropdown-item" href="#">
-                <i className="mdi mdi-cached me-2 text-success"></i> Activity Log
+              <a className="dropdown-item" href="User-profile">
+                <i className="mdi mdi-account-settings me-2 text-primary"></i>Settings
               </a>
               <div className="dropdown-divider"></div>
               <a className="dropdown-item" href="/">
@@ -66,10 +68,10 @@ const Navbar = () => {
           </li>
           <li className="nav-item d-none d-lg-block full-screen-link">
             <a className="nav-link">
-              <i className="mdi mdi-fullscreen" id="fullscreen-button"></i>
+              <i className="mdi mdi-fullscreen" id="fullscreen-button" title="Full Screen"></i>
             </a>
           </li>
-          <li className="nav-item dropdown">
+          {/* <li className="nav-item dropdown">
             <a
               className="nav-link count-indicator dropdown-toggle"
               id="messageDropdown"
@@ -136,15 +138,16 @@ const Navbar = () => {
               <div className="dropdown-divider"></div>
               <h6 className="p-3 mb-0 text-center">4 new messages</h6>
             </div>
-          </li>
+          </li> */}
           <li className="nav-item dropdown">
             <a
               className="nav-link count-indicator dropdown-toggle"
               id="notificationDropdown"
               href="#"
               data-bs-toggle="dropdown"
+              tooltip="Notifications"
             >
-              <i className="mdi mdi-bell-outline"></i>
+              <i className="mdi mdi-bell-outline" title="Notifications"></i>
               <span className="count-symbol bg-danger"></span>
             </a>
             <div
@@ -202,12 +205,12 @@ const Navbar = () => {
           </li>
           <li className="nav-item nav-logout d-none d-lg-block">
             <a className="nav-link" href="/">
-              <i className="mdi mdi-power"></i>
+              <i className="mdi mdi-power" title="Logout"></i>
             </a>
           </li>
           <li className="nav-item nav-settings d-none d-lg-block">
             <a className="nav-link" href="#">
-              <i className="mdi mdi-star"></i>
+              <i className="mdi mdi-star" title="Dark Theame"></i>
               {/* <i className="mdi mdi-white-balance-sunny"></i> */}
             </a>
           </li>

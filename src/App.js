@@ -11,8 +11,14 @@ import SignInForm from "./components/SignInForm";
 import SignInForm1 from "./components/SignInForm1";
 import MonthlyTimesheetForm from "./components/Admin/pages/MonthlyTimesheetForm";
 import WeeklyTimesheetForm from "./components/Admin/pages/WeeklyTimesheetForm";
+import MonthlyTimesheetList from "./components/Admin/pages/MonthlyTimesheetList";
 import WeeklyTimesheetTable from "./components/Admin/pages/WeeklyTimesheetTable";
+import WeeklyTimesheetList from "./components/Admin/pages/WeeklyTimesheetList";
+import UserProfile from "./components/Admin/pages/UserProfile";
 import "./App.css"; // Optional: Add any global styles for the app
+
+import "react-toastify/dist/ReactToastify.css";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 function App() {
   return (
@@ -104,6 +110,32 @@ function App() {
               </div>
             }
           />
+          {/* Employee monthly Timesheet List  */}
+          <Route
+            path="/Employee-monthlyTs-list"
+            element={
+              <div>
+                <Navbar />
+                <div className="container-fluid page-body-wrapper">
+                  <Sidebar />
+                  <MonthlyTimesheetList />
+                </div>
+              </div>
+            }
+          />
+          {/* Employee Weekly Timesheet List  */}
+          <Route
+            path="/Employee-weeklyTs-list"
+            element={
+              <div>
+                <Navbar />
+                <div className="container-fluid page-body-wrapper">
+                  <Sidebar />
+                  <WeeklyTimesheetList />
+                </div>
+              </div>
+            }
+          />
 
           {/* ChartJS Component Page */}
           <Route
@@ -114,6 +146,19 @@ function App() {
                 <div className="container-fluid page-body-wrapper">
                   <Sidebar />
                   <ChartJSComponent />
+                </div>
+              </div>
+            }
+          />
+          {/* User Profile */}
+          <Route
+            path="/User-profile"
+            element={
+              <div>
+                <Navbar />
+                <div className="container-fluid page-body-wrapper">
+                  <Sidebar />
+                  <UserProfile />
                 </div>
               </div>
             }

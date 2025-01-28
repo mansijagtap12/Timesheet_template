@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import Select from 'react-select';
 
 const EmpRegistrationFrom = () => {
   const [activeSection, setActiveSection] = useState("personalInfo"); // Manage active section
@@ -6,9 +8,38 @@ const EmpRegistrationFrom = () => {
   const toggleSection = (section) => {
     setActiveSection(activeSection === section ? null : section);
   };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    toast.success("Employee registered successfully!", {
+      position: "top-right",
+      autoClose: 3000,
+    });
+  };
+  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedCertification, setselectedCertification] = useState([]);
 
+  const options = [
+    { value: 'Webmethod', label: 'Webmethod' },
+    { value: 'HTML', label: 'HTML' },
+    { value: 'Java', label: 'Java' },
+    { value: 'CamelK', label: 'CamelK' },
+  ];
+  const Certifications = [
+    { value: 'Webmethod', label: 'Software AG Certified web Methods Integration Associate' },
+    { value: 'HTML', label: 'Flask Python' },
+    { value: 'Java', label: 'SQL' },
+    { value: 'CamelK', label: 'CamelK' },
+  ];
+
+  const handleChange = (selectedOptions) => {
+    setSelectedSkills(selectedOptions);
+  };
+  const handleChangeCertifications = (selectedOptionsCertification) => {
+    setselectedCertification(selectedOptionsCertification);
+  };
   return (
     <div className="content-wrapper">
+      <ToastContainer />
       <div className="col-12 grid-margin">
         <div className="card">
           <div className="card-body">
@@ -34,8 +65,9 @@ const EmpRegistrationFrom = () => {
                 </ol>
               </nav>
             </div>
+            <hr />
 
-            <form className="form-sample">
+            <form className="form-sample" onSubmit={handleSubmit}>
               {/* Personal Info Section */}
               <div
                 className="container mt-1"
@@ -47,11 +79,11 @@ const EmpRegistrationFrom = () => {
                 }}
               >
                 <div
-                  className="d-flex justify-content-between align-items-center mb-3"
+                  className="d-flex justify-content-between align-items-center mb-1"
                   style={{ cursor: "pointer" }}
                   onClick={() => toggleSection("personalInfo")}
                 >
-                  <p className="card-description mb-0 fs-6">PERSONAL INFO</p>
+                  <b className="card-description mb-0 fs-6">PERSONAL INFO</b>
                   <i
                     className={`mdi ${
                       activeSection === "personalInfo"
@@ -71,12 +103,13 @@ const EmpRegistrationFrom = () => {
                           className="form-control"
                           id="fullName"
                           placeholder="Enter Full Name"
+                          required
                         />
                         <label htmlFor="fullName">
                           <span role="img" aria-label="User">
                             👤
                           </span>{" "}
-                          Full Name
+                          Full Name<span className="text-danger">*</span>
                         </label>
                       </div>
                     </div>
@@ -89,12 +122,13 @@ const EmpRegistrationFrom = () => {
                           className="form-control"
                           id="username"
                           placeholder="Email"
+                          required
                         />
                         <label htmlFor="username">
                           <span role="img" aria-label="Username">
                             @
                           </span>{" "}
-                          Username
+                          Email<span className="text-danger">*</span>
                         </label>
                       </div>
                     </div>
@@ -184,11 +218,11 @@ const EmpRegistrationFrom = () => {
                 }}
               >
                 <div
-                  className="d-flex justify-content-between align-items-center mb-3"
+                  className="d-flex justify-content-between align-items-center mb-1"
                   style={{ cursor: "pointer" }}
                   onClick={() => toggleSection("portfolio")}
                 >
-                  <p className="card-description mb-0 fs-6">PORTFOLIO</p>
+                  <b className="card-description mb-0 fs-6">PORTFOLIO</b>
                   <i
                     className={`mdi ${
                       activeSection === "portfolio"
@@ -199,114 +233,123 @@ const EmpRegistrationFrom = () => {
                 </div>
 
                 {activeSection === "portfolio" && (
-                   <div className="row">
-                   {/* Work Location */}
-                   <div className="col-md-6 mb-3">
-                    <div className="form-floating">
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="workLocation"
-                        placeholder="Work Location"
-                      />
-                      <label htmlFor="workLocation">
-                        <span role="img" aria-label="Location">
-                          📍
-                        </span>{" "}
-                        Work Location
-                      </label>
+                  <div className="row">
+                    {/* Work Location */}
+                    <div className="col-md-6 mb-3">
+                      <div className="form-floating">
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="workLocation"
+                          placeholder="Work Location"
+                          required
+                        />
+                        <label htmlFor="workLocation">
+                          <span role="img" aria-label="Location">
+                            📍
+                          </span>{" "}
+                          Work Location<span className="text-danger">*</span>
+                        </label>
+                      </div>
                     </div>
-                  </div>
-                  {/* Project */}
-                  <div className="col-md-6 mb-3">
-                    <div className="form-floating">
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="project"
-                        placeholder="Project"
-                      />
-                      <label htmlFor="project">Project</label>
+                    {/* Project */}
+                    <div className="col-md-6 mb-3">
+                      <div className="form-floating">
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="project"
+                          placeholder="Project"
+                        />
+                        <label htmlFor="project">Project</label>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Reporting Manager */}
-                  <div className="col-md-6 mb-3">
-                    <div className="form-floating">
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="manager"
-                        placeholder="Reporting Manager"
-                      />
-                      <label htmlFor="manager">Reporting Manager</label>
+                    {/* Reporting Manager */}
+                    <div className="col-md-6 mb-3">
+                      <div className="form-floating">
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="manager"
+                          placeholder="Reporting Manager"
+                          required
+                        />
+                        <label htmlFor="manager">
+                          Reporting Manager{" "}
+                          <span className="text-danger">*</span>
+                        </label>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Duration */}
-                  <div className="col-md-6 mb-3">
-                    <div className="form-floating">
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="duration"
-                        placeholder="Duration"
-                      />
-                      <label htmlFor="duration">Duration</label>
+                    {/* Duration */}
+                    <div className="col-md-6 mb-3">
+                      <div className="form-floating">
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="duration"
+                          placeholder="Duration"
+                        />
+                        <label htmlFor="duration">Duration</label>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Skills */}
-                  <div className="col-md-6 mb-3">
-                    <div className="form-floating">
-                      <select className="form-select" id="Skills">
-                      <option value="Webmethod">Webmethod</option>
-                        <option value="HTML">HTML</option>
-                        <option value="Java">Java</option>
-                        <option value="CamelK">CamelK</option>
-                      </select>
-                      <label htmlFor="Skills">Skills</label>
-                    </div>
-                  </div>
-
-                  {/* Certifications */}
-                  <div className="col-md-6 mb-3">
-                    <div className="form-floating ">
-                      <select className="form-select " id="Certifications"> 
-                        <option value="Webmethod">Webmethod</option>
-                        <option value="HTML">HTML</option>
-                        <option value="Java">Java</option>
-                        <option value="CamelK">CamelK</option>
-                      </select>
-                      <label htmlFor="Certifications">Certifications</label>
-                    </div>
-                  </div>
-                  {/* Certifications */}
-                  <div className="col-md-6 mb-3">
-                    <div className="form-floating">
-                    <input
-                        type="file"
-                        className="form-control"
-                        id="duration"
-                        placeholder="Duration"
-                      />
-                      <label htmlFor="Upload_Resume">Upload Resume</label>
-                    </div>
+                   
+                    <div className="col-md-6 mb-3">
+                      <div className="form-floating">
+                        <input
+                          type="file"
+                          className="form-control"
+                          id="duration"
+                          placeholder="Duration"
+                        />
+                        <label htmlFor="Upload_Resume">Upload Resume</label>
+                      </div>
                     </div>
                     <div className="col-md-6 mb-3">
-                    <div className="form-floating">
-                    <input
-                        type="file"
-                        className="form-control"
-                        id="duration"
-                        placeholder="Duration"
-                      />
-                      <label htmlFor="Upload_Certifications">Upload Certifications</label>
+                      <div className="form-floating">
+                        <input
+                          type="file"
+                          className="form-control"
+                          id="duration"
+                          placeholder="Duration"
+                        />
+                        <label htmlFor="Upload_Certifications">
+                          Upload Certifications
+                        </label>
+                      </div>
+                    </div>
+                     {/* Skills */}
+                     <div className="col-md-6 mb-3">
+                      <div className="form-floating">
+                        <Select
+                          isMulti
+                          options={options}
+                          value={selectedSkills}
+                          onChange={handleChange}
+                          placeholder="Select Skills"
+                        />
+                       
+                      </div>
+                    </div>
+
+                    {/* Certifications */}
+                    <div className="col-md-6 mb-3">
+                      <div className="form-floating">
+                        <Select
+                          isMulti
+                          options={Certifications}
+                          value={selectedCertification}
+                          onChange={handleChangeCertifications}
+                          placeholder="Select Certifications"
+                        />
+                       
+                      </div>
                     </div>
                   </div>
-                </div>
                 )}
-               </div>
+              </div>
 
               <div className="row mt-3">
                 <div className="col-md-12 mb-3 d-flex justify-content-end">
@@ -315,7 +358,6 @@ const EmpRegistrationFrom = () => {
                   </button>
                 </div>
               </div>
-             
             </form>
           </div>
         </div>

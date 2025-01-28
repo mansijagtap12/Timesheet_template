@@ -56,6 +56,8 @@ export default function LoginForm() {
   return (
     <div className="container-fluid">
       <div className="row" style={{ height: '100vh' }}>
+          {/* Logo in the top-right corner */}
+      
         {/* Left Section - Image */}
         <div
           className="col-md-6 d-flex align-items-center justify-content-center"
@@ -82,12 +84,26 @@ export default function LoginForm() {
             backgroundColor: '#f8f9fa',
           }}
         >
+          <div
+        style={{
+          position: 'absolute',
+          top: '0px',
+          right: '0px',
+          zIndex: '10',
+        }}
+      >
+        <img
+          src="../../assets/images/logo/SUBMARK-2.png"
+          alt="logo"
+          style={{ maxWidth: '50px' }}
+        />
+      </div>
           <div className="auth-form-light text-left p-5 w-75">
             <div className="brand-logo text-center">
               <img
-                src="../../assets/images/VK1.png"
+                src="../../assets/images/logo/VK1.png"
                 alt="logo"
-                style={{ maxWidth: '200px' }}
+                style={{ maxWidth: '230px' }}
               />
             </div>
 
