@@ -224,7 +224,7 @@ const WeeklyTimesheetForm = () => {
             <hr />
             {showSuccessMessage && (
               <div className="alert alert-success" role="alert">
-                <strong>Thank you!</strong> You have successfully submitted the {" "}
+                <strong>Thank you!</strong> You have successfully submitted the{" "}
                 Weekly timesheet.
               </div>
             )}

@@ -263,7 +263,6 @@ const WeeklyTimesheetTable = () => {
                 ))}
               </tbody>
             </Table>
-
             <button
               onClick={handleSubmit}
               className="btn btn-primary mt-1 d-block"

@@ -12,7 +12,7 @@ const Sidebar = () => {
               {/* change to offline or busy as needed */}
             </div>
             <div className="nav-profile-text d-flex flex-column">
-              <span className="font-weight-bold mb-2">SaiKumar M.  </span>
+              <span className="font-weight-bold mb-2">SaiKumar M. </span>
               <span className="text-secondary text-small">Project Manager</span>
             </div>
             <i className="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
@@ -77,8 +77,7 @@ const Sidebar = () => {
             </ul>
           </div>
         </li> */}
-       
-        
+
         <li className="nav-item">
           <a
             className="nav-link"
@@ -86,19 +85,21 @@ const Sidebar = () => {
             href="#tables"
             aria-expanded="false"
             aria-controls="tables"
-          > <span className="menu-title">Employees</span>
+          >
+            {" "}
+            <span className="menu-title">Employees</span>
             <i className="mdi mdi-table-large menu-icon"></i>
           </a>
           <div className="collapse" id="tables">
             <ul className="nav flex-column sub-menu">
-            <li className="nav-item">
+              <li className="nav-item">
                 <a className="nav-link" href="Employee-Registration-Form">
                   Register Employee
                 </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="employee-list">
-                 EmployeeList
+                  EmployeeList
                 </a>
               </li>
             </ul>

@@ -7,12 +7,10 @@ const MonthlyTimesheetList = () => {
   const [filteredData, setFilteredData] = useState([]); // State for filtered data
   const [searchTerm, setSearchTerm] = useState(""); // State for search input
   const [loading, setLoading] = useState(true);
- 
+
   const [showSearch, setShowSearch] = useState(false); // State for controlling the visibility of the search box
 
   // Handle search input change
- 
-
 
   // Fetch data (Mock API call for now)
   useEffect(() => {
@@ -111,12 +109,15 @@ const MonthlyTimesheetList = () => {
             border: "none",
             borderRadius: "5px",
           }}
-          onClick={() => window.open(row.fileUrl, "_blank")}
+          onClick={() =>
+            window.open(
+              "https://docs.google.com/spreadsheets/d/1nki5ArbCOuEuKPOeoVRlEFGRpdeE_FJtxjH2_2x1bMg/edit?pli=1&gid=0#gid=0"
+            )
+          }
         >
           <i className="mdi mdi-eye" title="Preview"></i>
         </button>
       ),
-      
     },
     {
       name: "Download",
@@ -144,20 +145,21 @@ const MonthlyTimesheetList = () => {
 
   return (
     <div className="content-wrapper">
-       <div className="d-flex justify-content-end" style={{ padding: "0px" }}>
+      <div className="d-flex justify-content-end" style={{ padding: "0px" }}>
         {/* Search Icon */}
-        <i className="mdi mdi-magnify"
-         
+        <i
+          className="mdi mdi-magnify"
           style={{
             cursor: "pointer",
             fontSize: "20px",
             padding: "5px",
-            marginLeft:"100px",
-            marginTop:" -32px",
-            color:"blue",
+            marginLeft: "100px",
+            marginTop: " -32px",
+            color: "blue",
           }}
           onClick={() => setShowSearch(!showSearch)} // Toggle search box visibility
-          title="Search"/>
+          title="Search"
+        />
 
         {/* Search Input Box */}
         {showSearch && (
@@ -173,12 +175,12 @@ const MonthlyTimesheetList = () => {
               border: "1px solid #ccc",
               borderRadius: "5px",
               marginLeft: "10px",
-              marginTop:" -32px",
+              marginTop: " -32px",
             }}
           />
         )}
       </div>
-    
+
       <div className="col-lg-12 grid-margin stretch-card">
         <div className="card">
           <div className="card-body">

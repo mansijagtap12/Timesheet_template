@@ -6,9 +6,9 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 
 const EmployeeList = () => {
-    const [searchTerm, setSearchTerm] = useState(""); // State for search input
+  const [searchTerm, setSearchTerm] = useState(""); // State for search input
 
-    const [showSearch, setShowSearch] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   // Sample employee data
   const [employees, setEmployees] = useState([
     {
@@ -99,7 +99,7 @@ const EmployeeList = () => {
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
-  
+
     const filteredEmployees = employees.filter((employee) =>
       Object.values(employee).some((value) =>
         String(value).toLowerCase().includes(term)
@@ -107,7 +107,6 @@ const EmployeeList = () => {
     );
     setEmployees(filteredEmployees); // Update the employee list based on search term
   };
-  
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
@@ -126,7 +125,6 @@ const EmployeeList = () => {
     setShowModal(false); // Close the modal
     toast.success("Data updated successfully!"); // Show success toast
   };
-  
 
   // Handle input change in Modal
   const handleChange = (e) => {
@@ -141,18 +139,19 @@ const EmployeeList = () => {
     <div className="content-wrapper">
       <div className="d-flex justify-content-end" style={{ padding: "0px" }}>
         {/* Search Icon */}
-        <i className="mdi mdi-magnify"
-         
+        <i
+          className="mdi mdi-magnify"
           style={{
             cursor: "pointer",
             fontSize: "20px",
             padding: "5px",
-            marginLeft:"100px",
-            marginTop:" -32px",
-            color:"blue",
+            marginLeft: "100px",
+            marginTop: " -32px",
+            color: "blue",
           }}
           onClick={() => setShowSearch(!showSearch)} // Toggle search box visibility
-          title="Search"/>
+          title="Search"
+        />
 
         {/* Search Input Box */}
         {showSearch && (
@@ -168,7 +167,7 @@ const EmployeeList = () => {
               border: "1px solid #ccc",
               borderRadius: "5px",
               marginLeft: "10px",
-              marginTop:" -32px",
+              marginTop: " -32px",
             }}
           />
         )}
@@ -274,86 +273,85 @@ const EmployeeList = () => {
       </div>
       {/* Modal for editing employee details */}
       {currentEmployee && (
-       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-       <Modal.Header closeButton>
-         <Modal.Title>Edit Employee</Modal.Title>
-       </Modal.Header>
-       <Modal.Body>
-         <form>
-           <div className="row">
-             <div className="col-md-6">
-               <div className="form-group">
-                 <label>Name</label>
-                 <input
-                   type="text"
-                   className="form-control"
-                   name="name"
-                   value={currentEmployee.name}
-                   onChange={handleChange}
-                 />
-               </div>
-             </div>
-             <div className="col-md-6">
-               <div className="form-group">
-                 <label>Project</label>
-                 <input
-                   type="text"
-                   className="form-control"
-                   name="project"
-                   value={currentEmployee.project}
-                   onChange={handleChange}
-                 />
-               </div>
-             </div>
-             <div className="col-md-6">
-               <div className="form-group">
-                 <label>RM</label>
-                 <input
-                   type="text"
-                   className="form-control"
-                   name="rm"
-                   value={currentEmployee.rm}
-                   onChange={handleChange}
-                 />
-               </div>
-             </div>
-             <div className="col-md-6">
-               <div className="form-group">
-                 <label>Certification</label>
-                 <input
-                   type="text"
-                   className="form-control"
-                   name="certification"
-                   value={currentEmployee.Certification}
-                   onChange={handleChange}
-                 />
-               </div>
-             </div>
-             <div className="col-md-12">
-               <div className="form-group">
-                 <label>Skills</label>
-                 <input
-                   type="text"
-                   className="form-control"
-                   name="skills"
-                   value={currentEmployee.skills}
-                   onChange={handleChange}
-                 />
-               </div>
-             </div>
-           </div>
-         </form>
-       </Modal.Body>
-       <Modal.Footer>
-         <Button variant="secondary" onClick={() => setShowModal(false)}>
-           Close
-         </Button>
-         <Button variant="primary" onClick={handleSave}>
-           Update
-         </Button>
-       </Modal.Footer>
-     </Modal>
-     
+        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Employee</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="name"
+                      value={currentEmployee.name}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Project</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="project"
+                      value={currentEmployee.project}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>RM</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="rm"
+                      value={currentEmployee.rm}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Certification</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="certification"
+                      value={currentEmployee.Certification}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="col-md-12">
+                  <div className="form-group">
+                    <label>Skills</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="skills"
+                      value={currentEmployee.skills}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowModal(false)}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleSave}>
+              Update
+            </Button>
+          </Modal.Footer>
+        </Modal>
       )}
     </div>
   );

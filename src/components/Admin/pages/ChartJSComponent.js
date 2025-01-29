@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Chart } from 'chart.js';
+import React, { useEffect } from "react";
+import { Chart } from "chart.js";
 
 // Import necessary components for charts
 import {
@@ -14,7 +14,7 @@ import {
   Tooltip,
   Legend,
   ArcElement,
-} from 'chart.js';
+} from "chart.js";
 
 // Register the components you will use
 Chart.register(
@@ -41,30 +41,28 @@ const ChartJSComponent = () => {
     if (barChartInstance) {
       barChartInstance.destroy(); // Destroy existing chart instance before creating a new one
     }
-    barChartInstance = new Chart(document.getElementById('barChart'), {
-      type: 'bar',
+    barChartInstance = new Chart(document.getElementById("barChart"), {
+      type: "bar",
       data: {
-        labels: ['January', 'February', 'March', 'April', 'May'],
+        labels: ["January", "February", "March", "April", "May"],
         datasets: [
           {
-            label: 'Bar Dataset',
+            label: "Bar Dataset",
             data: [65, 59, 80, 81, 56],
             backgroundColor: [
-                
-                    'rgb(242, 192, 203)',  // Red
-                    'rgb(198, 226, 246)',  // Blue
-                    'rgb(248, 222, 156)',  // Yellow
-                    'rgb(186, 244, 244)',  // Green
-                    'rgb(223, 209, 250)', // Purple
-                  
-              ],
+              "rgb(242, 192, 203)", // Red
+              "rgb(198, 226, 246)", // Blue
+              "rgb(248, 222, 156)", // Yellow
+              "rgb(186, 244, 244)", // Green
+              "rgb(223, 209, 250)", // Purple
+            ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',  // Red
-                'rgba(54, 162, 235, 1)',  // Blue
-                'rgba(255, 206, 86, 1)',  // Yellow
-                'rgba(75, 192, 192, 1)',  // Green
-                'rgba(153, 102, 255, 1)', // Purple
-              ],
+              "rgba(255, 99, 132, 1)", // Red
+              "rgba(54, 162, 235, 1)", // Blue
+              "rgba(255, 206, 86, 1)", // Yellow
+              "rgba(75, 192, 192, 1)", // Green
+              "rgba(153, 102, 255, 1)", // Purple
+            ],
             borderWidth: 1,
           },
         ],
@@ -74,7 +72,7 @@ const ChartJSComponent = () => {
         plugins: {
           title: {
             display: true,
-            text: 'Monthwise In Time',
+            text: "Monthwise In Time",
           },
         },
       },
@@ -84,15 +82,15 @@ const ChartJSComponent = () => {
     if (lineChartInstance) {
       lineChartInstance.destroy(); // Destroy existing chart instance before creating a new one
     }
-    lineChartInstance = new Chart(document.getElementById('lineChart'), {
-      type: 'line',
+    lineChartInstance = new Chart(document.getElementById("lineChart"), {
+      type: "line",
       data: {
-        labels: ['January', 'February', 'March', 'April', 'May'],
+        labels: ["January", "February", "March", "April", "May"],
         datasets: [
           {
-            label: 'Line Dataset',
+            label: "Line Dataset",
             data: [65, 59, 80, 81, 56],
-            borderColor: 'rgba(75, 192, 192, 1)',
+            borderColor: "rgba(75, 192, 192, 1)",
             fill: false,
           },
         ],
@@ -102,7 +100,7 @@ const ChartJSComponent = () => {
         plugins: {
           title: {
             display: true,
-            text: 'Line Chart Example',
+            text: "Line Chart Example",
           },
         },
       },
@@ -121,8 +119,12 @@ const ChartJSComponent = () => {
         <h3 className="page-title">Employee Chart</h3>
         <nav aria-label="breadcrumb">
           <ol className="breadcrumb">
-            <li className="breadcrumb-item"><a href="/">Dashboard</a></li>
-            <li className="breadcrumb-item active" aria-current="page">Charts</li>
+            <li className="breadcrumb-item">
+              <a href="/">Dashboard</a>
+            </li>
+            <li className="breadcrumb-item active" aria-current="page">
+              Charts
+            </li>
           </ol>
         </nav>
       </div>
@@ -131,7 +133,7 @@ const ChartJSComponent = () => {
           <div className="card">
             <div className="card-body">
               <h4 className="card-title">Bar Chart</h4>
-              <canvas id="barChart" style={{ height: '230px' }}></canvas>
+              <canvas id="barChart" style={{ height: "230px" }}></canvas>
             </div>
           </div>
         </div>
@@ -140,7 +142,7 @@ const ChartJSComponent = () => {
           <div className="card">
             <div className="card-body">
               <h4 className="card-title">Line Chart</h4>
-              <canvas id="lineChart" style={{ height: '230px' }}></canvas>
+              <canvas id="lineChart" style={{ height: "230px" }}></canvas>
             </div>
           </div>
         </div>

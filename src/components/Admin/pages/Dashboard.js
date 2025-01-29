@@ -57,21 +57,21 @@ const Dashboard = () => {
             className="bg-gradient-danger"
             title="Total Employee"
             icon="mdi-chart-line"
-            amount="500+"
+            amount="100+"
             change="Location : Nashik"
           />
           <DashboardCard
             className="bg-gradient-info"
             title="Timesheets"
             icon="mdi-bookmark-outline"
-            amount="400"
+            amount="80"
             change="Decreased by 10%"
           />
           <DashboardCard
             className="bg-gradient-success"
             title="Upcoming event"
             icon="mdi-diamond"
-            amount="20+"
+            amount="5+"
             change="Increased by 5%"
           />
         </div>
@@ -108,6 +108,7 @@ const Dashboard = () => {
                         key={task.id}
                         className={task.completed ? "completed" : ""}
                       >
+                        {" "}
                         <div className="form-check">
                           <label className="form-check-label">
                             <input
@@ -132,7 +133,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-
           {/* Datepicker Section */}
           <div className="col-md-6 grid-margin stretch-card">
             <div className="card">
@@ -149,7 +149,6 @@ const Dashboard = () => {
     </div>
   );
 };
-
 const DashboardCard = ({ className, title, icon, amount, change }) => (
   <div className="col-md-4 stretch-card grid-margin">
     <div className={`card ${className} card-img-holder text-white`}>
@@ -168,7 +167,6 @@ const DashboardCard = ({ className, title, icon, amount, change }) => (
     </div>
   </div>
 );
-
 const RecentTickets = () => (
   <div className="row">
     <div className="col-12 grid-margin">
@@ -176,69 +174,74 @@ const RecentTickets = () => (
         <div className="card-body">
           <h4 className="card-title">Recent Tickets</h4>
           <div className="table-responsive">
-          <table className="table table-striped">
-  <thead>
-    <tr>
-      <th>Assignee</th>
-      <th>Subject</th>
-      <th>Status</th>
-      <th>Last Update</th>
-      <th>Tracking ID</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Mansi Jagtap</td>
-      <td>Fix Login Issue</td>
-      <td><div className="progress">
-          <div
-            className="progress-bar bg-success"
-            role="progressbar"
-            style={{ width: "55%" }}
-            aria-valuenow="25"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
-        </div></td>
-      <td>2025-01-05</td>
-      <td>#12345</td>
-    </tr>
-    
-    <tr>
-      <td>Dhiraj Saidane</td>
-      <td>Resolve API Bug</td>
-      <td><div className="progress">
-          <div
-            className="progress-bar bg-danger"
-            role="progressbar"
-            style={{ width: "25%" }}
-            aria-valuenow="25"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
-        </div></td>
-      <td>2025-01-03</td>
-      <td>#12347</td>
-    </tr>
-    <tr>
-      <td>Yogesh Pardeshi</td>
-      <td>Enhance UI Design</td>
-      <td><div className="progress">
-          <div
-            className="progress-bar bg-warning"
-            role="progressbar"
-            style={{ width: "75%" }}
-            aria-valuenow="25"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
-        </div></td>
-      <td>2025-01-02</td>
-      <td>#12348</td>
-    </tr>
-  </tbody>
-</table>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Assignee</th>
+                  <th>Subject</th>
+                  <th>Status</th>
+                  <th>Last Update</th>
+                  <th>Tracking ID</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mansi Jagtap</td>
+                  <td>Fix Login Issue</td>
+                  <td>
+                    <div className="progress">
+                      <div
+                        className="progress-bar bg-success"
+                        role="progressbar"
+                        style={{ width: "55%" }}
+                        aria-valuenow="25"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </td>
+                  <td>2025-01-05</td>
+                  <td>#12345</td>
+                </tr>
 
+                <tr>
+                  <td>Dhiraj Saidane</td>
+                  <td>Resolve API Bug</td>
+                  <td>
+                    <div className="progress">
+                      <div
+                        className="progress-bar bg-danger"
+                        role="progressbar"
+                        style={{ width: "25%" }}
+                        aria-valuenow="25"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </td>
+                  <td>2025-01-03</td>
+                  <td>#12347</td>
+                </tr>
+                <tr>
+                  <td>Yogesh Pardeshi</td>
+                  <td>Enhance UI Design</td>
+                  <td>
+                    <div className="progress">
+                      <div
+                        className="progress-bar bg-warning"
+                        role="progressbar"
+                        style={{ width: "75%" }}
+                        aria-valuenow="25"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </td>
+                  <td>2025-01-02</td>
+                  <td>#12348</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

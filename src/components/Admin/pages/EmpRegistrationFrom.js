@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import Select from 'react-select';
+import Select from "react-select";
 
 const EmpRegistrationFrom = () => {
   const [activeSection, setActiveSection] = useState("personalInfo"); // Manage active section
-
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    skills: [],
+    workLocation: "",
+    manager: "",
+  });
   const toggleSection = (section) => {
     setActiveSection(activeSection === section ? null : section);
   };
@@ -14,21 +20,31 @@ const EmpRegistrationFrom = () => {
       position: "top-right",
       autoClose: 3000,
     });
+    setFormData({
+      name: "",
+      email: "",
+      skills: [],
+      workLocation: "",
+      manager: "",
+    });
   };
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [selectedCertification, setselectedCertification] = useState([]);
 
   const options = [
-    { value: 'Webmethod', label: 'Webmethod' },
-    { value: 'HTML', label: 'HTML' },
-    { value: 'Java', label: 'Java' },
-    { value: 'CamelK', label: 'CamelK' },
+    { value: "Webmethod", label: "Webmethod" },
+    { value: "HTML", label: "HTML" },
+    { value: "Java", label: "Java" },
+    { value: "CamelK", label: "CamelK" },
   ];
   const Certifications = [
-    { value: 'Webmethod', label: 'Software AG Certified web Methods Integration Associate' },
-    { value: 'HTML', label: 'Flask Python' },
-    { value: 'Java', label: 'SQL' },
-    { value: 'CamelK', label: 'CamelK' },
+    {
+      value: "Webmethod",
+      label: "Software AG Certified web Methods Integration Associate",
+    },
+    { value: "HTML", label: "Flask Python" },
+    { value: "Java", label: "SQL" },
+    { value: "CamelK", label: "CamelK" },
   ];
 
   const handleChange = (selectedOptions) => {
@@ -295,7 +311,6 @@ const EmpRegistrationFrom = () => {
                       </div>
                     </div>
 
-                   
                     <div className="col-md-6 mb-3">
                       <div className="form-floating">
                         <input
@@ -320,8 +335,8 @@ const EmpRegistrationFrom = () => {
                         </label>
                       </div>
                     </div>
-                     {/* Skills */}
-                     <div className="col-md-6 mb-3">
+                    {/* Skills */}
+                    <div className="col-md-6 mb-3">
                       <div className="form-floating">
                         <Select
                           isMulti
@@ -330,7 +345,6 @@ const EmpRegistrationFrom = () => {
                           onChange={handleChange}
                           placeholder="Select Skills"
                         />
-                       
                       </div>
                     </div>
 
@@ -344,7 +358,6 @@ const EmpRegistrationFrom = () => {
                           onChange={handleChangeCertifications}
                           placeholder="Select Certifications"
                         />
-                       
                       </div>
                     </div>
                   </div>
