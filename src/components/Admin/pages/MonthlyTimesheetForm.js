@@ -30,28 +30,29 @@ const MonthlyTimesheetForm = () => {
     e.preventDefault();
 
     // Validate fields
-    if (!selectedMonth || !projectName || !clientName || !fileInputRef.current.files[0]) {
+    if (
+      !selectedMonth ||
+      !projectName ||
+      !clientName ||
+      !fileInputRef.current.files[0]
+    ) {
       alert("All fields are mandatory. Please fill in all the details.");
       return;
     }
-
     // Prepare form data for submission
     const formData = new FormData();
     formData.append("month", selectedMonth);
     formData.append("projectName", projectName);
     formData.append("clientName", clientName);
     formData.append("file", fileInputRef.current.files[0]);
-
     console.log("Form submitted with data:", {
       month: selectedMonth,
       projectName,
       clientName,
       file: fileInputRef.current.files[0].name,
     });
-
     // Show success message
     setShowSuccessMessage(true);
-
     // Reset form fields
     setSelectedMonth("");
     setProjectName("");
@@ -61,7 +62,6 @@ const MonthlyTimesheetForm = () => {
   setTimeout(() => {
     setShowSuccessMessage(false);
   }, 5000);
-
   return (
     <div className="content-wrapper">
       <div className="col-12 grid-margin">
@@ -75,7 +75,6 @@ const MonthlyTimesheetForm = () => {
                 </span>
                 Monthly Timesheet
               </h5>
-
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
@@ -84,7 +83,7 @@ const MonthlyTimesheetForm = () => {
                   <li className="breadcrumb-item">
                     <a href="/Employee-monthlyTs-list">Submitted Timesheet</a>
                   </li>
-                  
+
                   <li className="breadcrumb-item active" aria-current="page">
                     Monthly Timesheet
                   </li>
@@ -92,14 +91,12 @@ const MonthlyTimesheetForm = () => {
               </nav>
             </div>
             <hr />
-
             {showSuccessMessage && (
               <div className="alert alert-success" role="alert">
-                <strong>Thank you!</strong> You have successfully submitted the {" "}
+                <strong>Thank you!</strong> You have successfully submitted the{" "}
                 <strong>{selectedMonth}</strong> timesheet.
               </div>
             )}
-
             <form onSubmit={handleSubmit}>
               {/* Month Selection */}
               <div className="form-floating mb-4">
@@ -167,7 +164,7 @@ const MonthlyTimesheetForm = () => {
 
               {/* File Upload */}
               <div className="mb-4">
-                <label className="form-label">
+                <label className="form-label d-flex justify-content-lg-start">
                   <i className="mdi mdi-file-upload-outline"></i> Upload
                   Timesheet (PDF/Excel) <span className="text-danger">*</span>
                 </label>

@@ -1,12 +1,15 @@
 import React from "react";
 
-
 const Navbar = ({ searchTerm, setSearchTerm }) => {
   return (
     <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-        <a className="navbar-brand brand-logo" href="/"style={{ width: 'fit-content' }}> 
-        <img src="assets/images/logo/VK1.png" alt="Logo" />
+        <a
+          className="navbar-brand brand-logo"
+          href="/"
+          style={{ width: "fit-content" }}
+        >
+          <img src="assets/images/logo/VK1.png" alt="Logo" />
         </a>
         <a className="navbar-brand brand-logo-mini" href="/">
           <img src="assets/images/logo/VK_logo_mini.png" alt="logo" />
@@ -58,7 +61,8 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
               aria-labelledby="profileDropdown"
             >
               <a className="dropdown-item" href="User-profile">
-                <i className="mdi mdi-account-settings me-2 text-primary"></i>Settings
+                <i className="mdi mdi-account-settings me-2 text-primary"></i>
+                Settings
               </a>
               <div className="dropdown-divider"></div>
               <a className="dropdown-item" href="/">
@@ -68,7 +72,11 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
           </li>
           <li className="nav-item d-none d-lg-block full-screen-link">
             <a className="nav-link">
-              <i className="mdi mdi-fullscreen" id="fullscreen-button" title="Full Screen"></i>
+              <i
+                className="mdi mdi-fullscreen"
+                id="fullscreen-button"
+                title="Full Screen"
+              ></i>
             </a>
           </li>
           {/* <li className="nav-item dropdown">
@@ -215,7 +223,6 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
             </a>
           </li>
         </ul>
-       
       </div>
     </nav>
   );
