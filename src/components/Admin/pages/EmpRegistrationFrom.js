@@ -545,36 +545,111 @@ const EmpRegistrationFrom = () => {
               {/* Project Section */}
               {activeTab === 2 && (
                 <div className="container mt-3 p-3 bg-white shadow-sm rounded">
-                  <div className="row">
-                    <div className="col-md-12 mb-4">
-                      <label
-                        htmlFor="project"
-                        className="form-label text-start d-block"
-                      >
-                        Select Project <span className="text-danger">*</span>
-                      </label>
-                      <select className="form-control" id="project" required>
-                        <option value="">Select Project</option>
-                        <option value="AIA">AIA</option>
-                        <option value="Amway">Amway</option>
-                        <option value="Pepco">Pepco</option>
-                      </select>
-                    </div>
-                    <div className="col-md-12 mb-4">
-                      <label
-                        htmlFor="project"
-                        className="form-label text-start d-block"
-                      >
-                        Position <span className="text-danger">*</span>
-                      </label>
-                      <select className="form-control" id="project" required>
-                        <option value="">Select Position</option>
-                        <option value="Team Lead">Team Lead</option>
-                        <option value="sr Developer">Sr Developer</option>
-                        <option value="jr Developer">jr Developer</option>
-                      </select>
-                    </div>
-                  </div>
+                  <form>
+              <div className="row">
+                <div className="col-md-6 mb-1">
+                  <label
+                    htmlFor="projectName"
+                    className="form-label text-start d-block "
+                  >
+                   Project Name <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="projectName"
+                    placeholder="Enter Project Name"
+                    required
+                  />
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label
+                    htmlFor="projectNo"
+                    className="form-label text-start d-block "
+                  >
+                     Project Number (PO No){" "}
+                    <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="projectNo"
+                    placeholder="Enter Project Number"
+                    required
+                  />
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label
+                    htmlFor="projectManager"
+                    className="form-label text-start d-block "
+                  >
+                     Project Manager <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="projectManager"
+                    placeholder="Enter Project Manager Name"
+                    required
+                  />
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label
+                    htmlFor="duration"
+                    className="form-label text-start d-block "
+                  >
+                     Duration of Project{" "}
+                    <span className="text-danger">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="duration"
+                    placeholder="Enter Project Duration"
+                    required
+                  />
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label
+                    htmlFor="remark"
+                    className="form-label text-start d-block "
+                  >
+                     Remark
+                  </label>
+                  <textarea
+                    className="form-control"
+                    id="remark"
+                    rows="3"
+                    placeholder="Add remarks..."
+                  ></textarea>
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label
+                    htmlFor="status"
+                    className="form-label text-start d-block "
+                  >
+                     Status <span className="text-danger">*</span>
+                  </label>
+                  <select className="form-select" id="status" required>
+                    <option value="">Select Status</option>
+                    <option value="in-progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                    <option value="on-hold">On Hold</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="text-end">
+                <button type="submit" className="btn btn-primary">
+                  Submit
+                </button>
+              </div>
+            </form>
                   <div className="col-md-12 text-end">
                     <button type="submit" className="btn btn-primary">
                       Submit
