@@ -1,6 +1,13 @@
 .App {
   text-align: center;
+
 }
+
+::placeholder {
+  color: lightgrey!important; /* or your desired light grey */
+  opacity: 1!important /* keeps the color solid */
+}
+
 
 .App-logo {
   height: 50vmin;

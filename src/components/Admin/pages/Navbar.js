@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const Navbar = ({ searchTerm, setSearchTerm }) => {
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-bs-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
   return (
     <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
@@ -49,11 +55,11 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
               aria-expanded="false"
             >
               <div className="nav-profile-img">
-                <img src="assets/images/emp/yashwanth.jpg" alt="profile" />
+                <img src="assets/images/emp/hr_default.jpg" alt="profile" />
                 <span className="availability-status online"></span>
               </div>
               <div className="nav-profile-text">
-                <p className="mb-1 text-black">SaiKumar M</p>
+                <p className="mb-1 text-black">SEJAL AHIRE</p>
               </div>
             </a>
             <div
@@ -147,6 +153,7 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
               <h6 className="p-3 mb-0 text-center">4 new messages</h6>
             </div>
           </li> */}
+
           <li className="nav-item dropdown">
             <a
               className="nav-link count-indicator dropdown-toggle"
@@ -218,7 +225,13 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
           </li>
           <li className="nav-item nav-settings d-none d-lg-block">
             <a className="nav-link" href="#">
-              <i className="mdi mdi-star" title="Dark Theame"></i>
+              <i
+                title="Dark Theame"
+                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              >
+                {theme === "light" ? "🌙" : "☀️ "}
+              </i>
+
               {/* <i className="mdi mdi-white-balance-sunny"></i> */}
             </a>
           </li>

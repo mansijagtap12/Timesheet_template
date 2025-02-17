@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaEdit, FaPlus, FaTrash } from "react-icons/fa"; // FontAwesome icons for Edit and Trash
+import { FaEdit, FaTrash } from "react-icons/fa"; // FontAwesome icons for Edit and Trash
 import Modal from "react-bootstrap/Modal"; // Bootstrap Modal
 import Button from "react-bootstrap/Button";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
@@ -7,18 +7,13 @@ import { ToastContainer, toast } from "react-toastify";
 import DataTable from "react-data-table-component";
 import axios from "axios";
 
-const EmployeeList = () => {
+const ProjectList = () => {
   const [searchTerm, setSearchTerm] = useState(""); // State for search input
 
   const [showSearch, setShowSearch] = useState(false);
   // Sample employee data
   const [employees, setEmployees] = useState([]);
   const [originalEmployees, setOriginalEmployees] = useState(employees);
-  const [showAssignModal, setShowAssignModal] = useState(null);
-  const [project, setProject] = useState("");
-  const [position, setPosition] = useState("");
-  const [client, setClient] = useState("");
-
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
@@ -98,10 +93,7 @@ const EmployeeList = () => {
     setShowModal(false); // Close the modal
     toast.success("Data updated successfully!"); // Show success toast
   };
-  const [employeeData, setEmployeeData] = useState([]);
-  const updateTable = (newData) => {
-    setEmployeeData((prevData) => [...prevData, newData]);
-  };
+
   // Handle input change in Modal
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -110,78 +102,45 @@ const EmployeeList = () => {
       [name]: name === "skills" ? value.split(",") : value, // Split skills by comma
     }));
   };
-  const handleAssignProject = (e, employeeId) => {
-    e.preventDefault();
-
-    // Perform your API call or data handling logic
-    console.log("Assigning project:", project, position, employeeId);
-
-    // Simulate API call
-    setTimeout(() => {
-      // Close the modal after submission
-      setShowAssignModal(null);
-    }, 100);
-  };
 
   const columns = [
     {
-      name: "User",
-      selector: (row) => (
-        <img
-          src={row.image || "../../assets/images/faces-clipart/pic-1.png"} // Use API image or fallback
-          alt="Employee"
-          width="30"
-          height="30"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = "../../assets/images/faces-clipart/pic-2.png"; // Fallback if image fails to load
-          }}
-        />
-      ),
+      name: "Project Name",
+      selector: (row) => row.projectname,
+      sortable: true,
+    },
+    {
+      name: "Project Manager",
+      selector: (row) => row.project_manager,
+      sortable: true,
+    },
+    {
+      name: "Duration",
+      selector: (row) => row.projectDuration,
       sortable: false,
     },
-
     {
-      name: "Name",
-      selector: (row) => row.firstname,
+      name: "Status",
+      selector: (row) => row.status,
       sortable: true,
     },
     {
-      name: "Project",
-      selector: (row) => row.work_assignment_status,
+      name: "Start Date",
+      selector: (row) => row.start_date,
       sortable: true,
     },
     {
-      name: "job Title",
-      selector: (row) => row.jobtitle,
+      name: "End Date",
+      selector: (row) => row.end_date,
       sortable: true,
     },
     {
-      name: "Certification",
-      selector: (row) => row.Certification,
-      sortable: true,
-    },
-    {
-      name: "Skills",
-      selector: (row) =>
-        row.skills
-          ? Array.isArray(row.skills)
-            ? row.skills.join(", ")
-            : row.skills
-                .split(",")
-                .map((skill) => skill.trim())
-                .join(", ")
-          : "No Skills",
-    },
-
-    {
-      name: "Action",
-      width: "150px",
+      name: "Actions",
       cell: (row) => (
         <div>
           <OverlayTrigger
             placement="top"
-            overlay={<Tooltip>Edit Employee</Tooltip>}
+            overlay={<Tooltip>Edit Project</Tooltip>}
           >
             <button
               className="btn btn-outline-success btn-sm me-2"
@@ -192,24 +151,13 @@ const EmployeeList = () => {
           </OverlayTrigger>
           <OverlayTrigger
             placement="top"
-            overlay={<Tooltip>Delete Employee</Tooltip>}
+            overlay={<Tooltip>Delete Project</Tooltip>}
           >
             <button
               className="btn btn-outline-danger btn-sm me-2"
               onClick={() => handleDelete(row.id)}
             >
               <FaTrash />
-            </button>
-          </OverlayTrigger>
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip>Assign Project</Tooltip>}
-          >
-            <button
-              className="btn btn-outline-primary btn-sm me-2"
-              onClick={() => setShowAssignModal(row.id)}
-            >
-              <FaPlus />
             </button>
           </OverlayTrigger>
         </div>
@@ -262,7 +210,7 @@ const EmployeeList = () => {
                 <span className="page-title-icon  text-dark me-2">
                   <i className="mdi mdi-pencil-box"></i>
                 </span>
-                Employee Record
+                Project`s Record
               </h5>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
@@ -270,10 +218,10 @@ const EmployeeList = () => {
                     <a href="/dashboard">Dashboard</a>
                   </li>
                   <li className="breadcrumb-item">
-                    <a href="/Employee-Registration-Form">Register Employee</a>
+                    <a href="/Employee-Registration-Form">Register Project</a>
                   </li>
                   <li className="breadcrumb-item active" aria-current="page">
-                    Employee Record
+                    Project Record
                   </li>
                 </ol>
               </nav>
@@ -335,7 +283,7 @@ const EmployeeList = () => {
                       type="text"
                       className="form-control"
                       name="name"
-                      value={currentEmployee.firstname}
+                      value={currentEmployee.name}
                       onChange={handleChange}
                     />
                   </div>
@@ -347,7 +295,7 @@ const EmployeeList = () => {
                       type="text"
                       className="form-control"
                       name="project"
-                      value={currentEmployee.work_assignment_status}
+                      value={currentEmployee.project}
                       onChange={handleChange}
                     />
                   </div>
@@ -401,93 +349,7 @@ const EmployeeList = () => {
           </Modal.Footer>
         </Modal>
       )}
-
-      {/* modal for assign project*/}
-
-      <Modal
-        show={showAssignModal !== null}
-        onHide={() => setShowAssignModal(null)}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Assign Project</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={(e) => handleAssignProject(e, showAssignModal)}>
-            <div className="container mt-1 p-1 bg-white shadow-sm rounded">
-              <div className="row">
-                {/* Client Dropdown */}
-                <div className="col-md-12 mb-4">
-                  <label
-                    htmlFor="client"
-                    className="form-label text-start d-block"
-                  >
-                    Select Client <span className="text-danger">*</span>
-                  </label>
-                  <select
-                    className="form-control"
-                    id="client"
-                    required
-                    onChange={(e) => setClient(e.target.value)}
-                  >
-                    <option value="">Select Client</option>
-                    <option value="Client A">Client A</option>
-                    <option value="Client B">Client B</option>
-                    <option value="Client C">Client C</option>
-                  </select>
-                </div>
-
-                {/* Project Dropdown */}
-                <div className="col-md-12 mb-4">
-                  <label
-                    htmlFor="project"
-                    className="form-label text-start d-block"
-                  >
-                    Select Project <span className="text-danger">*</span>
-                  </label>
-                  <select
-                    className="form-control"
-                    id="project"
-                    required
-                    onChange={(e) => setProject(e.target.value)}
-                  >
-                    <option value="">Select Project</option>
-                    <option value="AIA">AIA</option>
-                    <option value="Amway">Amway</option>
-                    <option value="Pepco">Pepco</option>
-                  </select>
-                </div>
-
-                {/* Position Dropdown */}
-                <div className="col-md-12 mb-4">
-                  <label
-                    htmlFor="position"
-                    className="form-label text-start d-block"
-                  >
-                    Position <span className="text-danger">*</span>
-                  </label>
-                  <select
-                    className="form-control"
-                    id="position"
-                    required
-                    onChange={(e) => setPosition(e.target.value)}
-                  >
-                    <option value="">Select Position</option>
-                    <option value="Team Lead">Team Lead</option>
-                    <option value="Sr Developer">Sr Developer</option>
-                    <option value="Jr Developer">Jr Developer</option>
-                  </select>
-                </div>
-              </div>
-              <div className="col-md-12 text-end">
-                <button type="submit" className="btn btn-primary">
-                  Submit
-                </button>
-              </div>
-            </div>
-          </form>
-        </Modal.Body>
-      </Modal>
     </div>
   );
 };
-export default EmployeeList;
+export default ProjectList;

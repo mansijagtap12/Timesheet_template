@@ -9,7 +9,7 @@ const UserProfile = () => {
             {/* Left Side - Profile and Personal Info */}
             <div className="col-12 col-md-4 text-center p-4 border-end">
               <img
-                src="../../assets/images/emp/yashwanth.jpg"
+                src="../../assets/images/emp/hr_default.jpg"
                 alt="Profile"
                 style={{
                   height: "25%",
@@ -22,8 +22,8 @@ const UserProfile = () => {
                 onMouseOut={(e) => (e.target.style.transform = "scale(1.05)")} // Reset zoom when hover is removed
               />
 
-              <h2 className="h4 font-weight-bold">Saikumar M</h2>
-              <p className="text-muted">Project Manager</p>
+              <h2 className="h4 font-weight-bold">SEJAL AHIRE</h2>
+              <p className="text-muted">Human Resource</p>
 
               <div
                 className="d-flex align-items-right"
@@ -57,9 +57,9 @@ const UserProfile = () => {
               </div>
 
               <ul className="mt-4 text-muted small">
-                <li>DevOps</li>
-                <li>Webmethod</li>
-                <li>Java</li>
+                <li>Excel</li>
+                <li>typing speed 40</li>
+               
               </ul>
             </div>
 
@@ -74,7 +74,7 @@ const UserProfile = () => {
                       type="text"
                       className="form-control"
                       id="firstName"
-                      value="Saikumar"
+                      value="Sejal"
                       readOnly
                     />
                     <label htmlFor="firstName">First Name</label>
@@ -88,7 +88,7 @@ const UserProfile = () => {
                       type="text"
                       className="form-control"
                       id="lastName"
-                      value="M"
+                      value="Ahire"
                       readOnly
                     />
                     <label htmlFor="lastName">Last Name</label>
@@ -102,7 +102,7 @@ const UserProfile = () => {
                       type="email"
                       className="form-control"
                       id="email"
-                      value="saikumars@example.com"
+                      value="sejal@example.com"
                       readOnly
                     />
                     <label htmlFor="email">Email</label>
@@ -145,7 +145,7 @@ const UserProfile = () => {
                       className="form-control"
                       id="skills"
                       placeholder="Skills"
-                      value="DevOps"
+                      value="HR"
                     />
                     <label htmlFor="skills">Skills</label>
                   </div>
@@ -159,7 +159,7 @@ const UserProfile = () => {
                       className="form-control"
                       id="certification"
                       placeholder="Certification"
-                      value="DevOps"
+                      value="Hr"
                     />
                     <label htmlFor="certification">Certification</label>
                   </div>

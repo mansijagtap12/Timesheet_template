@@ -10983,7 +10983,7 @@ textarea.form-control-lg {
 .select2-container--default .form-floating > .select2-selection--single:not(:placeholder-shown) ~ label,
 .form-floating > .form-control-plaintext ~ label,
 .form-floating > .form-select ~ label {
-  color: rgba(var(--bs-body-color-rgb), 0.65);
+  color: rgba(var(--bs-body-color-rgb), 0.05);
   transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
 }
 .form-floating > .form-control:focus ~ label::after, .form-floating > .typeahead:focus ~ label::after,
@@ -20901,7 +20901,7 @@ pre {
 code {
   padding: 5px;
   color: #fe7c96;
-  font-family: "ubuntu-light", sans-serif;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.875rem;
   border-radius: 4px;
 }
@@ -21102,7 +21102,7 @@ code {
 }
 
 .font-weight-light {
-  font-family: "ubuntu-light", sans-serif;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .font-weight-bold {
@@ -25143,7 +25143,7 @@ dl li {
 
 /* Navbar */
 .navbar {
-  font-family: "ubuntu-light", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: #fff;
   transition: background 0.25s ease;
   -webkit-transition: background 0.25s ease;
@@ -25250,22 +25250,22 @@ dl li {
 .navbar .navbar-menu-wrapper .search-field .input-group input:-ms-input-placeholder {
   font-size: 0.875rem;
   color: #9c9fa6;
-  font-family: "ubuntu-light", sans-serif;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .navbar .navbar-menu-wrapper .search-field .input-group input:-moz-placeholder {
   font-size: 0.875rem;
   color: #9c9fa6;
-  font-family: "ubuntu-light", sans-serif;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .navbar .navbar-menu-wrapper .search-field .input-group input::-moz-placeholder {
   font-size: 0.875rem;
   color: #9c9fa6;
-  font-family: "ubuntu-light", sans-serif;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .navbar .navbar-menu-wrapper .search-field .input-group input::-webkit-input-placeholder {
   font-size: 0.875rem;
   color: #9c9fa6;
-  font-family: "ubuntu-light", sans-serif;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .navbar .navbar-menu-wrapper .search-field .input-group i {
   font-size: 17px;

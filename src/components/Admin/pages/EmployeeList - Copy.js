@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaEdit, FaPlus, FaTrash } from "react-icons/fa"; // FontAwesome icons for Edit and Trash
+import { FaEdit, FaTrash } from "react-icons/fa"; // FontAwesome icons for Edit and Trash
 import Modal from "react-bootstrap/Modal"; // Bootstrap Modal
 import Button from "react-bootstrap/Button";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
@@ -13,27 +13,20 @@ const EmployeeList = () => {
   const [showSearch, setShowSearch] = useState(false);
   // Sample employee data
   const [employees, setEmployees] = useState([]);
-  const [originalEmployees, setOriginalEmployees] = useState(employees);
-  const [showAssignModal, setShowAssignModal] = useState(null);
-  const [project, setProject] = useState("");
-  const [position, setPosition] = useState("");
-  const [client, setClient] = useState("");
 
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
         const response = await fetch(
           "https://vkrafthrportalbackend.onrender.com/api/users"
-        );
+        ); // Replace with your API
         const jsonData = await response.json();
 
         if (jsonData.data && Array.isArray(jsonData.data)) {
-          setEmployees(jsonData.data);
-          setOriginalEmployees(jsonData.data); // Save original data once
+          setEmployees(jsonData.data); // ✅ Store API response in state
         } else {
           console.error("Invalid API response format:", jsonData);
-          setEmployees([]);
-          setOriginalEmployees([]);
+          setEmployees([]); // Fallback to empty array
         }
       } catch (error) {
         console.error("Error fetching employees:", error);
@@ -41,7 +34,7 @@ const EmployeeList = () => {
     };
 
     fetchEmployees();
-  }, []); // No dependency on employees here
+  }, []);
 
   // Modal state
   const [showModal, setShowModal] = useState(false);
@@ -57,30 +50,21 @@ const EmployeeList = () => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
 
-    if (term === "") {
-      setEmployees(originalEmployees); // Reset to original data when input is empty
-    } else {
-      const filteredEmployees = originalEmployees.filter((employee) =>
-        Object.values(employee).some((value) =>
-          String(value).toLowerCase().includes(term)
-        )
-      );
-      setEmployees(filteredEmployees); // Filtered data when there is input
-    }
+    const filteredEmployees = employees.filter((employee) =>
+      Object.values(employee).some((value) =>
+        String(value).toLowerCase().includes(term)
+      )
+    );
+    setEmployees(filteredEmployees); // Update the employee list based on search term
   };
-
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
       try {
-        await axios.delete(
-          `https://vkrafthrportalbackend.onrender.com/api/users/delete/${id}`
-        );
-
+        await axios.delete(`https://vkrafthrportalbackend.onrender.com/api/users/delete/${id}`);
+  
         // Remove employee from the list after successful deletion
-        setEmployees((prevEmployees) =>
-          prevEmployees.filter((emp) => emp.id !== id)
-        );
-
+        setEmployees((prevEmployees) => prevEmployees.filter((emp) => emp.id !== id));
+  
         toast.success("Employee deleted successfully!");
       } catch (error) {
         console.error("Error deleting employee:", error);
@@ -98,10 +82,7 @@ const EmployeeList = () => {
     setShowModal(false); // Close the modal
     toast.success("Data updated successfully!"); // Show success toast
   };
-  const [employeeData, setEmployeeData] = useState([]);
-  const updateTable = (newData) => {
-    setEmployeeData((prevData) => [...prevData, newData]);
-  };
+
   // Handle input change in Modal
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -110,37 +91,28 @@ const EmployeeList = () => {
       [name]: name === "skills" ? value.split(",") : value, // Split skills by comma
     }));
   };
-  const handleAssignProject = (e, employeeId) => {
-    e.preventDefault();
-
-    // Perform your API call or data handling logic
-    console.log("Assigning project:", project, position, employeeId);
-
-    // Simulate API call
-    setTimeout(() => {
-      // Close the modal after submission
-      setShowAssignModal(null);
-    }, 100);
-  };
 
   const columns = [
     {
       name: "User",
       selector: (row) => (
         <img
-          src={row.image || "../../assets/images/faces-clipart/pic-1.png"} // Use API image or fallback
+          src={
+            row.image
+              ? row.image
+              : "../../assets/images/faces-clipart/pic-1.png"
+          }
           alt="Employee"
-          width="30"
-          height="30"
+          width="40"
+          height="40"
           onError={(e) => {
             e.target.onerror = null;
-            e.target.src = "../../assets/images/faces-clipart/pic-2.png"; // Fallback if image fails to load
+            e.target.src = "https://via.placeholder.com/50";
           }}
         />
       ),
       sortable: false,
     },
-
     {
       name: "Name",
       selector: (row) => row.firstname,
@@ -148,12 +120,12 @@ const EmployeeList = () => {
     },
     {
       name: "Project",
-      selector: (row) => row.work_assignment_status,
+      selector: (row) => row.project,
       sortable: true,
     },
     {
-      name: "job Title",
-      selector: (row) => row.jobtitle,
+      name: "RM",
+      selector: (row) => row.managerid,
       sortable: true,
     },
     {
@@ -164,19 +136,10 @@ const EmployeeList = () => {
     {
       name: "Skills",
       selector: (row) =>
-        row.skills
-          ? Array.isArray(row.skills)
-            ? row.skills.join(", ")
-            : row.skills
-                .split(",")
-                .map((skill) => skill.trim())
-                .join(", ")
-          : "No Skills",
+        Array.isArray(row.skills) ? row.skills.join(", ") : "No Skills",
     },
-
     {
       name: "Action",
-      width: "150px",
       cell: (row) => (
         <div>
           <OverlayTrigger
@@ -190,28 +153,8 @@ const EmployeeList = () => {
               <FaEdit />
             </button>
           </OverlayTrigger>
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip>Delete Employee</Tooltip>}
-          >
-            <button
-              className="btn btn-outline-danger btn-sm me-2"
-              onClick={() => handleDelete(row.id)}
-            >
-              <FaTrash />
-            </button>
-          </OverlayTrigger>
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip>Assign Project</Tooltip>}
-          >
-            <button
-              className="btn btn-outline-primary btn-sm me-2"
-              onClick={() => setShowAssignModal(row.id)}
-            >
-              <FaPlus />
-            </button>
-          </OverlayTrigger>
+
+         
         </div>
       ),
     },
@@ -286,36 +229,12 @@ const EmployeeList = () => {
             </div>
 
             <DataTable
-              columns={columns}
-              data={employees}
-              pagination
-              highlightOnHover
-              striped
-              fixedHeader
-              fixedHeaderScrollHeight="400px"
-              customStyles={{
-                table: {
-                  style: {
-                    border: "1px solid #ccc",
-                  },
-                },
-                headRow: {
-                  style: {
-                    borderBottom: "1px solid #ccc",
-                  },
-                },
-                rows: {
-                  style: {
-                    borderBottom: "1px solid #eee",
-                  },
-                },
-                columns: {
-                  style: {
-                    borderBottom: "1px solid #eee",
-                  },
-                },
-              }}
-            />
+      columns={columns}
+      data={employees}
+      pagination
+      highlightOnHover
+      striped
+    />
           </div>
         </div>
       </div>
@@ -335,7 +254,7 @@ const EmployeeList = () => {
                       type="text"
                       className="form-control"
                       name="name"
-                      value={currentEmployee.firstname}
+                      value={currentEmployee.name}
                       onChange={handleChange}
                     />
                   </div>
@@ -347,7 +266,7 @@ const EmployeeList = () => {
                       type="text"
                       className="form-control"
                       name="project"
-                      value={currentEmployee.work_assignment_status}
+                      value={currentEmployee.project}
                       onChange={handleChange}
                     />
                   </div>
@@ -401,92 +320,6 @@ const EmployeeList = () => {
           </Modal.Footer>
         </Modal>
       )}
-
-      {/* modal for assign project*/}
-
-      <Modal
-        show={showAssignModal !== null}
-        onHide={() => setShowAssignModal(null)}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Assign Project</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={(e) => handleAssignProject(e, showAssignModal)}>
-            <div className="container mt-1 p-1 bg-white shadow-sm rounded">
-              <div className="row">
-                {/* Client Dropdown */}
-                <div className="col-md-12 mb-4">
-                  <label
-                    htmlFor="client"
-                    className="form-label text-start d-block"
-                  >
-                    Select Client <span className="text-danger">*</span>
-                  </label>
-                  <select
-                    className="form-control"
-                    id="client"
-                    required
-                    onChange={(e) => setClient(e.target.value)}
-                  >
-                    <option value="">Select Client</option>
-                    <option value="Client A">Client A</option>
-                    <option value="Client B">Client B</option>
-                    <option value="Client C">Client C</option>
-                  </select>
-                </div>
-
-                {/* Project Dropdown */}
-                <div className="col-md-12 mb-4">
-                  <label
-                    htmlFor="project"
-                    className="form-label text-start d-block"
-                  >
-                    Select Project <span className="text-danger">*</span>
-                  </label>
-                  <select
-                    className="form-control"
-                    id="project"
-                    required
-                    onChange={(e) => setProject(e.target.value)}
-                  >
-                    <option value="">Select Project</option>
-                    <option value="AIA">AIA</option>
-                    <option value="Amway">Amway</option>
-                    <option value="Pepco">Pepco</option>
-                  </select>
-                </div>
-
-                {/* Position Dropdown */}
-                <div className="col-md-12 mb-4">
-                  <label
-                    htmlFor="position"
-                    className="form-label text-start d-block"
-                  >
-                    Position <span className="text-danger">*</span>
-                  </label>
-                  <select
-                    className="form-control"
-                    id="position"
-                    required
-                    onChange={(e) => setPosition(e.target.value)}
-                  >
-                    <option value="">Select Position</option>
-                    <option value="Team Lead">Team Lead</option>
-                    <option value="Sr Developer">Sr Developer</option>
-                    <option value="Jr Developer">Jr Developer</option>
-                  </select>
-                </div>
-              </div>
-              <div className="col-md-12 text-end">
-                <button type="submit" className="btn btn-primary">
-                  Submit
-                </button>
-              </div>
-            </div>
-          </form>
-        </Modal.Body>
-      </Modal>
     </div>
   );
 };

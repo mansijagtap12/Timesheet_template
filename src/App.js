@@ -15,10 +15,16 @@ import MonthlyTimesheetList from "./components/Admin/pages/MonthlyTimesheetList"
 import WeeklyTimesheetTable from "./components/Admin/pages/WeeklyTimesheetTable";
 import WeeklyTimesheetList from "./components/Admin/pages/WeeklyTimesheetList";
 import UserProfile from "./components/Admin/pages/UserProfile";
+import ProjectRegistrationForm from "./components/Admin/pages/ProjectRegistrationForm";
+import ProjectList from "./components/Admin/pages/ProjectList";
 import "./App.css"; // Optional: Add any global styles for the app
 
 import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import 'primereact/resources/themes/lara-light-blue/theme.css'; // Theme
+import 'primereact/resources/primereact.min.css';               // Core CSS
+import 'primeicons/primeicons.css';                             // Icons
+
 
 function App() {
   return (
@@ -146,6 +152,32 @@ function App() {
                 <div className="container-fluid page-body-wrapper">
                   <Sidebar />
                   <ChartJSComponent />
+                </div>
+              </div>
+            }
+          />
+          {/* ProjectRegistrationForm Component Page */}
+          <Route
+            path="/ProjectRegistrationForm"
+            element={
+              <div>
+                <Navbar />
+                <div className="container-fluid page-body-wrapper">
+                  <Sidebar />
+                  <ProjectRegistrationForm />
+                </div>
+              </div>
+            }
+          />
+          {/* ProjectList Component Page */}
+          <Route
+            path="/Project-List"
+            element={
+              <div>
+                <Navbar />
+                <div className="container-fluid page-body-wrapper">
+                  <Sidebar />
+                  <ProjectList />
                 </div>
               </div>
             }

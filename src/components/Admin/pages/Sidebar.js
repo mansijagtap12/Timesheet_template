@@ -7,13 +7,13 @@ const Sidebar = () => {
         <li className="nav-item nav-profile">
           <a href="#" className="nav-link">
             <div className="nav-profile-image">
-              <img src="assets/images/emp/yashwanth.jpg" alt="profile" />
+              <img src="assets/images/emp/hr_default.jpg" alt="profile" />
               <span className="login-status online"></span>
               {/* change to offline or busy as needed */}
             </div>
             <div className="nav-profile-text d-flex flex-column">
-              <span className="font-weight-bold mb-2">SaiKumar M. </span>
-              <span className="text-secondary text-small">Project Manager</span>
+              <span className="font-weight-bold mb-2">SEJAL AHIRE </span>
+              <span className="text-secondary text-small">Human Resource</span>
             </div>
             <i className="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
           </a>
@@ -109,6 +109,32 @@ const Sidebar = () => {
           <a
             className="nav-link"
             data-bs-toggle="collapse"
+            href="#charts"
+            aria-expanded="false"
+            aria-controls="charts"
+          >
+            <span className="menu-title">Projects</span>
+            <i className="mdi mdi-chart-bar menu-icon"></i>
+          </a>
+          <div className="collapse" id="charts">
+            <ul className="nav flex-column sub-menu">
+              <li className="nav-item">
+                <a className="nav-link" href="ProjectRegistrationForm">
+                  Add Project
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="Project-List">
+                  Project List
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li className="nav-item">
+          <a
+            className="nav-link"
+            data-bs-toggle="collapse"
             href="#timesheet"
             aria-expanded="false"
             aria-controls="timesheet"
@@ -136,6 +162,7 @@ const Sidebar = () => {
             </ul>
           </div>
         </li>
+        
         <li className="nav-item">
           <a
             className="nav-link"
