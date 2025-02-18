@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import Select from "react-select";
+
 import { Tab, Tabs } from "@mui/material";
 import { Table, Button, Form } from "react-bootstrap";
-import DataTable from "react-data-table-component";
+
 import { FaPlus, FaTrash } from "react-icons/fa";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
@@ -188,7 +188,7 @@ const EmpRegistrationFrom = () => {
               <Tab label="Education" />
               <Tab label="Project" />
             </Tabs>
-
+            
             <form className="form-sample">
               {/* Personal Info Section */}
               {activeTab === 0 && (
@@ -540,8 +540,7 @@ const EmpRegistrationFrom = () => {
                       <label
                         htmlFor="Resume"
                         className="form-label text-start d-block"
-                      >
-                        Resume
+                      > Resume
                       </label>
                       <input type="file" className="form-control" id="Resume" />
                     </div>
@@ -553,7 +552,9 @@ const EmpRegistrationFrom = () => {
               )}
               {/* Portfolio Section */}
               {activeTab === 1 && (
+                
                 <div className="container mt-3 p-3 bg-white shadow-sm rounded">
+                  
                   <div className="row">
                     <Table striped bordered hover>
                       <thead>
@@ -575,8 +576,7 @@ const EmpRegistrationFrom = () => {
                                 value={row.educationLevel}
                                 onChange={(e) => handleChange( e)}
                                 required
-                              >
-                                <option value="">Select Education</option>
+                              ><option value="">Select Education</option>
                                 <option value="SSC">SSC</option>
                                 <option value="HSC">HSC</option>
                                 <option value="UG">UG</option>
@@ -623,12 +623,7 @@ const EmpRegistrationFrom = () => {
                                 required
                               />
                             </td>
-                            <td>
-                              <Button
-                                variant="danger"
-                                onClick={() => deleteRow(e)}
-                              >
-                                <FaTrash />
+                            <td><Button variant="danger" onClick={() => deleteRow(index)}><FaTrash />
                               </Button>
                             </td>
                           </tr>
@@ -636,7 +631,8 @@ const EmpRegistrationFrom = () => {
                       </tbody>
                     </Table>
                     <div className="col-md-12 mb-4 d-flex justify-content-end">
-                      <Button variant="success" onClick={addRow}>
+                 
+                      <Button variant="btn btn-outline-success" onClick={addRow}>
                         <FaPlus /> Add Row
                       </Button>
                       </div>
@@ -647,87 +643,87 @@ const EmpRegistrationFrom = () => {
               {activeTab === 2 && (
                 <div className="container mt-3 p-3 bg-white shadow-sm rounded">
                   <form>
-              <div className="row">
-                <div className="col-md-6 mb-1">
-                  <label
-                    htmlFor="projectName"
-                    className="form-label text-start d-block "
-                  >
-                   Project Name <span className="text-danger">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="projectName"
-                    placeholder="Enter Project Name"
-                    required
-                  />
-                </div>
+                    <div className="row">
+                      <div className="col-md-6 mb-1">
+                        <label
+                          htmlFor="projectName"
+                          className="form-label text-start d-block "
+                        >
+                          Project Name <span className="text-danger">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="projectName"
+                          placeholder="Enter Project Name"
+                          required
+                        />
+                      </div>
 
-                <div className="col-md-6 mb-3">
-                  <label
-                    htmlFor="projectNo"
-                    className="form-label text-start d-block "
-                  >
-                     Project Number (PO No){" "}
-                    <span className="text-danger">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="projectNo"
-                    placeholder="Enter Project Number"
-                    required
-                  />
-                </div>
+                      <div className="col-md-6 mb-3">
+                        <label
+                          htmlFor="projectNo"
+                          className="form-label text-start d-block "
+                        >
+                          Project Number (PO No){" "}
+                          <span className="text-danger">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="projectNo"
+                          placeholder="Enter Project Number"
+                          required
+                        />
+                      </div>
 
-                <div className="col-md-6 mb-3">
-                  <label
-                    htmlFor="projectManager"
-                    className="form-label text-start d-block "
-                  >
-                     Project Manager <span className="text-danger">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="projectManager"
-                    placeholder="Enter Project Manager Name"
-                    required
-                  />
-                </div>
+                      <div className="col-md-6 mb-3">
+                        <label
+                          htmlFor="projectManager"
+                          className="form-label text-start d-block "
+                        >
+                          Project Manager <span className="text-danger">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="projectManager"
+                          placeholder="Enter Project Manager Name"
+                          required
+                        />
+                      </div>
 
-                <div className="col-md-6 mb-3">
-                  <label
-                    htmlFor="duration"
-                    className="form-label text-start d-block "
-                  >
-                     Duration of Project{" "}
-                    <span className="text-danger">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="duration"
-                    placeholder="Enter Project Duration"
-                    required
-                  />
-                </div>
+                      <div className="col-md-6 mb-3">
+                        <label
+                          htmlFor="duration"
+                          className="form-label text-start d-block "
+                        >
+                          Duration of Project{" "}
+                          <span className="text-danger">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="duration"
+                          placeholder="Enter Project Duration"
+                          required
+                        />
+                      </div>
 
-                <div className="col-md-6 mb-3">
-                  <label
-                    htmlFor="remark"
-                    className="form-label text-start d-block "
-                  >
-                     Remark
-                  </label>
-                  <textarea
-                    className="form-control"
-                    id="remark"
-                    rows="3"
-                    placeholder="Add remarks..."
-                  ></textarea>
-                </div>
+                      <div className="col-md-6 mb-3">
+                        <label
+                          htmlFor="remark"
+                          className="form-label text-start d-block "
+                        >
+                          Remark
+                        </label>
+                        <textarea
+                          className="form-control"
+                          id="remark"
+                          rows="3"
+                          placeholder="Add remarks..."
+                        ></textarea>
+                      </div>
 
                 <div className="col-md-6 mb-3">
                   <label

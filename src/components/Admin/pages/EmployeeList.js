@@ -3,6 +3,7 @@ import { FaEdit, FaPlus, FaTrash } from "react-icons/fa"; // FontAwesome icons f
 import Modal from "react-bootstrap/Modal"; // Bootstrap Modal
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import DataTable from "react-data-table-component";
@@ -352,7 +353,7 @@ const EmployeeList = () => {
                       type="text"
                       className="form-control"
                       name="name"
-                      value={currentEmployee.firstname}
+                      value={currentEmployee.user}
                       onChange={handleChange}
                     />
                   </div>
@@ -376,19 +377,19 @@ const EmployeeList = () => {
                       type="text"
                       className="form-control"
                       name="rm"
-                      value={currentEmployee.rm}
+                      value={currentEmployee.city}
                       onChange={handleChange}
                     />
                   </div>
                 </div>
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label>Certification</label>
+                    <label>project</label>
                     <input
                       type="text"
                       className="form-control"
                       name="certification"
-                      value={currentEmployee.Certification}
+                      value={currentEmployee.work_assignment_status}
                       onChange={handleChange}
                     />
                   </div>
