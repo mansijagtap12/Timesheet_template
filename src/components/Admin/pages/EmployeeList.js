@@ -308,7 +308,7 @@ const EmployeeList = () => {
               highlightOnHover
               striped
               fixedHeader
-              
+              dense
               fixedHeaderScrollHeight="400px"
               customStyles={{
                 table: {

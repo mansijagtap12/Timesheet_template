@@ -5,45 +5,102 @@ import { Tab, Tabs } from "@mui/material";
 import { Table, Button, Form } from "react-bootstrap";
 
 import { FaPlus, FaTrash } from "react-icons/fa";
+import axios from "axios";
+// import { useNavigate } from "react-router-dom";
 
 const EmpRegistrationFrom = () => {
   const [activeSection, setActiveSection] = useState("personalInfo"); // Manage active section
   const [rows, setRows] = useState([{}]);
   const [educationData, setEducationData] = useState([]);
+  // const navigate = useNavigate();
   const addRow = () => setRows([...rows, {}]);
   const deleteRow = (index) => setRows(rows.filter((_, i) => i !== index));
   const [formData, setFormData] = useState({
-    education: "",
-    college: "",
-    specialization: "",
-    passoutYear: "",
-    percentage: "",
+    work_location: "",
+    firstname: "",
+    middlename: "",
+    lastname:"",
+    phonenumber:"",
+    email: "",
+    dateofbirth:"",
+    gender:"",
+    hiredate:"",
+    skills:[],
+    address:"",
+    city:"",
+    work_assignment_status:"",
   });
-
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
+  
   const toggleSection = (section) => {
     setActiveSection(activeSection === section ? null : section);
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    toast.success("Employee registered successfully!", {
-      position: "top-right",
-      autoClose: 3000,
-    });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage(null);
+    setError(null);
 
+    const payload = {
+      user: formData.firstName, // user is set to firstName
+      email: formData.email, // email input
+      password: "123", // Static password
+      work_location: formData.work_location,
+      firstName: formData.firstName,
+      city: formData.city,
+      address: formData.address,
+      lastname: formData.lastname,
+      middlename: formData.middlename,
+      phonenumber: formData.phonenumber,
+      email: formData.email,
+      dateofbirth: formData.dateofbirth||null,
+      gender: formData.gender,
+      hiredate: formData.hiredate||null,
+      skills: formData.skills,
+      work_assignment_status:formData.work_assignment_status,
+    };
+    try {
+      const response = await axios.post(
+        "https://vkrafthrportalbackend.onrender.com/api/users/add_user",
+        payload,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (response.status === 200) {
+        setMessage("Employee registered successfully!");
+        toast.success("Employee registered successfully!");
+        // navigate("/employee-list");
+      } else {
+        setError("Something went wrong. Please try again.");
+        toast.error("Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      setError("Error: " + (err.response?.data?.message || "API call failed"));
+      toast.error("Error: " + (err.response?.data?.message || "API call failed"));
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
-      name: "",
-      email: "",
-      skills: [],
-      workLocation: "",
-      manager: "",
+      ...formData,
+      [name]: value,
+    });
+  };
+  const handleSkillsChange = (e) => {
+    setFormData({
+      ...formData,
+      skills: e.target.value.split(',').map(skill => skill.trim()) // Split by comma and remove extra spaces
     });
   };
 
-  const handleChange = (index, e) => {
-    const { name, value } = e.target;
-    const newRows = [...rows];
-    newRows[index][name] = value;
-    setRows(newRows);
+  const handleGenderChange = (e) => {
+    setFormData({
+      ...formData,
+      gender: e.target.value
+    });
   };
 
   const options = [
@@ -157,17 +214,21 @@ const EmpRegistrationFrom = () => {
                     {/* Location */}
                     <div className="col-md-4 mb-4">
                       <label
-                        htmlFor="location"
+                        htmlFor="work_location"
                         className="form-label text-start d-block"
                       >
                         Location
                       </label>
                       <input
-                        type="text"
-                        className="form-control"
-                        id="location"
-                        placeholder="Enter Location"
-                      />
+    type="text"
+    className="form-control"
+    id="work_location"
+    name="work_location"
+    value={formData.work_location}
+    onChange={handleChange}
+    placeholder="Enter Location"
+    required
+  />
                     </div>
                     {/* Profile pic */}
                     <div className="col-md-4 mb-4">
@@ -181,88 +242,120 @@ const EmpRegistrationFrom = () => {
                     </div>
                     {/* First Name */}
                     <div className="col-md-4 mb-4">
-                      <label
-                        htmlFor="firstName"
-                        className="form-label text-start d-block"
-                      >
-                        First Name <span className="text-danger">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="firstName"
-                        placeholder="Enter First Name"
-                        required
-                      />
-                    </div>
-
+  <label
+    htmlFor="firstName"
+    className="form-label text-start d-block"
+  >
+    First Name <span className="text-danger">*</span>
+  </label>
+  <input
+    type="text"
+    className="form-control"
+    id="firstName"
+    name="firstName"
+    value={formData.firstName}
+    onChange={handleChange}
+    placeholder="Enter First Name"
+    required
+  />
+</div>
                     {/* Middle Name */}
                     <div className="col-md-4 mb-4">
-                      <label
-                        htmlFor="middleName"
-                        className="form-label text-start d-block"
-                      >
-                        Middle Name
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="middleName"
-                        placeholder="Enter Middle Name"
-                      />
-                    </div>
+  <label
+    htmlFor="middlename"
+    className="form-label text-start d-block"
+  >
+    Middle Name <span className="text-danger">*</span>
+  </label>
+  <input
+    type="text"
+    className="form-control"
+    id="middlename"
+    name="middlename"
+    value={formData.middlename}
+    onChange={handleChange}
+    placeholder="Enter Middle Name"
+    required
+  />
+</div>
 
                     {/* Last Name */}
                     <div className="col-md-4 mb-4">
-                      <label
-                        htmlFor="lastName"
-                        className="form-label text-start d-block"
-                      >
-                        Last Name <span className="text-danger">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="lastName"
-                        placeholder="Enter Last Name"
-                        required
-                      />
-                    </div>
+  <label
+    htmlFor="lastName"
+    className="form-label text-start d-block"
+  >
+    Last Name <span className="text-danger">*</span>
+  </label>
+  <input
+    type="text"
+    className="form-control"
+    id="lastName"
+    name="lastname"
+    value={formData.lastname}
+    onChange={handleChange}
+    placeholder="Enter Last Name"
+    required
+  />
+</div>
 
                     {/* Mobile Number */}
                     <div className="col-md-4 mb-4">
-                      <label
-                        htmlFor="mobile"
-                        className="form-label text-start d-block"
-                      >
-                        Mobile Number <span className="text-danger">*</span>
-                      </label>
-                      <input
-                        type="tel"
-                        className="form-control"
-                        id="mobile"
-                        placeholder="Enter Mobile Number"
-                        pattern="[0-9]{10}"
-                        required
-                      />
-                    </div>
-
+  <label
+    htmlFor="phonenumber"
+    className="form-label text-start d-block"
+  >
+    Mobile Number <span className="text-danger">*</span>
+  </label>
+  <input
+    type="tel"
+    className="form-control"
+    id="phonenumber"
+    name="phonenumber"
+    value={formData.phonenumber}
+    onChange={handleChange}
+    placeholder="Enter Mobile Number"
+    pattern="[0-9]{10}"
+    required
+  />
+</div>
+<div className="col-md-4 mb-4">
+  <label
+    htmlFor="work_assignment_status"
+    className="form-label text-start d-block"
+  >
+     Project <span className="text-danger">*</span>
+  </label>
+  <input
+    type="work_assignment_status"
+    className="form-control"
+    id="work_assignment_status"
+    name="work_assignment_status"
+    value={formData.work_assignment_status}
+    onChange={handleChange}
+    placeholder="Enter project Name"
+    required
+  />
+</div>
                     {/* Official Email */}
                     <div className="col-md-4 mb-4">
-                      <label
-                        htmlFor="officialEmail"
-                        className="form-label text-start d-block"
-                      >
-                        Official Email <span className="text-danger">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        id="officialEmail"
-                        placeholder="Enter Official Email"
-                        required
-                      />
-                    </div>
+  <label
+    htmlFor="email"
+    className="form-label text-start d-block"
+  >
+    Official Email <span className="text-danger">*</span>
+  </label>
+  <input
+    type="email"
+    className="form-control"
+    id="email"
+    name="email"
+    value={formData.email}
+    onChange={handleChange}
+    placeholder="Enter Official Email"
+    required
+  />
+</div>
 
                     {/* Personal Email */}
                     <div className="col-md-4 mb-4">
@@ -275,37 +368,41 @@ const EmpRegistrationFrom = () => {
                       <input
                         type="email"
                         className="form-control"
-                        id="personalEmail"
+                        id="email"
                         placeholder="Enter Personal Email"
                       />
                     </div>
 
                     {/* Date of Birth */}
                     <div className="col-md-4 mb-4">
-                      <label
-                        htmlFor="dob"
-                        className="form-label text-start d-block"
-                      >
+                      <label htmlFor="dateofbirth" className="form-label text-start d-block">
                         Date of Birth
                       </label>
-                      <input type="date" className="form-control" id="dob" />
+                      <input
+                        type="date"
+                        className="form-control"
+                        id="dateofbirth"
+                        name="dateofbirth"
+                        value={formData.dateofbirth}
+                        onChange={handleChange}
+                      />
                     </div>
 
                     {/* Gender */}
                     <div className="col-md-4 mb-4">
-                      <label className="form-label text-start d-block">
-                        Gender
-                      </label>
+                    <label className="form-label text-start d-block">Gender</label>
                       <div className="d-flex align-items-center">
                         <div className="form-check me-4">
                           <input
                             className="form-check-input"
                             type="radio"
                             name="gender"
-                            id="male"
+                            id="genderMale"
                             value="male"
+                            onChange={handleGenderChange}
+                            checked={formData.gender === "male"}
                           />
-                          <label className="form-check-label" htmlFor="male">
+                          <label className="form-check-label" htmlFor="genderMale">
                             Male
                           </label>
                         </div>
@@ -314,10 +411,12 @@ const EmpRegistrationFrom = () => {
                             className="form-check-input"
                             type="radio"
                             name="gender"
-                            id="female"
+                            id="genderFemale"
                             value="female"
+                            onChange={handleGenderChange}
+                            checked={formData.gender === "female"}
                           />
-                          <label className="form-check-label" htmlFor="female">
+                          <label className="form-check-label" htmlFor="genderFemale">
                             Female
                           </label>
                         </div>
@@ -369,49 +468,57 @@ const EmpRegistrationFrom = () => {
 
                     {/* Designation */}
                     <div className="col-md-4 mb-4">
-                      <label
-                        htmlFor="designation"
-                        className="form-label text-start d-block"
-                      >
-                        Designation
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="designation"
-                        placeholder="Enter Designation"
-                      />
-                    </div>
+  <label
+    htmlFor="address"
+    className="form-label text-start d-block"
+  >
+    Designation <span className="text-danger">*</span>
+  </label>
+  <input
+    type="address"
+    className="form-control"
+    id="address"
+    name="address"
+    value={formData.address}
+    onChange={handleChange}
+    placeholder="Enter Designation"
+    required
+  />
+</div>
 
                     {/* Reporting Manager */}
                     <div className="col-md-4 mb-4">
-                      <label
-                        htmlFor="manager"
-                        className="form-label text-start d-block"
-                      >
-                        Reporting Manager
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="manager"
-                        placeholder="Enter Reporting Manager Name"
-                      />
-                    </div>
+  <label
+    htmlFor="city"
+    className="form-label text-start d-block"
+  >
+    Reporting Manger <span className="text-danger">*</span>
+  </label>
+  <input
+    type="text"
+    className="form-control"
+    id="city"
+    name="city"
+    value={formData.city}
+    onChange={handleChange}
+    placeholder="Enter Reporting Manager Name"
+    required
+  />
+</div>
 
                     {/* Skills */}
                     <div className="col-md-4 mb-4">
-                      <label
-                        htmlFor="skills"
-                        className="form-label text-start d-block"
-                      >
+                      <label htmlFor="skills" className="form-label text-start d-block">
                         Skills
                       </label>
                       <input
                         type="text"
                         className="form-control"
                         id="skills"
-                        placeholder="Enter Skills"
+                        name="skills"
+                        value={formData.skills.join(", ")} // Show skills as a comma-separated string
+                        onChange={handleSkillsChange}
+                        placeholder="Enter Skills (comma separated)"
                       />
                     </div>
 
@@ -438,9 +545,11 @@ const EmpRegistrationFrom = () => {
                       <input type="file" className="form-control" id="Resume" />
                     </div>
                   </div>
+                  <Button className="mt-3" variant="primary" onClick={handleSubmit}>
+                Submit
+              </Button>
                 </div>
               )}
-
               {/* Portfolio Section */}
               {activeTab === 1 && (
                 
@@ -459,13 +568,13 @@ const EmpRegistrationFrom = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {rows.map((row, index) => (
-                          <tr key={index}>
+                        {rows.map((row, e) => (
+                          <tr key={e}>
                             <td>
                               <Form.Select
                                 name="educationLevel"
                                 value={row.educationLevel}
-                                onChange={(e) => handleChange(index, e)}
+                                onChange={(e) => handleChange( e)}
                                 required
                               ><option value="">Select Education</option>
                                 <option value="SSC">SSC</option>
@@ -480,7 +589,7 @@ const EmpRegistrationFrom = () => {
                                 name="college"
                                 value={row.college}
                                 placeholder="College"
-                                onChange={(e) => handleChange(index, e)}
+                                onChange={(e) => handleChange(e)}
                                 required
                               />
                             </td>
@@ -490,7 +599,7 @@ const EmpRegistrationFrom = () => {
                                 name="specialization"
                                 value={row.specialization}
                                 placeholder="Specialization"
-                                onChange={(e) => handleChange(index, e)}
+                                onChange={(e) => handleChange(e)}
                                 required
                               />
                             </td>
@@ -500,7 +609,7 @@ const EmpRegistrationFrom = () => {
                                 name="passoutYear"
                                 value={row.passoutYear}
                                 placeholder="Passout Year"
-                                onChange={(e) => handleChange(index, e)}
+                                onChange={(e) => handleChange( e)}
                                 required
                               />
                             </td>
@@ -510,11 +619,11 @@ const EmpRegistrationFrom = () => {
                                 name="percentage"
                                 value={row.percentage}
                                 placeholder="Percentage"
-                                onChange={(e) => handleChange(index, e)}
+                                onChange={(e) => handleChange(e)}
                                 required
                               />
                             </td>
-                            <td><Button variant="danger" onClick={() => deleteRow(index)}><FaTrash />
+                            <td><Button variant="danger" onClick={() => deleteRow(e)}><FaTrash />
                               </Button>
                             </td>
                           </tr>
@@ -526,14 +635,7 @@ const EmpRegistrationFrom = () => {
                       <Button variant="btn btn-outline-success" onClick={addRow}>
                         <FaPlus /> Add Row
                       </Button>
-                    
-                      <Button
-                        variant="primary"
-                        onClick={submitData}
-                        className="ms-2"
-                      > Submit
-                      </Button>
-                    </div>
+                      </div>
                   </div>
                 </div>
               )}
@@ -623,30 +725,24 @@ const EmpRegistrationFrom = () => {
                         ></textarea>
                       </div>
 
-                      <div className="col-md-6 mb-3">
-                        <label
-                          htmlFor="status"
-                          className="form-label text-start d-block "
-                        >
-                          Status <span className="text-danger">*</span>
-                        </label>
-                        <select className="form-select" id="status" required>
-                          <option value="">Select Status</option>
-                          <option value="in-progress">In Progress</option>
-                          <option value="completed">Completed</option>
-                          <option value="on-hold">On Hold</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="text-end">
-                      <button type="submit" className="btn btn-primary">
-                        Submit
-                      </button>
-                    </div>
-                  </form>
+                <div className="col-md-6 mb-3">
+                  <label
+                    htmlFor="status"
+                    className="form-label text-start d-block "
+                  >
+                     Status <span className="text-danger">*</span>
+                  </label>
+                  <select className="form-select" id="status" required>
+                    <option value="">Select Status</option>
+                    <option value="in-progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                    <option value="on-hold">On Hold</option>
+                  </select>
+                </div>
+              </div>
+            </form>
                 </div>
               )}
-             
             </form>
           </div>
         </div>
