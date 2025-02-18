@@ -223,7 +223,7 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
               <i className="mdi mdi-power" title="Logout"></i>
             </a>
           </li>
-          <li className="nav-item nav-settings d-none d-lg-block">
+           {/* <li className="nav-item nav-settings d-none d-lg-block">
             <a className="nav-link" href="#">
               <i
                 title="Dark Theame"
@@ -232,9 +232,9 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
                 {theme === "light" ? "🌙" : "☀️ "}
               </i>
 
-              {/* <i className="mdi mdi-white-balance-sunny"></i> */}
+             <i className="mdi mdi-white-balance-sunny"></i> 
             </a>
-          </li>
+          </li>*/}
         </ul>
       </div>
     </nav>

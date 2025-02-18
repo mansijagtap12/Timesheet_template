@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa"; // FontAwesome icons for Edit and Trash
 import Modal from "react-bootstrap/Modal"; // Bootstrap Modal
 import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import DataTable from "react-data-table-component";
@@ -18,6 +19,8 @@ const EmployeeList = () => {
   const [project, setProject] = useState("");
   const [position, setPosition] = useState("");
   const [client, setClient] = useState("");
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -132,6 +135,7 @@ const EmployeeList = () => {
           alt="Employee"
           width="30"
           height="30"
+          onClick={() => navigate(`/Employee-Registration-Form/${row.id}`, { state: { employee: row } })}
           onError={(e) => {
             e.target.onerror = null;
             e.target.src = "../../assets/images/faces-clipart/pic-2.png"; // Fallback if image fails to load
@@ -143,7 +147,7 @@ const EmployeeList = () => {
 
     {
       name: "Name",
-      selector: (row) => row.firstname,
+      selector: (row) => row.user,
       sortable: true,
     },
     {
@@ -152,28 +156,40 @@ const EmployeeList = () => {
       sortable: true,
     },
     {
-      name: "job Title",
-      selector: (row) => row.jobtitle,
-      sortable: true,
-    },
-    {
-      name: "Certification",
-      selector: (row) => row.Certification,
+      name: "Reporting Manager",
+      selector: (row) => row.city,
       sortable: true,
     },
     {
       name: "Skills",
-      selector: (row) =>
-        row.skills
-          ? Array.isArray(row.skills)
-            ? row.skills.join(", ")
-            : row.skills
-                .split(",")
-                .map((skill) => skill.trim())
-                .join(", ")
-          : "No Skills",
+      selector: (row) => {
+        const skills = row.skills
+          ? row.skills.replace(/[{}"]+/g, '').split(',').map(skill => skill.trim())
+          : [];
+    
+        return (
+          <div className="relative cursor-pointer" onMouseEnter={(e) => e.currentTarget.querySelector('.tooltip-content').style.display = 'block'} onMouseLeave={(e) => e.currentTarget.querySelector('.tooltip-content').style.display = 'none'}>
+            {skills.length > 2 ? `${skills.slice(0, 2).join(', ')}...` : skills.join(', ') || 'No Skills'}
+            <div className="tooltip-content hidden absolute bg-gray-800 text-black text-sm p-2 rounded shadow-lg z-10 border border-gray-500">
+              <ul className="list-none m-0 p-0">
+                {skills.length > 0 ? (
+                  skills.map((skill, index) => (
+                    <li key={index} className="py-1">
+                      {skill}
+                    </li>
+                  ))
+                ) : (
+                  <li>No Skills</li>
+                )}
+              </ul>
+            </div>
+          </div>
+        );
+      },
     },
-
+    
+    
+    
     {
       name: "Action",
       width: "150px",
@@ -292,6 +308,7 @@ const EmployeeList = () => {
               highlightOnHover
               striped
               fixedHeader
+              
               fixedHeaderScrollHeight="400px"
               customStyles={{
                 table: {
@@ -335,7 +352,7 @@ const EmployeeList = () => {
                       type="text"
                       className="form-control"
                       name="name"
-                      value={currentEmployee.firstname}
+                      value={currentEmployee.user}
                       onChange={handleChange}
                     />
                   </div>
@@ -359,19 +376,19 @@ const EmployeeList = () => {
                       type="text"
                       className="form-control"
                       name="rm"
-                      value={currentEmployee.rm}
+                      value={currentEmployee.city}
                       onChange={handleChange}
                     />
                   </div>
                 </div>
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label>Certification</label>
+                    <label>project</label>
                     <input
                       type="text"
                       className="form-control"
                       name="certification"
-                      value={currentEmployee.Certification}
+                      value={currentEmployee.work_assignment_status}
                       onChange={handleChange}
                     />
                   </div>
