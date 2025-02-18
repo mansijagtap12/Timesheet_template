@@ -3,7 +3,6 @@ import { FaEdit, FaPlus, FaTrash } from "react-icons/fa"; // FontAwesome icons f
 import Modal from "react-bootstrap/Modal"; // Bootstrap Modal
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import DataTable from "react-data-table-component";

@@ -623,7 +623,7 @@ const EmpRegistrationFrom = () => {
                                 required
                               />
                             </td>
-                            <td><Button variant="danger" onClick={() => deleteRow(index)}><FaTrash />
+                            <td><Button variant="danger" onClick={() => deleteRow(e)}><FaTrash />
                               </Button>
                             </td>
                           </tr>
