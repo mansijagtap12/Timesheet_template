@@ -32,8 +32,8 @@ function App() {
       <div className="App">
         <Routes>
           {/* Sign-In Page */}
-          <Route path="/login" element={<SignInForm />} />
-          <Route path="/" element={<SignInForm1 />} />
+          <Route path="/login" element={<SignInForm1 />} />
+          <Route path="/" element={<SignInForm />} />
 
           {/* Dashboard Page */}
           <Route
