@@ -26,7 +26,7 @@ const EmployeeList = () => {
     const fetchEmployees = async () => {
       try {
         const response = await fetch(
-          "https://vkrafthrportalbackend.onrender.com/api/users"
+          "https://vkrafthrportalbackend.onrender.com/api/users/get_all_users"
         );
         const jsonData = await response.json();
 
@@ -168,21 +168,24 @@ const EmployeeList = () => {
           : [];
     
         return (
-          <div className="relative cursor-pointer" onMouseEnter={(e) => e.currentTarget.querySelector('.tooltip-content').style.display = 'block'} onMouseLeave={(e) => e.currentTarget.querySelector('.tooltip-content').style.display = 'none'}>
+          <div className="relative group cursor-pointer">
+            {/* Display first 2 skills or 'No Skills' */}
             {skills.length > 2 ? `${skills.slice(0, 2).join(', ')}...` : skills.join(', ') || 'No Skills'}
-            <div className="tooltip-content hidden absolute bg-gray-800 text-black text-sm p-2 rounded shadow-lg z-10 border border-gray-500">
-              <ul className="list-none m-0 p-0">
-                {skills.length > 0 ? (
-                  skills.map((skill, index) => (
-                    <li key={index} className="py-1">
-                      {skill}
-                    </li>
-                  ))
-                ) : (
-                  <li>No Skills</li>
-                )}
-              </ul>
-            </div>
+    
+            {/* Tooltip */}
+            {skills.length > 1 && (
+              <div className="tooltip-content absolute hidden group-hover:block bg-gray-800 text-white text-sm p-2 rounded shadow-lg z-10 border border-gray-500 mt-1 w-max">
+                <ul className="list-none m-0 p-0">
+                  {skills.length > 0 ? (
+                    skills.map((skill, index) => (
+                      <li key={index} className="py-1">{skill}</li>
+                    ))
+                  ) : (
+                    <li>No Skills</li>
+                  )}
+                </ul>
+              </div>
+            )}
           </div>
         );
       },

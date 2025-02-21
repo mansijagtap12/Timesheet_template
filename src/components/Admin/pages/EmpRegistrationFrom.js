@@ -19,23 +19,20 @@ const EmpRegistrationFrom = () => {
     work_location: "",
     firstname: "",
     middlename: "",
-    lastname:"",
-    phonenumber:"",
+    lastname: "",
+    phonenumber: "",
     email: "",
-    dateofbirth:"",
-    gender:"",
-    hiredate:"",
-    skills:[],
-    address:"",
-    city:"",
-    work_assignment_status:"",
+    dateofbirth: "",
+    gender: "",
+    hiredate: "",
+    skills: [],
+    address: "",
+    city: "",
+    work_assignment_status: "",
   });
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
-  
-  const toggleSection = (section) => {
-    setActiveSection(activeSection === section ? null : section);
-  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage(null);
@@ -53,11 +50,11 @@ const EmpRegistrationFrom = () => {
       middlename: formData.middlename,
       phonenumber: formData.phonenumber,
       email: formData.email,
-      dateofbirth: formData.dateofbirth||null,
+      dateofbirth: formData.dateofbirth || null,
       gender: formData.gender,
-      hiredate: formData.hiredate||null,
+      hiredate: formData.hiredate || null,
       skills: formData.skills,
-      work_assignment_status:formData.work_assignment_status,
+      work_assignment_status: formData.work_assignment_status,
     };
     try {
       const response = await axios.post(
@@ -78,7 +75,9 @@ const EmpRegistrationFrom = () => {
       }
     } catch (err) {
       setError("Error: " + (err.response?.data?.message || "API call failed"));
-      toast.error("Error: " + (err.response?.data?.message || "API call failed"));
+      toast.error(
+        "Error: " + (err.response?.data?.message || "API call failed")
+      );
     }
   };
 
@@ -92,14 +91,14 @@ const EmpRegistrationFrom = () => {
   const handleSkillsChange = (e) => {
     setFormData({
       ...formData,
-      skills: e.target.value.split(',').map(skill => skill.trim()) // Split by comma and remove extra spaces
+      skills: e.target.value.split(",").map((skill) => skill.trim()), // Split by comma and remove extra spaces
     });
   };
 
   const handleGenderChange = (e) => {
     setFormData({
       ...formData,
-      gender: e.target.value
+      gender: e.target.value,
     });
   };
 
@@ -124,30 +123,8 @@ const EmpRegistrationFrom = () => {
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
   };
-  const submitData = () => {
-    setEducationData(rows);
-    setRows([{}]);
-  };
+ 
 
-  const columns = [
-    {
-      name: "Education Level",
-      selector: (row) => row.educationLevel,
-      sortable: true,
-    },
-    { name: "College", selector: (row) => row.college, sortable: true },
-    {
-      name: "Specialization",
-      selector: (row) => row.specialization,
-      sortable: true,
-    },
-    {
-      name: "Passout Year",
-      selector: (row) => row.passoutYear,
-      sortable: true,
-    },
-    { name: "Percentage", selector: (row) => row.percentage, sortable: true },
-  ];
   return (
     <div className="content-wrapper">
       <ToastContainer />
@@ -184,11 +161,10 @@ const EmpRegistrationFrom = () => {
               variant="fullWidth"
             >
               <Tab label="Employee Details" />
-
               <Tab label="Education" />
               <Tab label="Project" />
             </Tabs>
-            
+
             <form className="form-sample">
               {/* Personal Info Section */}
               {activeTab === 0 && (
@@ -207,6 +183,8 @@ const EmpRegistrationFrom = () => {
                         className="form-control"
                         id="employeeId"
                         placeholder="Enter Employee ID"
+                        pattern="^VKSS.*"
+                        title="Employee ID must start with VKSS"
                         required
                       />
                     </div>
@@ -220,15 +198,15 @@ const EmpRegistrationFrom = () => {
                         Location
                       </label>
                       <input
-    type="text"
-    className="form-control"
-    id="work_location"
-    name="work_location"
-    value={formData.work_location}
-    onChange={handleChange}
-    placeholder="Enter Location"
-    required
-  />
+                        type="text"
+                        className="form-control"
+                        id="work_location"
+                        name="work_location"
+                        value={formData.work_location}
+                        onChange={handleChange}
+                        placeholder="Enter Location"
+                        required
+                      />
                     </div>
                     {/* Profile pic */}
                     <div className="col-md-4 mb-4">
@@ -242,120 +220,120 @@ const EmpRegistrationFrom = () => {
                     </div>
                     {/* First Name */}
                     <div className="col-md-4 mb-4">
-  <label
-    htmlFor="firstName"
-    className="form-label text-start d-block"
-  >
-    First Name <span className="text-danger">*</span>
-  </label>
-  <input
-    type="text"
-    className="form-control"
-    id="firstName"
-    name="firstName"
-    value={formData.firstName}
-    onChange={handleChange}
-    placeholder="Enter First Name"
-    required
-  />
-</div>
+                      <label
+                        htmlFor="firstName"
+                        className="form-label text-start d-block"
+                      >
+                        First Name <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="firstName"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        placeholder="Enter First Name"
+                        required
+                      />
+                    </div>
                     {/* Middle Name */}
                     <div className="col-md-4 mb-4">
-  <label
-    htmlFor="middlename"
-    className="form-label text-start d-block"
-  >
-    Middle Name <span className="text-danger">*</span>
-  </label>
-  <input
-    type="text"
-    className="form-control"
-    id="middlename"
-    name="middlename"
-    value={formData.middlename}
-    onChange={handleChange}
-    placeholder="Enter Middle Name"
-    required
-  />
-</div>
+                      <label
+                        htmlFor="middlename"
+                        className="form-label text-start d-block"
+                      >
+                        Middle Name <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="middlename"
+                        name="middlename"
+                        value={formData.middlename}
+                        onChange={handleChange}
+                        placeholder="Enter Middle Name"
+                        required
+                      />
+                    </div>
 
                     {/* Last Name */}
                     <div className="col-md-4 mb-4">
-  <label
-    htmlFor="lastName"
-    className="form-label text-start d-block"
-  >
-    Last Name <span className="text-danger">*</span>
-  </label>
-  <input
-    type="text"
-    className="form-control"
-    id="lastName"
-    name="lastname"
-    value={formData.lastname}
-    onChange={handleChange}
-    placeholder="Enter Last Name"
-    required
-  />
-</div>
+                      <label
+                        htmlFor="lastName"
+                        className="form-label text-start d-block"
+                      >
+                        Last Name <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="lastName"
+                        name="lastname"
+                        value={formData.lastname}
+                        onChange={handleChange}
+                        placeholder="Enter Last Name"
+                        required
+                      />
+                    </div>
 
                     {/* Mobile Number */}
                     <div className="col-md-4 mb-4">
-  <label
-    htmlFor="phonenumber"
-    className="form-label text-start d-block"
-  >
-    Mobile Number <span className="text-danger">*</span>
-  </label>
-  <input
-    type="tel"
-    className="form-control"
-    id="phonenumber"
-    name="phonenumber"
-    value={formData.phonenumber}
-    onChange={handleChange}
-    placeholder="Enter Mobile Number"
-    pattern="[0-9]{10}"
-    required
-  />
-</div>
-<div className="col-md-4 mb-4">
-  <label
-    htmlFor="work_assignment_status"
-    className="form-label text-start d-block"
-  >
-     Project <span className="text-danger">*</span>
-  </label>
-  <input
-    type="work_assignment_status"
-    className="form-control"
-    id="work_assignment_status"
-    name="work_assignment_status"
-    value={formData.work_assignment_status}
-    onChange={handleChange}
-    placeholder="Enter project Name"
-    required
-  />
-</div>
+                      <label
+                        htmlFor="phonenumber"
+                        className="form-label text-start d-block"
+                      >
+                        Mobile Number <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        className="form-control"
+                        id="phonenumber"
+                        name="phonenumber"
+                        value={formData.phonenumber}
+                        onChange={handleChange}
+                        placeholder="Enter Mobile Number"
+                        pattern="[0-9]{10}"
+                        required
+                      />
+                    </div>
+                    <div className="col-md-4 mb-4">
+                      <label
+                        htmlFor="work_assignment_status"
+                        className="form-label text-start d-block"
+                      >
+                        Project <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="work_assignment_status"
+                        className="form-control"
+                        id="work_assignment_status"
+                        name="work_assignment_status"
+                        value={formData.work_assignment_status}
+                        onChange={handleChange}
+                        placeholder="Enter project Name"
+                        required
+                      />
+                    </div>
                     {/* Official Email */}
                     <div className="col-md-4 mb-4">
-  <label
-    htmlFor="email"
-    className="form-label text-start d-block"
-  >
-    Official Email <span className="text-danger">*</span>
-  </label>
-  <input
-    type="email"
-    className="form-control"
-    id="email"
-    name="email"
-    value={formData.email}
-    onChange={handleChange}
-    placeholder="Enter Official Email"
-    required
-  />
-</div>
+                      <label
+                        htmlFor="email"
+                        className="form-label text-start d-block"
+                      >
+                        Official Email <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="Enter Official Email"
+                        required
+                      />
+                    </div>
 
                     {/* Personal Email */}
                     <div className="col-md-4 mb-4">
@@ -375,7 +353,11 @@ const EmpRegistrationFrom = () => {
 
                     {/* Date of Birth */}
                     <div className="col-md-4 mb-4">
-                      <label htmlFor="dateofbirth" className="form-label text-start d-block">
+                      <label
+                        htmlFor="dateofbirth"
+                        className="form-label text-start d-block"
+                      >
+                        {" "}
                         Date of Birth
                       </label>
                       <input
@@ -390,7 +372,9 @@ const EmpRegistrationFrom = () => {
 
                     {/* Gender */}
                     <div className="col-md-4 mb-4">
-                    <label className="form-label text-start d-block">Gender</label>
+                      <label className="form-label text-start d-block">
+                        Gender
+                      </label>
                       <div className="d-flex align-items-center">
                         <div className="form-check me-4">
                           <input
@@ -401,8 +385,12 @@ const EmpRegistrationFrom = () => {
                             value="male"
                             onChange={handleGenderChange}
                             checked={formData.gender === "male"}
-                          />
-                          <label className="form-check-label" htmlFor="genderMale">
+                          />{" "}
+                          <label
+                            className="form-check-label"
+                            htmlFor="genderMale"
+                          >
+                            {" "}
                             Male
                           </label>
                         </div>
@@ -416,7 +404,10 @@ const EmpRegistrationFrom = () => {
                             onChange={handleGenderChange}
                             checked={formData.gender === "female"}
                           />
-                          <label className="form-check-label" htmlFor="genderFemale">
+                          <label
+                            className="form-check-label"
+                            htmlFor="genderFemale"
+                          >
                             Female
                           </label>
                         </div>
@@ -468,47 +459,51 @@ const EmpRegistrationFrom = () => {
 
                     {/* Designation */}
                     <div className="col-md-4 mb-4">
-  <label
-    htmlFor="address"
-    className="form-label text-start d-block"
-  >
-    Designation <span className="text-danger">*</span>
-  </label>
-  <input
-    type="address"
-    className="form-control"
-    id="address"
-    name="address"
-    value={formData.address}
-    onChange={handleChange}
-    placeholder="Enter Designation"
-    required
-  />
-</div>
+                      <label
+                        htmlFor="address"
+                        className="form-label text-start d-block"
+                      >
+                        {" "}
+                        Designation <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="address"
+                        className="form-control"
+                        id="address"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleChange}
+                        placeholder="Enter Designation"
+                        required
+                      />
+                    </div>
 
                     {/* Reporting Manager */}
                     <div className="col-md-4 mb-4">
-  <label
-    htmlFor="city"
-    className="form-label text-start d-block"
-  >
-    Reporting Manger <span className="text-danger">*</span>
-  </label>
-  <input
-    type="text"
-    className="form-control"
-    id="city"
-    name="city"
-    value={formData.city}
-    onChange={handleChange}
-    placeholder="Enter Reporting Manager Name"
-    required
-  />
-</div>
+                      <label
+                        htmlFor="city"
+                        className="form-label text-start d-block"
+                      >
+                        Reporting Manger <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="city"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                        placeholder="Enter Reporting Manager Name"
+                        required
+                      />
+                    </div>
 
                     {/* Skills */}
                     <div className="col-md-4 mb-4">
-                      <label htmlFor="skills" className="form-label text-start d-block">
+                      <label
+                        htmlFor="skills"
+                        className="form-label text-start d-block"
+                      >
                         Skills
                       </label>
                       <input
@@ -540,21 +535,25 @@ const EmpRegistrationFrom = () => {
                       <label
                         htmlFor="Resume"
                         className="form-label text-start d-block"
-                      > Resume
+                      >
+                        {" "}
+                        Resume
                       </label>
                       <input type="file" className="form-control" id="Resume" />
                     </div>
                   </div>
-                  <Button className="mt-3" variant="primary" onClick={handleSubmit}>
-                Submit
-              </Button>
+                  <Button
+                    className="mt-3"
+                    variant="primary"
+                    onClick={handleSubmit}
+                  >
+                    Submit
+                  </Button>
                 </div>
               )}
               {/* Portfolio Section */}
               {activeTab === 1 && (
-                
                 <div className="container mt-3 p-3 bg-white shadow-sm rounded">
-                  
                   <div className="row">
                     <Table striped bordered hover>
                       <thead>
@@ -574,9 +573,10 @@ const EmpRegistrationFrom = () => {
                               <Form.Select
                                 name="educationLevel"
                                 value={row.educationLevel}
-                                onChange={(e) => handleChange( e)}
+                                onChange={(e) => handleChange(e)}
                                 required
-                              ><option value="">Select Education</option>
+                              >
+                                <option value="">Select Education</option>
                                 <option value="SSC">SSC</option>
                                 <option value="HSC">HSC</option>
                                 <option value="UG">UG</option>
@@ -609,7 +609,7 @@ const EmpRegistrationFrom = () => {
                                 name="passoutYear"
                                 value={row.passoutYear}
                                 placeholder="Passout Year"
-                                onChange={(e) => handleChange( e)}
+                                onChange={(e) => handleChange(e)}
                                 required
                               />
                             </td>
@@ -623,7 +623,12 @@ const EmpRegistrationFrom = () => {
                                 required
                               />
                             </td>
-                            <td><Button variant="danger" onClick={() => deleteRow(e)}><FaTrash />
+                            <td>
+                              <Button
+                                variant="danger"
+                                onClick={() => deleteRow(e)}
+                              >
+                                <FaTrash />
                               </Button>
                             </td>
                           </tr>
@@ -631,11 +636,13 @@ const EmpRegistrationFrom = () => {
                       </tbody>
                     </Table>
                     <div className="col-md-12 mb-4 d-flex justify-content-end">
-                 
-                      <Button variant="btn btn-outline-success" onClick={addRow}>
+                      <Button
+                        variant="btn btn-outline-success"
+                        onClick={addRow}
+                      >
                         <FaPlus /> Add Row
                       </Button>
-                      </div>
+                    </div>
                   </div>
                 </div>
               )}
@@ -725,22 +732,22 @@ const EmpRegistrationFrom = () => {
                         ></textarea>
                       </div>
 
-                <div className="col-md-6 mb-3">
-                  <label
-                    htmlFor="status"
-                    className="form-label text-start d-block "
-                  >
-                     Status <span className="text-danger">*</span>
-                  </label>
-                  <select className="form-select" id="status" required>
-                    <option value="">Select Status</option>
-                    <option value="in-progress">In Progress</option>
-                    <option value="completed">Completed</option>
-                    <option value="on-hold">On Hold</option>
-                  </select>
-                </div>
-              </div>
-            </form>
+                      <div className="col-md-6 mb-3">
+                        <label
+                          htmlFor="status"
+                          className="form-label text-start d-block "
+                        >
+                          Status <span className="text-danger">*</span>
+                        </label>
+                        <select className="form-select" id="status" required>
+                          <option value="">Select Status</option>
+                          <option value="in-progress">In Progress</option>
+                          <option value="completed">Completed</option>
+                          <option value="on-hold">On Hold</option>
+                        </select>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               )}
             </form>

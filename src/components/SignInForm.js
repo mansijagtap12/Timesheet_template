@@ -11,6 +11,9 @@ export default function LoginForm() {
   // Mock credentials for validation
   const validEmail = 'test@vkraft.com';
   const validPassword = '123';
+  localStorage.removeItem('isAuthenticated');
+ 
+  
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -34,24 +37,28 @@ export default function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Check if email is valid
+  
     if (!validateEmail(email)) {
       setErrorMessage('Invalid email address.');
       setTimeout(() => setErrorMessage(''), 2000);
       return;
     }
-
-    // Check if email and password match the credentials
+  
     if (email === validEmail && password === validPassword) {
-      // Redirect to the dashboard
-      navigate('/dashboard');
+      console.log("User authenticated, storing session...");
+      localStorage.setItem('isAuthenticated', 'true');  // ✅ Storing session
+  
+      console.log("Redirecting to dashboard...");
+      navigate('/dashboard');  // ✅ Redirecting
     } else {
-      // Show error message for invalid credentials
       setErrorMessage('Email or password is invalid.');
       setTimeout(() => setErrorMessage(''), 4000);
     }
   };
+  
+  
+  
+  
 
   return (
     <div className="container-fluid">
@@ -67,11 +74,11 @@ export default function LoginForm() {
         >
           <div
             style={{
-              backgroundImage: `url('/assets/images/bg1.jpeg')`,
+              backgroundImage: `url('/assets/images/bg2.png')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              width: '100%',
-              height: '100%',
+              width: '70%',
+              height: '70%',
               boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
             }}
           ></div>
