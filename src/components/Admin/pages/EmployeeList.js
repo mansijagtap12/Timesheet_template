@@ -170,30 +170,22 @@ const EmployeeList = () => {
         const displaySkills = skills.length > 2 ? `${skills.slice(0, 2).join(", ")}...` : skills.join(", ") || "No Skills";
     
         return (
-          <div className="relative group cursor-pointer">
-            {/* Display first 2 skills or 'No Skills' */}
-            {skills.length > 2 ? `${skills.slice(0, 2).join(', ')}...` : skills.join(', ') || 'No Skills'}
-    
-            {/* Tooltip */}
-            {skills.length > 1 && (
-              <div className="tooltip-content absolute hidden group-hover:block bg-gray-800 text-white text-sm p-2 rounded shadow-lg z-10 border border-gray-500 mt-1 w-max">
-                <ul className="list-none m-0 p-0">
-                  {skills.length > 0 ? (
-                    skills.map((skill, index) => (
-                      <li key={index} className="py-1">{skill}</li>
-                    ))
-                  ) : (
-                    <li>No Skills</li>
-                  )}
-                </ul>
-              </div>
-            )}
-          </div>
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip id={`tooltip-${row.id}`}>
+                {skills.length > 0 ? skills.join(", ") : "No Skills"}
+              </Tooltip>
+            }
+          >
+            <span style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
+              {displaySkills}
+            </span>
+          </OverlayTrigger>
         );
       },
       sortable: false,
-    },
-   
+    },    
     {
       name: "Action",
       width: "150px",
