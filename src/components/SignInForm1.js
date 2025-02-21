@@ -14,16 +14,24 @@ const SignInForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Mock login logic (Replace with actual API call)
-    if (email === 'test@vkraft.com' && password === '123') {
-      navigate('/dashboard'); // Navigate to the dashboard on success
+  
+    if (email === "test@vkraft.com" && password === "123") {
+      const userData = { email, isAuthenticated: true };
+  
+      localStorage.setItem("user", JSON.stringify(userData));
+      console.log("Stored in Local Storage:", localStorage.getItem("user"));
+  
+      window.location.href = "/dashboard"; // Refreshes the page
     } else {
-      setErrorMessage('Invalid username or password'); // Show error message
+      setErrorMessage("Invalid username or password");
     }
   };
-
+  
+  
+  
+  
   return (
+    
     <div
       className="container-fluid d-flex align-items-center justify-content-center"
       style={{
@@ -76,6 +84,7 @@ const SignInForm = () => {
                 id="floatingInput"
                 placeholder="Username"
                 value={email}
+                name='email'
                 onChange={handleEmailChange}
               />
               <label htmlFor="floatingInput">Username</label>
@@ -87,6 +96,7 @@ const SignInForm = () => {
                 className="form-control"
                 id="floatingPassword"
                 placeholder="Password"
+                name='password'
                 value={password}
                 onChange={handlePasswordChange}
               />

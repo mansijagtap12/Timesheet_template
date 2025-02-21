@@ -5,6 +5,8 @@ const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState("");
 
+
+
   // Function to add a task
   const handleAddTask = () => {
     if (taskInput.trim()) {

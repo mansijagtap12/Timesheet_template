@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ searchTerm, setSearchTerm }) => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-
+  const navigate = useNavigate();
   useEffect(() => {
     document.documentElement.setAttribute("data-bs-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    navigate("/");
+  };
   return (
     <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
@@ -71,7 +76,14 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
                 Settings
               </a>
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="/">
+              <a
+                className="dropdown-item"
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault(); // Prevents default navigation
+                  handleLogout();
+                }}
+              >
                 <i className="mdi mdi-logout me-2 text-primary"></i> Signout
               </a>
             </div>
@@ -223,7 +235,7 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
               <i className="mdi mdi-power" title="Logout"></i>
             </a>
           </li>
-           {/* <li className="nav-item nav-settings d-none d-lg-block">
+          {/* <li className="nav-item nav-settings d-none d-lg-block">
             <a className="nav-link" href="#">
               <i
                 title="Dark Theame"
