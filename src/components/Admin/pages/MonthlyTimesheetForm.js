@@ -133,7 +133,7 @@ const MonthlyTimesheetForm = () => {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Project Name"
+                      
                       value={projectName}
                       onChange={(e) => setProjectName(e.target.value)}
                       required
@@ -149,7 +149,7 @@ const MonthlyTimesheetForm = () => {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Client Name"
+                      
                       value={clientName}
                       onChange={(e) => setClientName(e.target.value)}
                       required

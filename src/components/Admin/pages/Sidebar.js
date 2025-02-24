@@ -105,7 +105,7 @@ const Sidebar = () => {
             </ul>
           </div>
         </li>
-        {/* <li className="nav-item">
+       <li className="nav-item">
           <a
             className="nav-link"
             data-bs-toggle="collapse"
@@ -130,7 +130,7 @@ const Sidebar = () => {
               </li>
             </ul>
           </div>
-        </li> */}
+        </li> 
         <li className="nav-item">
           <a
             className="nav-link"

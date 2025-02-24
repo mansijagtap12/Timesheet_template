@@ -7,10 +7,10 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import DataTable from "react-data-table-component";
 import axios from "axios";
-
+ 
 const EmployeeList = () => {
   const [searchTerm, setSearchTerm] = useState(""); // State for search input
-
+ 
   const [showSearch, setShowSearch] = useState(false);
   // Sample employee data
   const [employees, setEmployees] = useState([]);
@@ -20,8 +20,8 @@ const EmployeeList = () => {
   const [position, setPosition] = useState("");
   const [client, setClient] = useState("");
   const navigate = useNavigate();
-
-
+ 
+ 
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
@@ -29,7 +29,7 @@ const EmployeeList = () => {
           "https://vkrafthrportalbackend.onrender.com/api/users/get_all_users"
         );
         const jsonData = await response.json();
-
+ 
         if (jsonData.data && Array.isArray(jsonData.data)) {
           setEmployees(jsonData.data);
           setOriginalEmployees(jsonData.data); // Save original data once
@@ -42,14 +42,14 @@ const EmployeeList = () => {
         console.error("Error fetching employees:", error);
       }
     };
-
+ 
     fetchEmployees();
   }, []); // No dependency on employees here
-
+ 
   // Modal state
   const [showModal, setShowModal] = useState(false);
   const [currentEmployee, setCurrentEmployee] = useState(null);
-
+ 
   // Handle Edit action
   const handleEdit = (employee) => {
     setCurrentEmployee(employee); // Set the current employee to edit
@@ -59,7 +59,7 @@ const EmployeeList = () => {
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
-
+ 
     if (term === "") {
       setEmployees(originalEmployees); // Reset to original data when input is empty
     } else {
@@ -71,19 +71,19 @@ const EmployeeList = () => {
       setEmployees(filteredEmployees); // Filtered data when there is input
     }
   };
-
+ 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
       try {
         await axios.delete(
           `https://vkrafthrportalbackend.onrender.com/api/users/delete/${id}`
         );
-
+ 
         // Remove employee from the list after successful deletion
         setEmployees((prevEmployees) =>
           prevEmployees.filter((emp) => emp.id !== id)
         );
-
+ 
         toast.success("Employee deleted successfully!");
       } catch (error) {
         console.error("Error deleting employee:", error);
@@ -91,7 +91,7 @@ const EmployeeList = () => {
       }
     }
   };
-
+ 
   // Handle Save Changes in Modal
   const handleSave = () => {
     const updatedEmployees = employees.map((emp) =>
@@ -115,17 +115,17 @@ const EmployeeList = () => {
   };
   const handleAssignProject = (e, employeeId) => {
     e.preventDefault();
-
+ 
     // Perform your API call or data handling logic
     console.log("Assigning project:", project, position, employeeId);
-
+ 
     // Simulate API call
     setTimeout(() => {
       // Close the modal after submission
       setShowAssignModal(null);
     }, 100);
   };
-
+ 
   const columns = [
     {
       name: "User",
@@ -144,7 +144,7 @@ const EmployeeList = () => {
       ),
       sortable: false,
     },
-
+ 
     {
       name: "Name",
       selector: (row) => row.user,
@@ -156,48 +156,41 @@ const EmployeeList = () => {
       sortable: true,
     },
     {
-      name: "Reporting Manager",
+      name: "RM",
       selector: (row) => row.city,
       sortable: true,
     },
     {
       name: "Skills",
       selector: (row) => {
-        const skills = row.skills
+        const skills = typeof row.skills === "string"
           ? row.skills.replace(/[{}"]+/g, '').split(',').map(skill => skill.trim())
-          : [];
+          : Array.isArray(row.skills) ? row.skills.map(skill => skill.trim()) : [];
+    
+        const displaySkills = skills.length > 2 ? `${skills.slice(0, 2).join(", ")}...` : skills.join(", ") || "No Skills";
     
         return (
-          <div className="relative group cursor-pointer">
-            {/* Display first 2 skills or 'No Skills' */}
-            {skills.length > 2 ? `${skills.slice(0, 2).join(', ')}...` : skills.join(', ') || 'No Skills'}
-    
-            {/* Tooltip */}
-            {skills.length > 1 && (
-              <div className="tooltip-content absolute hidden group-hover:block bg-gray-800 text-white text-sm p-2 rounded shadow-lg z-10 border border-gray-500 mt-1 w-max">
-                <ul className="list-none m-0 p-0">
-                  {skills.length > 0 ? (
-                    skills.map((skill, index) => (
-                      <li key={index} className="py-1">{skill}</li>
-                    ))
-                  ) : (
-                    <li>No Skills</li>
-                  )}
-                </ul>
-              </div>
-            )}
-          </div>
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip id={`tooltip-${row.id}`}>
+                {skills.length > 0 ? skills.join(", ") : "No Skills"}
+              </Tooltip>
+            }
+          >
+            <span style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
+              {displaySkills}
+            </span>
+          </OverlayTrigger>
         );
       },
-    },
-    
-    
-    
+      sortable: false,
+    },    
     {
       name: "Action",
       width: "150px",
       cell: (row) => (
-        <div>
+        <div style={{display:"flex" , alignItems: "center"}}>
           <OverlayTrigger
             placement="top"
             overlay={<Tooltip>Edit Employee</Tooltip>}
@@ -235,7 +228,7 @@ const EmployeeList = () => {
       ),
     },
   ];
-
+ 
   return (
     <div className="content-wrapper">
       <div className="d-flex justify-content-end" style={{ padding: "0px" }}>
@@ -253,7 +246,7 @@ const EmployeeList = () => {
           onClick={() => setShowSearch(!showSearch)} // Toggle search box visibility
           title="Search"
         />
-
+ 
         {/* Search Input Box */}
         {showSearch && (
           <input
@@ -303,7 +296,7 @@ const EmployeeList = () => {
               <ToastContainer position="top-right" autoClose={3000} />
               {/* Your App Components */}
             </div>
-
+ 
             <DataTable
               columns={columns}
               data={employees}
@@ -421,9 +414,9 @@ const EmployeeList = () => {
           </Modal.Footer>
         </Modal>
       )}
-
+ 
       {/* modal for assign project*/}
-
+ 
       <Modal
         show={showAssignModal !== null}
         onHide={() => setShowAssignModal(null)}
@@ -455,7 +448,7 @@ const EmployeeList = () => {
                     <option value="Client C">Client C</option>
                   </select>
                 </div>
-
+ 
                 {/* Project Dropdown */}
                 <div className="col-md-12 mb-4">
                   <label
@@ -476,7 +469,7 @@ const EmployeeList = () => {
                     <option value="Pepco">Pepco</option>
                   </select>
                 </div>
-
+ 
                 {/* Position Dropdown */}
                 <div className="col-md-12 mb-4">
                   <label

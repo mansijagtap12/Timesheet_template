@@ -18,7 +18,7 @@ const ProjectList = () => {
     const fetchEmployees = async () => {
       try {
         const response = await fetch(
-          "https://vkrafthrportalbackend.onrender.com/api/users"
+          "https://vkrafthrportalbackend.onrender.com/api/projects/get_all_projects"
         );
         const jsonData = await response.json();
 
@@ -105,18 +105,28 @@ const ProjectList = () => {
 
   const columns = [
     {
+      name: "CLient Name",
+      selector: (row) => row.projectname,
+      sortable: true,
+    },
+    {
       name: "Project Name",
       selector: (row) => row.projectname,
       sortable: true,
     },
     {
       name: "Project Manager",
-      selector: (row) => row.project_manager,
+      selector: (row) => row.projectmanager,
       sortable: true,
     },
     {
       name: "Duration",
-      selector: (row) => row.projectDuration,
+      selector: (row) => row.projectduration,
+      sortable: false,
+    },
+    {
+      name: "Resources ",
+      selector: (row) => row.projectduration,
       sortable: false,
     },
     {
@@ -124,16 +134,7 @@ const ProjectList = () => {
       selector: (row) => row.status,
       sortable: true,
     },
-    {
-      name: "Start Date",
-      selector: (row) => row.start_date,
-      sortable: true,
-    },
-    {
-      name: "End Date",
-      selector: (row) => row.end_date,
-      sortable: true,
-    },
+    
     {
       name: "Actions",
       cell: (row) => (
