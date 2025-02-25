@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams ,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const EmployeeProfile = () => {
@@ -38,73 +38,86 @@ const EmployeeProfile = () => {
       className="container-fluid py-4"
       style={{ background: "#f4f6f9", minHeight: "100vh" }}
     >
-     
       <div className="row justify-content-center">
-     
         <div className="col-lg-11 bg-white shadow-lg rounded p-4">
-        <div className="d-flex justify-content-end">
-        <button 
-          className="btn btn-outline-primary" 
-          onClick={() => navigate("/employee-list")} // Go back to the previous page
-        >
-          ← Back
-        </button>
-      </div>
+          <div className="d-flex justify-content-end">
+            <button
+              className="btn btn-outline-primary"
+              onClick={() => navigate("/employee-list")} // Go back to the previous page
+            >
+              ← Back
+            </button>
+          </div>
 
           <div className="row">
-         {/* Left Section - Profile & Basic Info */}
-<div className="col-md-4 text-center border-end">
-  <div className="profile-card p-3 shadow-lg rounded bg-white">
-    {/* Profile Image */}
-    <div className="d-flex justify-content-center">
-      <img
-        src={employee.image || "/assets/images/faces-clipart/pic-2.png"}
-        alt="Profile"
-        className="rounded-circle shadow-sm border border-3 border-primary"
-        style={{
-          width: "100px",
-          height: "100px",
-          objectFit: "cover",
-        }}
-      />
-    </div>
+            {/* Left Section - Profile & Basic Info */}
+            <div className="col-md-4 text-center border-end">
+              <div className="profile-card p-3 shadow-lg rounded bg-white">
+                {/* Profile Image */}
+                <div className="d-flex justify-content-center">
+                  <img
+                    src={
+                      employee.image || "/assets/images/faces-clipart/pic-2.png"
+                    }
+                    alt="Profile"
+                    className="rounded-circle shadow-sm border border-3 border-primary"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
 
-    {/* Employee Name & ID */}
-    <h5 className="fw-bold mt-3 text-primary">
-      {employee.firstname} {employee.lastname}
-    </h5>
-    <p className="text-muted mb-1">Employee ID: <span className="fw-semibold">{employee.emp_id}</span></p>
-    <p className="text-muted">{employee.designation}</p>
+                {/* Employee Name & ID */}
+                <h5 className="fw-bold mt-3 text-primary">
+                  {employee.firstname} {employee.lastname}
+                </h5>
+                <p className="text-muted mb-1">
+                  Employee ID:{" "}
+                  <span className="fw-semibold">{employee.emp_id}</span>
+                </p>
+                <p className="text-muted">{employee.designation}</p>
 
-    {/* Status Badge */}
-    <span className={`badge ${employee.account_status === "Active" ? "bg-success" : "bg-danger"} px-3 py-2`}>
-      {employee.account_status}
-    </span>
+                {/* Status Badge */}
+                <span
+                  className={`badge ${
+                    employee.account_status === "Active"
+                      ? "bg-success"
+                      : "bg-danger"
+                  } px-3 py-2`}
+                >
+                  {employee.account_status}
+                </span>
 
-    {/* Contact Information */}
-    <div className="mt-4 text-start px-3">
-      <h6 className="fw-bold text-dark">Contact Information</h6>
-      <p className="mb-1">
-        <i className="mdi mdi-email-outline text-primary"></i> <span className="fw-semibold">{employee.email}</span>
-      </p>
-      <p>
-        <i className="mdi mdi-phone text-success"></i> <span className="fw-semibold">{employee.phonenumber}</span>
-      </p>
-      <p>
-        <i className="mdi mdi-calendar text-warning"></i> Date of Birth: <span className="fw-semibold">{employee.dateofbirth}</span>
-      </p>
-    </div>
+                {/* Contact Information */}
+                <div className="mt-4 text-start px-3">
+                  <h6 className="fw-bold text-dark">Contact Information</h6>
+                  <p className="mb-1">
+                    <i className="mdi mdi-email-outline text-primary"></i>{" "}
+                    <span className="fw-semibold">{employee.email}</span>
+                  </p>
+                  <p>
+                    <i className="mdi mdi-phone text-success"></i>{" "}
+                    <span className="fw-semibold">{employee.phonenumber}</span>
+                  </p>
+                  <p>
+                    <i className="mdi mdi-calendar text-warning"></i> Date of
+                    Birth:{" "}
+                    <span className="fw-semibold">{employee.dateofbirth}</span>
+                  </p>
+                </div>
 
-    {/* Address Section */}
-    <div className="mt-3 text-start px-3">
-      <h6 className="fw-bold text-dark">Address</h6>
-      <p className="bg-light p-2 rounded shadow-sm">
-        {employee.address}, {employee.city}, {employee.state}, {employee.country} - {employee.zipcode}
-      </p>
-    </div>
-  </div>
-</div>
-
+                {/* Address Section */}
+                <div className="mt-3 text-start px-3">
+                  <h6 className="fw-bold text-dark">Address</h6>
+                  <p className="bg-light p-2 rounded shadow-sm">
+                    {employee.address}, {employee.city}, {employee.state},{" "}
+                    {employee.country} - {employee.zipcode}
+                  </p>
+                </div>
+              </div>
+            </div>
 
             {/* Right Section - Employee Details */}
             <div className="col-md-8">

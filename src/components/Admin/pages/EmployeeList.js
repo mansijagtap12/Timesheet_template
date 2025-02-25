@@ -160,7 +160,6 @@ const EmployeeList = () => {
       name: "Name",
       selector: (row) => row.user,
       sortable: true,
-      
     },
     {
       name: "Project",
@@ -327,7 +326,11 @@ const EmployeeList = () => {
             <DataTable
               columns={columns}
               data={employees}
-              onRowClicked={(row) => navigate(`/Employee-profile/${row.id}`, { state: { employee: row } })}
+              onRowClicked={(row) =>
+                navigate(`/Employee-profile/${row.id}`, {
+                  state: { employee: row },
+                })
+              }
               pagination
               highlightOnHover
               striped
