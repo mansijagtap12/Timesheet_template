@@ -19,7 +19,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="dashboard">
+          <a className="nav-link" href="/dashboard">
             <span className="menu-title">Dashboard</span>
             <i className="mdi mdi-home menu-icon"></i>
           </a>
@@ -93,12 +93,12 @@ const Sidebar = () => {
           <div className="collapse" id="tables">
             <ul className="nav flex-column sub-menu">
               <li className="nav-item">
-                <a className="nav-link" href="Employee-Registration-Form">
+                <a className="nav-link" href="/Employee-Registration-Form">
                   Register Employee
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="employee-list">
+                <a className="nav-link" href="/employee-list">
                   EmployeeList
                 </a>
               </li>
@@ -119,12 +119,12 @@ const Sidebar = () => {
           <div className="collapse" id="charts">
             <ul className="nav flex-column sub-menu">
               <li className="nav-item">
-                <a className="nav-link" href="ProjectRegistrationForm">
+                <a className="nav-link" href="/ProjectRegistrationForm">
                   Add Project
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="Project-List">
+                <a className="nav-link" href="/Project-List">
                   Project List
                 </a>
               </li>
@@ -145,12 +145,12 @@ const Sidebar = () => {
           <div className="collapse" id="timesheet">
             <ul className="nav flex-column sub-menu">
               <li className="nav-item">
-                <a className="nav-link" href="Employee-monthly-timesheet">
+                <a className="nav-link" href="/Employee-monthly-timesheet">
                   Monthly Timesheet
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="Employee-weekly-timesheet">
+                <a className="nav-link" href="/Employee-weekly-timesheet">
                   Weekly Timesheet
                 </a>
               </li>
@@ -177,7 +177,7 @@ const Sidebar = () => {
           <div className="collapse" id="charts">
             <ul className="nav flex-column sub-menu">
               <li className="nav-item">
-                <a className="nav-link" href="ChartJSComponent">
+                <a className="nav-link" href="/ChartJSComponent">
                   ChartJs
                 </a>
               </li>

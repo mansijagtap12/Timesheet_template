@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaEdit, FaTrash } from "react-icons/fa"; // FontAwesome icons for Edit and Trash
+import { FaEdit, FaEye, FaTrash } from "react-icons/fa"; // FontAwesome icons for Edit and Trash
 import Modal from "react-bootstrap/Modal"; // Bootstrap Modal
 import Button from "react-bootstrap/Button";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
@@ -11,11 +11,11 @@ const ProjectList = () => {
   const [searchTerm, setSearchTerm] = useState(""); // State for search input
 
   const [showSearch, setShowSearch] = useState(false);
-  // Sample employee data
-  const [employees, setEmployees] = useState([]);
-  const [originalEmployees, setOriginalEmployees] = useState(employees);
+  // Sample Project data
+  const [Projects, setProjects] = useState([]);
+  const [originalProjects, setOriginalProjects] = useState(Projects);
   useEffect(() => {
-    const fetchEmployees = async () => {
+    const fetchProjects = async () => {
       try {
         const response = await fetch(
           "https://vkrafthrportalbackend.onrender.com/api/projects/get_all_projects"
@@ -23,28 +23,28 @@ const ProjectList = () => {
         const jsonData = await response.json();
 
         if (jsonData.data && Array.isArray(jsonData.data)) {
-          setEmployees(jsonData.data);
-          setOriginalEmployees(jsonData.data); // Save original data once
+          setProjects(jsonData.data);
+          setOriginalProjects(jsonData.data); // Save original data once
         } else {
           console.error("Invalid API response format:", jsonData);
-          setEmployees([]);
-          setOriginalEmployees([]);
+          setProjects([]);
+          setOriginalProjects([]);
         }
       } catch (error) {
-        console.error("Error fetching employees:", error);
+        console.error("Error fetching Projects:", error);
       }
     };
 
-    fetchEmployees();
-  }, []); // No dependency on employees here
+    fetchProjects();
+  }, []); // No dependency on Projects here
 
   // Modal state
   const [showModal, setShowModal] = useState(false);
-  const [currentEmployee, setCurrentEmployee] = useState(null);
+  const [currentProject, setCurrentProject] = useState(null);
 
   // Handle Edit action
-  const handleEdit = (employee) => {
-    setCurrentEmployee(employee); // Set the current employee to edit
+  const handleEdit = (Project) => {
+    setCurrentProject(Project); // Set the current Project to edit
     setShowModal(true); // Show the modal
   };
   // Handle search input change
@@ -53,43 +53,43 @@ const ProjectList = () => {
     setSearchTerm(term);
 
     if (term === "") {
-      setEmployees(originalEmployees); // Reset to original data when input is empty
+      setProjects(originalProjects); // Reset to original data when input is empty
     } else {
-      const filteredEmployees = originalEmployees.filter((employee) =>
-        Object.values(employee).some((value) =>
+      const filteredProjects = originalProjects.filter((Project) =>
+        Object.values(Project).some((value) =>
           String(value).toLowerCase().includes(term)
         )
       );
-      setEmployees(filteredEmployees); // Filtered data when there is input
+      setProjects(filteredProjects); // Filtered data when there is input
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this employee?")) {
+    if (window.confirm("Are you sure you want to delete this Projct?")) {
       try {
         await axios.delete(
-          `https://vkrafthrportalbackend.onrender.com/api/users/delete/${id}`
+          `https://vkrafthrportalbackend.onrender.com/api/projects/delete_project/${id}`
         );
 
-        // Remove employee from the list after successful deletion
-        setEmployees((prevEmployees) =>
-          prevEmployees.filter((emp) => emp.id !== id)
+        // Remove Project from the list after successful deletion
+        setProjects((prevProjects) =>
+          prevProjects.filter((emp) => emp.id !== id)
         );
 
-        toast.success("Employee deleted successfully!");
+        toast.success("Project deleted successfully!");
       } catch (error) {
-        console.error("Error deleting employee:", error);
-        toast.error("Failed to delete employee!");
+        console.error("Error deleting Project:", error);
+        toast.error("Failed to delete Project!");
       }
     }
   };
 
   // Handle Save Changes in Modal
   const handleSave = () => {
-    const updatedEmployees = employees.map((emp) =>
-      emp.id === currentEmployee.id ? { ...emp, ...currentEmployee } : emp
+    const updatedProjects = Projects.map((emp) =>
+      emp.id === currentProject.id ? { ...emp, ...currentProject } : emp
     );
-    setEmployees(updatedEmployees); // Update employee list
+    setProjects(updatedProjects); // Update Project list
     setShowModal(false); // Close the modal
     toast.success("Data updated successfully!"); // Show success toast
   };
@@ -97,7 +97,7 @@ const ProjectList = () => {
   // Handle input change in Modal
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCurrentEmployee((prevState) => ({
+    setCurrentProject((prevState) => ({
       ...prevState,
       [name]: name === "skills" ? value.split(",") : value, // Split skills by comma
     }));
@@ -105,8 +105,8 @@ const ProjectList = () => {
 
   const columns = [
     {
-      name: "CLient Name",
-      selector: (row) => row.projectname,
+      name: "Client Name",
+      selector: (row) => row.clientname,
       sortable: true,
     },
     {
@@ -125,16 +125,29 @@ const ProjectList = () => {
       sortable: false,
     },
     {
-      name: "Resources ",
-      selector: (row) => row.projectduration,
-      sortable: false,
-    },
-    {
       name: "Status",
       selector: (row) => row.status,
       sortable: true,
     },
-    
+    {
+      name: "View",
+      cell: (row) => (
+        <div>
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>View Employee</Tooltip>}
+          >
+            <button
+              className="btn btn-outline-info btn-sm me-2"
+              onClick={() => handleEdit(row)}
+            >
+              <FaEye />
+            </button>
+          </OverlayTrigger>
+        </div>
+      ),
+    },
+
     {
       name: "Actions",
       cell: (row) => (
@@ -219,7 +232,7 @@ const ProjectList = () => {
                     <a href="/dashboard">Dashboard</a>
                   </li>
                   <li className="breadcrumb-item">
-                    <a href="/Employee-Registration-Form">Register Project</a>
+                    <a href="/ProjectRegistrationForm">Register Project</a>
                   </li>
                   <li className="breadcrumb-item active" aria-current="page">
                     Project Record
@@ -236,7 +249,7 @@ const ProjectList = () => {
 
             <DataTable
               columns={columns}
-              data={employees}
+              data={Projects}
               pagination
               highlightOnHover
               striped
@@ -268,73 +281,81 @@ const ProjectList = () => {
           </div>
         </div>
       </div>
-      {/* Modal for editing employee details */}
-      {currentEmployee && (
+      {/* Modal for editing Project details */}
+      {currentProject && (
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
           <Modal.Header closeButton>
-            <Modal.Title>Edit Employee</Modal.Title>
+            <Modal.Title>Edit Project</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label>Name</label>
+                    <label>Client Name</label>
                     <input
                       type="text"
                       className="form-control"
-                      name="name"
-                      value={currentEmployee.name}
+                      name="projectname"
+                      value={currentProject.clientnametname}
                       onChange={handleChange}
                     />
                   </div>
                 </div>
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label>Project</label>
+                    <label>Project Name</label>
                     <input
                       type="text"
                       className="form-control"
-                      name="project"
-                      value={currentEmployee.project}
+                      name="projectname"
+                      value={currentProject.projectname}
                       onChange={handleChange}
                     />
                   </div>
                 </div>
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label>RM</label>
+                    <label>Project Manager</label>
                     <input
                       type="text"
                       className="form-control"
                       name="rm"
-                      value={currentEmployee.rm}
+                      value={currentProject.projectmanager}
                       onChange={handleChange}
                     />
                   </div>
                 </div>
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label>Certification</label>
+                    <label>Project Duration</label>
                     <input
                       type="text"
                       className="form-control"
-                      name="certification"
-                      value={currentEmployee.Certification}
+                      name="projectduration"
+                      value={currentProject.projectduration}
                       onChange={handleChange}
                     />
                   </div>
                 </div>
                 <div className="col-md-12">
+
                   <div className="form-group">
-                    <label>Skills</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="skills"
-                      value={currentEmployee.skills}
-                      onChange={handleChange}
-                    />
+                    <label>Status</label>
+                    <select
+                    className="form-select"
+                    id="status"
+                    name="status"
+                    required
+                    value={currentProject.status}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Status</option>
+                    <option value="in-progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                    <option value="on-hold">On Hold</option>
+                  </select>
+                    
                   </div>
                 </div>
               </div>

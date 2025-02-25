@@ -82,3 +82,26 @@ footer {
 .table.table-bordered tbody tr:hover {
   background-color: #e2dbdb !important; /* Optional: Highlight row on hover */
 }
+/* Custom Styles */
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-2px);
+}
+
+.card-header {
+  padding: 0.75rem 1.25rem;
+}
+
+
+
+.badge {
+  font-size: 0.9rem;
+  border-radius: 12px;
+}
+
+/* Ensure animate.css is included for animations */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');

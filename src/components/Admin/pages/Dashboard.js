@@ -5,8 +5,6 @@ const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState("");
 
-
-
   // Function to add a task
   const handleAddTask = () => {
     if (taskInput.trim()) {
@@ -55,20 +53,18 @@ const Dashboard = () => {
         </div>
 
         <div className="row">
-          
           <DashboardCard
             className="bg-gradient-success"
             title="Total Employee"
             icon="mdi-chart-line"
             amount="100"
           />
-         
+
           <DashboardCard
             className="bg-gradient-danger"
             title="AIA"
             icon="mdi-bookmark-outline"
             amount="15"
-           
           />
           <DashboardCard
             className="bg-gradient-secondary"
@@ -82,7 +78,6 @@ const Dashboard = () => {
             title="bench"
             icon="mdi-diamond"
             amount="20"
-            
           />
         </div>
 
@@ -107,7 +102,9 @@ const Dashboard = () => {
                     className="add btn btn-gradient-primary font-weight-bold todo-list-add-btn"
                     id="add-task"
                     onClick={handleAddTask}
-                  > Add
+                  >
+                    {" "}
+                    Add
                   </button>
                 </div>
                 <div className="list-wrapper">
@@ -161,18 +158,18 @@ const Dashboard = () => {
 const DashboardCard = ({ className, title, icon, amount, change }) => (
   <div className="col-md-3 stretch-card grid-margin">
     <div className={`card ${className} card-img-holder text-white`}>
-    <a href="employee-list" style={{color:"white",cursor:"pointer"}}>
-      <div className="card-body">
-        <img
-          src="assets/images/dashboard/circle.svg"
-          className="card-img-absolute"
-          alt="circle-image"
-        />
-        <h6 className="font-weight-normal mb-3">
-          {title} <i className={`mdi ${icon} mdi-24px float-end`}></i>
-        </h6>
-        <h4 className="mb-2">{amount}</h4>
-      </div>
+      <a href="employee-list" style={{ color: "white", cursor: "pointer" }}>
+        <div className="card-body">
+          <img
+            src="assets/images/dashboard/circle.svg"
+            className="card-img-absolute"
+            alt="circle-image"
+          />
+          <h6 className="font-weight-normal mb-3">
+            {title} <i className={`mdi ${icon} mdi-24px float-end`}></i>
+          </h6>
+          <h4 className="mb-2">{amount}</h4>
+        </div>
       </a>
     </div>
   </div>

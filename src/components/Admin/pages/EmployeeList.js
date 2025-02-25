@@ -7,10 +7,10 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import DataTable from "react-data-table-component";
 import axios from "axios";
- 
+
 const EmployeeList = () => {
   const [searchTerm, setSearchTerm] = useState(""); // State for search input
- 
+
   const [showSearch, setShowSearch] = useState(false);
   // Sample employee data
   const [employees, setEmployees] = useState([]);
@@ -19,9 +19,10 @@ const EmployeeList = () => {
   const [project, setProject] = useState("");
   const [position, setPosition] = useState("");
   const [client, setClient] = useState("");
+  const [status, setStatus] = useState("");
+  const [poNumber, setPoNumber] = useState("");
   const navigate = useNavigate();
- 
- 
+
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
@@ -29,7 +30,7 @@ const EmployeeList = () => {
           "https://vkrafthrportalbackend.onrender.com/api/users/get_all_users"
         );
         const jsonData = await response.json();
- 
+
         if (jsonData.data && Array.isArray(jsonData.data)) {
           setEmployees(jsonData.data);
           setOriginalEmployees(jsonData.data); // Save original data once
@@ -42,14 +43,14 @@ const EmployeeList = () => {
         console.error("Error fetching employees:", error);
       }
     };
- 
+
     fetchEmployees();
   }, []); // No dependency on employees here
- 
+
   // Modal state
   const [showModal, setShowModal] = useState(false);
   const [currentEmployee, setCurrentEmployee] = useState(null);
- 
+
   // Handle Edit action
   const handleEdit = (employee) => {
     setCurrentEmployee(employee); // Set the current employee to edit
@@ -59,7 +60,7 @@ const EmployeeList = () => {
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
- 
+
     if (term === "") {
       setEmployees(originalEmployees); // Reset to original data when input is empty
     } else {
@@ -71,19 +72,19 @@ const EmployeeList = () => {
       setEmployees(filteredEmployees); // Filtered data when there is input
     }
   };
- 
+
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this employee?")) {
       try {
         await axios.delete(
           `https://vkrafthrportalbackend.onrender.com/api/users/delete/${id}`
         );
- 
+
         // Remove employee from the list after successful deletion
         setEmployees((prevEmployees) =>
           prevEmployees.filter((emp) => emp.id !== id)
         );
- 
+
         toast.success("Employee deleted successfully!");
       } catch (error) {
         console.error("Error deleting employee:", error);
@@ -91,7 +92,7 @@ const EmployeeList = () => {
       }
     }
   };
- 
+
   // Handle Save Changes in Modal
   const handleSave = () => {
     const updatedEmployees = employees.map((emp) =>
@@ -115,40 +116,51 @@ const EmployeeList = () => {
   };
   const handleAssignProject = (e, employeeId) => {
     e.preventDefault();
- 
+
     // Perform your API call or data handling logic
     console.log("Assigning project:", project, position, employeeId);
- 
+
     // Simulate API call
     setTimeout(() => {
       // Close the modal after submission
       setShowAssignModal(null);
     }, 100);
   };
- 
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const handleEmployeeClick = (employee) => {
+    setSelectedEmployee(employee);
+    navigate("/Employee-profile", { state: { employee } }); // ✅ Passing state instead of ID in URL
+  };
+
   const columns = [
     {
       name: "User",
       selector: (row) => (
         <img
-          src={row.image || "../../assets/images/faces-clipart/pic-1.png"} // Use API image or fallback
+          src={row.image || "/assets/images/faces-clipart/pic-1.png"} // Absolute path
           alt="Employee"
           width="30"
           height="30"
-          onClick={() => navigate(`/Employee-Registration-Form/${row.id}`, { state: { employee: row } })}
+          onClick={() =>
+            navigate(`/Employee-profile/${row.id}`, {
+              replace: true,
+              state: { employee: row },
+            })
+          } // ✅ Absolute path
           onError={(e) => {
             e.target.onerror = null;
-            e.target.src = "../../assets/images/faces-clipart/pic-2.png"; // Fallback if image fails to load
+            e.target.src = "/assets/images/faces-clipart/pic-2.png"; // ✅ Absolute path
           }}
         />
       ),
       sortable: false,
     },
- 
+
     {
       name: "Name",
       selector: (row) => row.user,
       sortable: true,
+      
     },
     {
       name: "Project",
@@ -163,12 +175,21 @@ const EmployeeList = () => {
     {
       name: "Skills",
       selector: (row) => {
-        const skills = typeof row.skills === "string"
-          ? row.skills.replace(/[{}"]+/g, '').split(',').map(skill => skill.trim())
-          : Array.isArray(row.skills) ? row.skills.map(skill => skill.trim()) : [];
-    
-        const displaySkills = skills.length > 2 ? `${skills.slice(0, 2).join(", ")}...` : skills.join(", ") || "No Skills";
-    
+        const skills =
+          typeof row.skills === "string"
+            ? row.skills
+                .replace(/[{}"]+/g, "")
+                .split(",")
+                .map((skill) => skill.trim())
+            : Array.isArray(row.skills)
+            ? row.skills.map((skill) => skill.trim())
+            : [];
+
+        const displaySkills =
+          skills.length > 2
+            ? `${skills.slice(0, 2).join(", ")}...`
+            : skills.join(", ") || "No Skills";
+
         return (
           <OverlayTrigger
             placement="top"
@@ -178,19 +199,25 @@ const EmployeeList = () => {
               </Tooltip>
             }
           >
-            <span style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}>
+            <span
+              style={{
+                cursor: "pointer",
+                textDecoration: "underline",
+                color: "blue",
+              }}
+            >
               {displaySkills}
             </span>
           </OverlayTrigger>
         );
       },
       sortable: false,
-    },    
+    },
     {
       name: "Action",
       width: "150px",
       cell: (row) => (
-        <div style={{display:"flex" , alignItems: "center"}}>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <OverlayTrigger
             placement="top"
             overlay={<Tooltip>Edit Employee</Tooltip>}
@@ -228,7 +255,7 @@ const EmployeeList = () => {
       ),
     },
   ];
- 
+
   return (
     <div className="content-wrapper">
       <div className="d-flex justify-content-end" style={{ padding: "0px" }}>
@@ -246,7 +273,7 @@ const EmployeeList = () => {
           onClick={() => setShowSearch(!showSearch)} // Toggle search box visibility
           title="Search"
         />
- 
+
         {/* Search Input Box */}
         {showSearch && (
           <input
@@ -296,10 +323,11 @@ const EmployeeList = () => {
               <ToastContainer position="top-right" autoClose={3000} />
               {/* Your App Components */}
             </div>
- 
+
             <DataTable
               columns={columns}
               data={employees}
+              onRowClicked={(row) => navigate(`/Employee-profile/${row.id}`, { state: { employee: row } })}
               pagination
               highlightOnHover
               striped
@@ -414,12 +442,14 @@ const EmployeeList = () => {
           </Modal.Footer>
         </Modal>
       )}
- 
+
       {/* modal for assign project*/}
- 
+
       <Modal
         show={showAssignModal !== null}
         onHide={() => setShowAssignModal(null)}
+        size="lg"
+        centered
       >
         <Modal.Header closeButton>
           <Modal.Title>Assign Project</Modal.Title>
@@ -429,11 +459,8 @@ const EmployeeList = () => {
             <div className="container mt-1 p-1 bg-white shadow-sm rounded">
               <div className="row">
                 {/* Client Dropdown */}
-                <div className="col-md-12 mb-4">
-                  <label
-                    htmlFor="client"
-                    className="form-label text-start d-block"
-                  >
+                <div className="col-md-6 mb-3">
+                  <label htmlFor="client" className="form-label">
                     Select Client <span className="text-danger">*</span>
                   </label>
                   <select
@@ -448,13 +475,10 @@ const EmployeeList = () => {
                     <option value="Client C">Client C</option>
                   </select>
                 </div>
- 
+
                 {/* Project Dropdown */}
-                <div className="col-md-12 mb-4">
-                  <label
-                    htmlFor="project"
-                    className="form-label text-start d-block"
-                  >
+                <div className="col-md-6 mb-3">
+                  <label htmlFor="project" className="form-label">
                     Select Project <span className="text-danger">*</span>
                   </label>
                   <select
@@ -469,13 +493,10 @@ const EmployeeList = () => {
                     <option value="Pepco">Pepco</option>
                   </select>
                 </div>
- 
+
                 {/* Position Dropdown */}
-                <div className="col-md-12 mb-4">
-                  <label
-                    htmlFor="position"
-                    className="form-label text-start d-block"
-                  >
+                <div className="col-md-6 mb-3">
+                  <label htmlFor="position" className="form-label">
                     Position <span className="text-danger">*</span>
                   </label>
                   <select
@@ -490,7 +511,45 @@ const EmployeeList = () => {
                     <option value="Jr Developer">Jr Developer</option>
                   </select>
                 </div>
+
+                {/* Employee Status Dropdown */}
+                <div className="col-md-6 mb-3">
+                  <label htmlFor="status" className="form-label">
+                    Status of Employee <span className="text-danger">*</span>
+                  </label>
+                  <select
+                    className="form-control"
+                    id="status"
+                    required
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <option value="">Select Status</option>
+                    <option value="billable">Billable</option>
+                    <option value="non-billable">Non-Billable</option>
+                    <option value="backup">Backup</option>
+                    <option value="bench">Bench</option>
+                  </select>
+                </div>
+
+                {/* PO Number Field (Shown only if Billable) */}
+                {status === "billable" && (
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="ponumber" className="form-label">
+                      PO Number <span className="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="ponumber"
+                      name="ponumber"
+                      placeholder="Enter PO Number"
+                      required={status === "billable"}
+                      onChange={(e) => setPoNumber(e.target.value)}
+                    />
+                  </div>
+                )}
               </div>
+
               <div className="col-md-12 text-end">
                 <button type="submit" className="btn btn-primary">
                   Submit

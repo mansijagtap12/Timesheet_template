@@ -10,13 +10,12 @@ const WeeklyTimesheetForm = () => {
   const [activeRowIndex, setActiveRowIndex] = useState(null);
   const [subTasks, setSubTasks] = useState([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [startOfWeek, setStartOfWeek] = useState(new Date()); 
+  const [startOfWeek, setStartOfWeek] = useState(new Date());
   const [showWeekends, setShowWeekends] = useState(false);
   const [selectedTimesheet, setSelectedTimesheet] = useState(null);
 
-
   const handleCheckboxChange = () => {
-    setShowWeekends(prevState => !prevState); // Toggle weekends visibility
+    setShowWeekends((prevState) => !prevState); // Toggle weekends visibility
   };
   const handlePreviousWeek = () => {
     // Move the start of the week back by 7 days
@@ -66,7 +65,7 @@ const WeeklyTimesheetForm = () => {
     setStartOfWeek(newStartOfWeek);
   };
 
- useEffect(() => {
+  useEffect(() => {
     const today = new Date();
     const startOfCurrentWeek = new Date(startOfWeek);
     startOfCurrentWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay()); // Start of the week (Sunday)
@@ -88,11 +87,12 @@ const WeeklyTimesheetForm = () => {
     });
 
     // If checkbox is checked, show the entire week (Mon-Sun), else show only weekdays (Mon-Fri)
-    const filteredData = showWeekends ? weekData : weekData.filter(day => !day.isWeekend);
-    
+    const filteredData = showWeekends
+      ? weekData
+      : weekData.filter((day) => !day.isWeekend);
+
     setRows(filteredData);
   }, [startOfWeek, showWeekends]); // Run when startOfWeek or showWeekends state changes
-
 
   const handleRowChange = (rowIndex, field, value) => {
     const updatedRows = [...rows];
@@ -170,10 +170,13 @@ const WeeklyTimesheetForm = () => {
       setShowSuccessMessage(false);
     }, 5000);
   };
-// Calculate total hours for the selected timesheet
-const calculateTotalHours = () => {
-  return selectedTimesheet?.tasks.reduce((total, task) => total + task.hours, 0);
-};
+  // Calculate total hours for the selected timesheet
+  const calculateTotalHours = () => {
+    return selectedTimesheet?.tasks.reduce(
+      (total, task) => total + task.hours,
+      0
+    );
+  };
   const columns = React.useMemo(
     () => [
       {
@@ -242,21 +245,22 @@ const calculateTotalHours = () => {
       {
         Header: "Add Task",
         accessor: "Add Task",
-        
+
         Cell: ({ row }) => (
           <>
-          <i
-            className="mdi mdi-folder-plus"
-            onClick={() => openTaskModal(row.index)}
-            style={{ cursor: "pointer" }}
-            title="Add Task Here"
-          ></i>&nbsp;&nbsp;&nbsp;
-          <i
-            className="mdi mdi-information"
-            onClick={() => openTaskModalInfo(row.index)}
-            style={{ cursor: "pointer" }}
-            title="See More details"
-          ></i>
+            <i
+              className="mdi mdi-folder-plus"
+              onClick={() => openTaskModal(row.index)}
+              style={{ cursor: "pointer" }}
+              title="Add Task Here"
+            ></i>
+            &nbsp;&nbsp;&nbsp;
+            <i
+              className="mdi mdi-information"
+              onClick={() => openTaskModalInfo(row.index)}
+              style={{ cursor: "pointer" }}
+              title="See More details"
+            ></i>
           </>
         ),
       },
@@ -275,10 +279,18 @@ const calculateTotalHours = () => {
 
   return (
     <div className="content-wrapper">
-       <div className="d-flex justify-content-end" style={{ padding: "0px",marginTop: " -32px", }}>
-       <p>
-        <input type="checkbox" checked={showWeekends} onChange={handleCheckboxChange}  />
-        &nbsp;Show Weekends </p>
+      <div
+        className="d-flex justify-content-end"
+        style={{ padding: "0px", marginTop: " -32px" }}
+      >
+        <p>
+          <input
+            type="checkbox"
+            checked={showWeekends}
+            onChange={handleCheckboxChange}
+          />
+          &nbsp;Show Weekends{" "}
+        </p>
       </div>
       <div className="col-12 grid-margin">
         <div className="card">
@@ -301,11 +313,9 @@ const calculateTotalHours = () => {
                     Task Manager
                   </li>
                 </ol>
-                
               </nav>
             </div>
-         
-        
+
             <hr />
             {showSuccessMessage && (
               <div className="alert alert-success" role="alert">
@@ -364,9 +374,18 @@ const calculateTotalHours = () => {
               </tbody>
             </table>
             <div className="d-flex justify-content-end">
-
-            <button onClick={handlePreviousWeek} className="btn btn-outline-google mdi mdi-page-first" title="previous-week"></button>&nbsp;
-            <button onClick={handleNextWeek} className="btn btn-outline-google mdi mdi-page-last" title="next-week"></button>&nbsp;
+              <button
+                onClick={handlePreviousWeek}
+                className="btn btn-outline-google mdi mdi-page-first"
+                title="previous-week"
+              ></button>
+              &nbsp;
+              <button
+                onClick={handleNextWeek}
+                className="btn btn-outline-google mdi mdi-page-last"
+                title="next-week"
+              ></button>
+              &nbsp;
               <button onClick={handleSubmit} className="btn btn-primary">
                 <i className="mdi mdi-send me-2"></i>Submit
               </button>
@@ -428,7 +447,12 @@ const calculateTotalHours = () => {
                           <button
                             onClick={() => removeSubTask(taskIndex)}
                             className="btn btn-danger btn-sm"
-                          > <i className="mdi mdi-delete" title="Delete Task"></i>
+                          >
+                            {" "}
+                            <i
+                              className="mdi mdi-delete"
+                              title="Delete Task"
+                            ></i>
                           </button>
                         </td>
                       </tr>
@@ -440,7 +464,9 @@ const calculateTotalHours = () => {
                 <button
                   className="btn btn-secondary"
                   onClick={() => setShowModal(false)}
-                > Close
+                >
+                  {" "}
+                  Close
                 </button>
                 <button className="btn btn-primary" onClick={saveSubTasks}>
                   Save
@@ -448,47 +474,52 @@ const calculateTotalHours = () => {
               </Modal.Footer>
             </Modal>
 
-
             {/* Modal to show timesheet details */}
-      {/* Modal to show timesheet details */}
-      <Modal show={showModalInfo} onHide={() => setShowModalInfo(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Timesheet Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {selectedTimesheet && (
-            <div>
-              <p><strong>Name:</strong> {selectedTimesheet.name}</p>
-              <p><strong>Date:</strong> {selectedTimesheet.date}</p>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Task</th>
-                    <th>Hours</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {selectedTimesheet.tasks.map((task, taskIndex) => (
-                    <tr key={taskIndex}>
-                      <td>{task.task}</td>
-                      <td>{task.hours}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <p><strong>Total Hours:</strong> {calculateTotalHours()}</p>
-            </div>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <button
-            className="btn btn-secondary"
-            onClick={() => setShowModalInfo(false)}
-          >
-            Close
-          </button>
-        </Modal.Footer>
-      </Modal>
+            {/* Modal to show timesheet details */}
+            <Modal show={showModalInfo} onHide={() => setShowModalInfo(false)}>
+              <Modal.Header closeButton>
+                <Modal.Title>Timesheet Details</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {selectedTimesheet && (
+                  <div>
+                    <p>
+                      <strong>Name:</strong> {selectedTimesheet.name}
+                    </p>
+                    <p>
+                      <strong>Date:</strong> {selectedTimesheet.date}
+                    </p>
+                    <table className="table">
+                      <thead>
+                        <tr>
+                          <th>Task</th>
+                          <th>Hours</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {selectedTimesheet.tasks.map((task, taskIndex) => (
+                          <tr key={taskIndex}>
+                            <td>{task.task}</td>
+                            <td>{task.hours}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <p>
+                      <strong>Total Hours:</strong> {calculateTotalHours()}
+                    </p>
+                  </div>
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setShowModalInfo(false)}
+                >
+                  Close
+                </button>
+              </Modal.Footer>
+            </Modal>
           </div>
         </div>
       </div>
