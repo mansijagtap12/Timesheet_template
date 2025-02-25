@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams ,useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const EmployeeProfile = () => {
   const { id } = useParams();
   const [employee, setEmployee] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEmployee = async () => {
@@ -37,8 +38,19 @@ const EmployeeProfile = () => {
       className="container-fluid py-4"
       style={{ background: "#f4f6f9", minHeight: "100vh" }}
     >
+     
       <div className="row justify-content-center">
+     
         <div className="col-lg-11 bg-white shadow-lg rounded p-4">
+        <div className="d-flex justify-content-end">
+        <button 
+          className="btn btn-outline-primary" 
+          onClick={() => navigate("/employee-list")} // Go back to the previous page
+        >
+          ← Back
+        </button>
+      </div>
+
           <div className="row">
          {/* Left Section - Profile & Basic Info */}
 <div className="col-md-4 text-center border-end">
