@@ -71,7 +71,7 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
               className="dropdown-menu navbar-dropdown"
               aria-labelledby="profileDropdown"
             >
-              <a className="dropdown-item" href="User-profile">
+              <a className="dropdown-item" href="/User-profile">
                 <i className="mdi mdi-account-settings me-2 text-primary"></i>
                 Settings
               </a>

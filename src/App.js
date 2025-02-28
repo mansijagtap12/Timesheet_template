@@ -1,14 +1,12 @@
+// App.js
 import React from "react";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
-  useNavigate,
 } from "react-router-dom";
-import { useEffect } from "react";
-import Navbar from "./components/Admin/pages/Navbar";
-import Sidebar from "./components/Admin/pages/Sidebar";
 import ProtectedRoute from "./components/Admin/pages/ProtectedRoute";
+import Layout from "./components/Admin/pages/Layout"; // Import the new Layout component
 import Dashboard from "./components/Admin/pages/Dashboard";
 import EmployeeList from "./components/Admin/pages/EmployeeList";
 import EmpRegistrationFrom from "./components/Admin/pages/EmpRegistrationFrom";
@@ -23,8 +21,6 @@ import MonthlyTimesheetList from "./components/Admin/pages/MonthlyTimesheetList"
 import WeeklyTimesheetTable from "./components/Admin/pages/WeeklyTimesheetTable";
 import WeeklyTimesheetList from "./components/Admin/pages/WeeklyTimesheetList";
 import UserProfile from "./components/Admin/pages/UserProfile";
-
-
 import ProjectRegistrationForm from "./components/Admin/pages/ProjectRegistrationForm";
 import ProjectList from "./components/Admin/pages/ProjectList";
 import "./App.css"; // Optional: Add any global styles for the app
@@ -35,181 +31,41 @@ import "primereact/resources/themes/lara-light-blue/theme.css"; // Theme
 import "primereact/resources/primereact.min.css"; // Core CSS
 import "primeicons/primeicons.css"; // Icons
 
+// Component for protected routes with nested routes
+const ProtectedLayout = () => (
+  <ProtectedRoute>
+    <Layout>
+      <Routes>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/Employee-List" element={<EmployeeList />} />
+        <Route path="/Employee-Registration-Form" element={<EmpRegistrationFrom />} />
+        <Route path="/Employee-profile/:id" element={<EmployeeProfile />} />
+        <Route path="/Employee-weekly-timesheet" element={<WeeklyTimesheetForm />} />
+        <Route path="/Employee-weekly-timesheetTable" element={<WeeklyTimesheetTable />} />
+        <Route path="/Employee-monthly-timesheet" element={<MonthlyTimesheetForm />} />
+        <Route path="/Employee-monthlyTs-list" element={<MonthlyTimesheetList />} />
+        <Route path="/Employee-weeklyTs-list" element={<WeeklyTimesheetList />} />
+        <Route path="/ChartJSComponent" element={<ChartJSComponent />} />
+        <Route path="/ProjectRegistrationForm" element={<ProjectRegistrationForm />} />
+        <Route path="/Project-List" element={<ProjectList />} />
+        <Route path="/User-profile" element={<UserProfile />} />
+      </Routes>
+    </Layout>
+  </ProtectedRoute>
+);
+
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
-          {/* Sign-In Page */}
+          {/* Public Routes */}
           <Route path="/login" element={<SignInForm1 />} />
           <Route path="/" element={<SignInForm />} />
 
-          {/* Dashboard Page */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
-                  <Dashboard />
-                </div>
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Employee List Page */}
-          <Route
-            path="/Employee-List"
-            element={
-              <ProtectedRoute>
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
-                  <EmployeeList />
-                </div>
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Employee Registration Form Page */}
-          <Route
-            path="/Employee-Registration-Form"
-            element={
-              <ProtectedRoute>
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
-                  <EmpRegistrationFrom />
-                </div>
-              </ProtectedRoute>
-            }
-          />
-
-          {/* ✅ Fix: Corrected Route Definition for Employee Profile */}
-          <Route path="/Employee-profile/:id" element={<ProtectedRoute>
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
-                  <EmployeeProfile />
-                </div>
-              </ProtectedRoute>} />
-
-
-          {/* ✅ Fix: Ensure All Routes Have Leading "/" */}
-          <Route
-            path="/Employee-weekly-timesheet"
-            element={
-              <ProtectedRoute>
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
-                  <WeeklyTimesheetForm />
-                </div>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Employee-weekly-timesheetTable"
-            element={
-              <ProtectedRoute>
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
-                  <WeeklyTimesheetTable />
-                </div>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Employee-monthly-timesheet"
-            element={
-              <ProtectedRoute>
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
-                  <MonthlyTimesheetForm />
-                </div>
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Other Routes */}
-          <Route
-            path="/Employee-monthlyTs-list"
-            element={
-              <ProtectedRoute>
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
-                  <MonthlyTimesheetList />
-                </div>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Employee-weeklyTs-list"
-            element={
-              <ProtectedRoute>
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
-                  <WeeklyTimesheetList />
-                </div>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/ChartJSComponent"
-            element={
-              <ProtectedRoute>
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
-                  <ChartJSComponent />
-                </div>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/ProjectRegistrationForm"
-            element={
-              <ProtectedRoute>
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
-                  <ProjectRegistrationForm />
-                </div>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Project-List"
-            element={
-              <ProtectedRoute>
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
-                  <ProjectList />
-                </div>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/User-profile"
-            element={
-              <ProtectedRoute>
-                <Navbar />
-                <div className="container-fluid page-body-wrapper">
-                  <Sidebar />
-                  <UserProfile />
-                </div>
-              </ProtectedRoute>
-            }
-          />
+          {/* Protected Routes with Persistent Layout */}
+          <Route path="/*" element={<ProtectedLayout />} />
         </Routes>
-
-        {/* Footer */}
       </div>
       <Footer />
     </Router>

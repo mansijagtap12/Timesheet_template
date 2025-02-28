@@ -1,6 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Form, Button, Row, Col } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const ProjectRegistrationForm = () => {
+  const navigate = useNavigate();
+
+  // Form state
   const [formData, setFormData] = useState({
     clientName: "",
     projectName: "",
@@ -11,18 +17,58 @@ const ProjectRegistrationForm = () => {
     status: "",
   });
 
+  // Validation and loading state
+  const [validated, setValidated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    const form = e.currentTarget;
+
+    // Check Bootstrap form validity
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+      setValidated(true);
+      return;
+    }
+
+    // Custom validation
+    if (!/^[a-zA-Z\s]+$/.test(formData.clientName)) {
+      setError("Client Name should only contain letters and spaces");
+      setValidated(true);
+      return;
+    }
+
+    if (!/^[a-zA-Z\s]+$/.test(formData.projectName)) {
+      setError("Project Name should only contain letters and spaces");
+      setValidated(true);
+      return;
+    }
+
+    if (!/^[a-zA-Z\s]+$/.test(formData.projectManager)) {
+      setError("Project Manager should only contain letters and spaces");
+      setValidated(true);
+      return;
+    }
+
+    if (!/^\d+\s*(months|month)$/.test(formData.projectduration.trim())) {
+      setError(
+        "Project Duration must be a number followed by 'month' or 'months' (e.g., '3 months')"
+      );
+      setValidated(true);
+      return;
+    }
+
     setError(null);
+    setLoading(true);
 
     const payload = {
       clientname: formData.clientName,
@@ -39,36 +85,27 @@ const ProjectRegistrationForm = () => {
         "https://vkrafthrportalbackend.onrender.com/api/projects/add_project",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload), // Ensure the payload is converted to JSON
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
         }
       );
 
-      // Check if response is JSON before parsing
-      const contentType = response.headers.get("Content-Type");
-      let result;
-      if (contentType && contentType.includes("application/json")) {
-        result = await response.json();
-      } else {
-        result = await response.text(); // Handle non-JSON response
-        throw new Error(result);
-      }
+      const result = await response.json();
 
       setLoading(false);
 
       if (response.ok) {
         alert("Project registered successfully!");
         setFormData({
-          projectName: "",
           clientName: "",
+          projectName: "",
           projectNo: "",
           projectManager: "",
           projectduration: "",
           remark: "",
           status: "",
         });
+        setValidated(false); // Reset validation state
       } else {
         throw new Error(result.message || "Failed to register project.");
       }
@@ -80,143 +117,198 @@ const ProjectRegistrationForm = () => {
   };
 
   return (
-    <div className="content-wrapper">
-      <div className="col-12 grid-margin">
-        <div className="card">
-          <div className="card-body">
-            <div className="page-header">
-              <h5 className="page-title">
-                <span className="page-title-icon text-dark me-2">
-                  <i className="mdi mdi-pencil-box"></i>
-                </span>
-                Register Project
-                <hr />
+    <div
+      className="container-fluid py-2"
+      style={{ background: "#f4f6f9", minHeight: "100vh" }}
+    >
+      <div className="row justify-content-center">
+        <div className="col-lg-12 col-md-10">
+          <div className="card shadow-lg rounded-4 border-0">
+            <div
+              className="card-header text-center text-black rounded-top"
+              style={{ backgroundColor: "rgb(220 219 240 / 59%)" }}
+            >
+              <h5 className="mb-0 d-flex justify-content-md-center">
+                <i className="mdi mdi-pencil-box me-2"></i> Project Registration
               </h5>
-
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a href="/dashboard">Dashboard</a>
-                  </li>
-                  <li className="breadcrumb-item">
-                    <a href="/Project-List">Project List</a>
-                  </li>
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Register Project
-                  </li>
-                </ol>
-              </nav>
             </div>
-            <form onSubmit={handleSubmit}>
-              <div className="row">
-              <div className="col-md-6 mb-3">
-                  <label htmlFor="projectName" className="form-label text-start d-block">
-                    Client Name <span className="text-danger">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="clientName"
-                    name="clientName"
-                    placeholder="Enter client Name"
-                    required
-                    value={formData.clientName}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="col-md-6 mb-3">
-                  <label htmlFor="projectName" className="form-label text-start d-block">
-                    Project Name <span className="text-danger">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="projectName"
-                    name="projectName"
-                    placeholder="Enter Project Name"
-                    required
-                    value={formData.projectName}
-                    onChange={handleChange}
-                  />
-                </div>
+            <div className="card-body p-4">
+              <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Row className="g-3">
+                  <Col md={6}>
+                    <Form.Group controlId="clientName">
+                      <Form.Label className="fw-semibold">
+                        Client Name <span className="text-danger">*</span>
+                      </Form.Label>
+                      <Form.Control
+                        type="text"
+                        className="shadow-sm"
+                        name="clientName"
+                        placeholder="Enter Client Name"
+                        required
+                        value={formData.clientName}
+                        onChange={handleChange}
+                        pattern="[a-zA-Z\s]+"
+                        isInvalid={
+                          validated &&
+                          (!formData.clientName ||
+                            !/^[a-zA-Z\s]+$/.test(formData.clientName))
+                        }
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please enter a valid client name (letters and spaces
+                        only)
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
 
-             
+                  <Col md={6}>
+                    <Form.Group controlId="projectName">
+                      <Form.Label className="fw-semibold">
+                        Project Name <span className="text-danger">*</span>
+                      </Form.Label>
+                      <Form.Control
+                        type="text"
+                        className="shadow-sm"
+                        name="projectName"
+                        placeholder="Enter Project Name"
+                        required
+                        value={formData.projectName}
+                        onChange={handleChange}
+                        pattern="[a-zA-Z\s]+"
+                        isInvalid={
+                          validated &&
+                          (!formData.projectName ||
+                            !/^[a-zA-Z\s]+$/.test(formData.projectName))
+                        }
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please enter a valid project name (letters and spaces
+                        only)
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group controlId="projectManager">
+                      <Form.Label className="fw-semibold">
+                        Project Manager <span className="text-danger">*</span>
+                      </Form.Label>
+                      <Form.Control
+                        type="text"
+                        className="shadow-sm"
+                        name="projectManager"
+                        placeholder="Enter Project Manager"
+                        required
+                        value={formData.projectManager}
+                        onChange={handleChange}
+                        pattern="[a-zA-Z\s]+"
+                        isInvalid={
+                          validated &&
+                          (!formData.projectManager ||
+                            !/^[a-zA-Z\s]+$/.test(formData.projectManager))
+                        }
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please enter a valid project manager name (letters and
+                        spaces only)
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
 
-                <div className="col-md-6 mb-3">
-                  <label htmlFor="projectManager" className="form-label text-start d-block">
-                    Project Manager <span className="text-danger">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="projectManager"
-                    name="projectManager"
-                    placeholder="1 or 2"
-                    required
-                    value={formData.projectManager}
-                    onChange={handleChange}
-                  />
-                </div>
+                  <Col md={6}>
+                    <Form.Group controlId="projectduration">
+                      <Form.Label className="fw-semibold">
+                        Duration of Project{" "}
+                        <span className="text-danger">*</span>
+                      </Form.Label>
+                      <Form.Control
+                        type="text"
+                        className="shadow-sm"
+                        name="projectduration"
+                        placeholder="Enter Project Duration in months (e.g., 3 months)"
+                        required
+                        value={formData.projectduration}
+                        onChange={handleChange}
+                        isInvalid={
+                          validated &&
+                          (!formData.projectduration ||
+                            !/^\d+\s*(months|month)$/.test(
+                              formData.projectduration.trim()
+                            ))
+                        }
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please enter a valid duration (e.g., "3 months")
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
 
-                <div className="col-md-6 mb-3">
-                  <label htmlFor="duration" className="form-label text-start d-block">
-                    Duration of Project <span className="text-danger">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="projectduration"
-                    name="projectduration"
-                    placeholder="Enter Project Duration"
-                    required
-                    value={formData.projectduration}
-                    onChange={handleChange}
-                  />
-                </div>
+                  <Col md={6}>
+                    <Form.Group controlId="remark">
+                      <Form.Label className="fw-semibold">Remark</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        className="shadow-sm"
+                        name="remark"
+                        rows="2"
+                        placeholder="Add remarks..."
+                        value={formData.remark}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                  </Col>
 
-                <div className="col-md-6 mb-3">
-                  <label htmlFor="remark" className="form-label text-start d-block">
-                    Remark
-                  </label>
-                  <textarea
-                    className="form-control"
-                    id="remark"
-                    name="remark"
-                    rows="1"
-                    placeholder="Add remarks..."
-                    value={formData.remark}
-                    onChange={handleChange}
-                  ></textarea>
-                </div>
+                  <Col md={6}>
+                    <Form.Group controlId="status">
+                      <Form.Label className="fw-semibold">
+                        Status <span className="text-danger">*</span>
+                      </Form.Label>
+                      <Form.Select
+                        className="shadow-sm"
+                        name="status"
+                        required
+                        value={formData.status}
+                        onChange={handleChange}
+                        isInvalid={validated && !formData.status}
+                      >
+                        <option value="">Select Status</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="on-hold">On Hold</option>
+                      </Form.Select>
+                      <Form.Control.Feedback type="invalid">
+                        Please select a status
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-                <div className="col-md-6 mb-3">
-                  <label htmlFor="status" className="form-label text-start d-block">
-                    Status <span className="text-danger">*</span>
-                  </label>
-                  <select
-                    className="form-select"
-                    id="status"
-                    name="status"
-                    required
-                    value={formData.status}
-                    onChange={handleChange}
+                {/* Error Message */}
+                {error && (
+                  <p className="text-danger mt-3 text-center">{error}</p>
+                )}
+
+                {/* Submit & Cancel Buttons */}
+                <div className="text-end mt-4">
+                  <Button
+                    type="button"
+                    variant="outline-secondary"
+                    className="me-2 px-4"
+                    onClick={() => navigate("/Project-List")}
                   >
-                    <option value="">Select Status</option>
-                    <option value="in-progress">In Progress</option>
-                    <option value="completed">Completed</option>
-                    <option value="on-hold">On Hold</option>
-                  </select>
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    className="px-4"
+                    disabled={loading}
+                  >
+                    {loading ? "Submitting..." : "Submit"}
+                  </Button>
                 </div>
-              </div>
-
-              {error && <p className="text-danger">{error}</p>}
-
-              <div className="text-end">
-                <button type="submit" className="btn btn-primary" disabled={loading}>
-                  {loading ? "Submitting..." : "Submit"}
-                </button>
-              </div>
-            </form>
+              </Form>
+            </div>
           </div>
         </div>
       </div>

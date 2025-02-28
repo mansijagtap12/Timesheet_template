@@ -81,7 +81,7 @@ const Dashboard = () => {
           />
         </div>
 
-        <RecentTickets />
+        
 
         {/* Todo List Component */}
         <div className="row">
@@ -139,17 +139,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          {/* Datepicker Section */}
-          <div className="col-md-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body p-0 d-flex">
-                <div
-                  id="inline-datepicker"
-                  className="datepicker datepicker-custom"
-                ></div>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -158,7 +148,7 @@ const Dashboard = () => {
 const DashboardCard = ({ className, title, icon, amount, change }) => (
   <div className="col-md-3 stretch-card grid-margin">
     <div className={`card ${className} card-img-holder text-white`}>
-      <a href="employee-list" style={{ color: "white", cursor: "pointer" }}>
+      
         <div className="card-body">
           <img
             src="assets/images/dashboard/circle.svg"
@@ -170,89 +160,89 @@ const DashboardCard = ({ className, title, icon, amount, change }) => (
           </h6>
           <h4 className="mb-2">{amount}</h4>
         </div>
-      </a>
+   
     </div>
   </div>
 );
-const RecentTickets = () => (
-  <div className="row">
-    <div className="col-12 grid-margin">
-      <div className="card">
-        <div className="card-body">
-          <h4 className="card-title">Recent Tickets</h4>
-          <div className="table-responsive">
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Assignee</th>
-                  <th>Subject</th>
-                  <th>Status</th>
-                  <th>Last Update</th>
-                  <th>Tracking ID</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Mansi Jagtap</td>
-                  <td>Fix Login Issue</td>
-                  <td>
-                    <div className="progress">
-                      <div
-                        className="progress-bar bg-success"
-                        role="progressbar"
-                        style={{ width: "55%" }}
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      ></div>
-                    </div>
-                  </td>
-                  <td>2025-01-05</td>
-                  <td>#12345</td>
-                </tr>
-                <tr>
-                  <td>Dhiraj Saidane</td>
-                  <td>Resolve API Bug</td>
-                  <td>
-                    <div className="progress">
-                      <div
-                        className="progress-bar bg-danger"
-                        role="progressbar"
-                        style={{ width: "25%" }}
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      ></div>
-                    </div>
-                  </td>
-                  <td>2025-01-03</td>
-                  <td>#12347</td>
-                </tr>
-                <tr>
-                  <td>Yogesh Pardeshi</td>
-                  <td>Enhance UI Design</td>
-                  <td>
-                    <div className="progress">
-                      <div
-                        className="progress-bar bg-warning"
-                        role="progressbar"
-                        style={{ width: "75%" }}
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      ></div>
-                    </div>
-                  </td>
-                  <td>2025-01-02</td>
-                  <td>#12348</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
+// const RecentTickets = () => (
+//   <div className="row">
+//     <div className="col-12 grid-margin">
+//       <div className="card">
+//         <div className="card-body">
+//           <h4 className="card-title">Recent Tickets</h4>
+//           <div className="table-responsive">
+//             <table className="table table-striped">
+//               <thead>
+//                 <tr>
+//                   <th>Assignee</th>
+//                   <th>Subject</th>
+//                   <th>Status</th>
+//                   <th>Last Update</th>
+//                   <th>Tracking ID</th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 <tr>
+//                   <td>Mansi Jagtap</td>
+//                   <td>Fix Login Issue</td>
+//                   <td>
+//                     <div className="progress">
+//                       <div
+//                         className="progress-bar bg-success"
+//                         role="progressbar"
+//                         style={{ width: "55%" }}
+//                         aria-valuenow="25"
+//                         aria-valuemin="0"
+//                         aria-valuemax="100"
+//                       ></div>
+//                     </div>
+//                   </td>
+//                   <td>2025-01-05</td>
+//                   <td>#12345</td>
+//                 </tr>
+//                 <tr>
+//                   <td>Dhiraj Saidane</td>
+//                   <td>Resolve API Bug</td>
+//                   <td>
+//                     <div className="progress">
+//                       <div
+//                         className="progress-bar bg-danger"
+//                         role="progressbar"
+//                         style={{ width: "25%" }}
+//                         aria-valuenow="25"
+//                         aria-valuemin="0"
+//                         aria-valuemax="100"
+//                       ></div>
+//                     </div>
+//                   </td>
+//                   <td>2025-01-03</td>
+//                   <td>#12347</td>
+//                 </tr>
+//                 <tr>
+//                   <td>Yogesh Pardeshi</td>
+//                   <td>Enhance UI Design</td>
+//                   <td>
+//                     <div className="progress">
+//                       <div
+//                         className="progress-bar bg-warning"
+//                         role="progressbar"
+//                         style={{ width: "75%" }}
+//                         aria-valuenow="25"
+//                         aria-valuemin="0"
+//                         aria-valuemax="100"
+//                       ></div>
+//                     </div>
+//                   </td>
+//                   <td>2025-01-02</td>
+//                   <td>#12348</td>
+//                 </tr>
+//               </tbody>
+//             </table>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// );
 
 export default Dashboard;

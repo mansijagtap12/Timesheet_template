@@ -150,10 +150,15 @@ const Sidebar = () => {
                 </a>
               </li>
               <li className="nav-item">
+                <a className="nav-link" href="/Employee-monthlyTs-list">
+                  Submitted Timesheet
+                </a>
+              </li>
+              {/* <li className="nav-item">
                 <a className="nav-link" href="/Employee-weekly-timesheet">
                   Weekly Timesheet
                 </a>
-              </li>
+              </li> */}
               {/* <li className="nav-item">
                 <a className="nav-link" href="Employee-weekly-timesheetTable">
                   Weekly Timesheet data table
