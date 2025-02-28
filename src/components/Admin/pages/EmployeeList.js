@@ -260,14 +260,15 @@ const EmployeeList = () => {
       sortable: true,
       cell: (row) => (
         <span
-          className="text-muted"
+          className="text-primary fw-bold text-decoration-underline"
           style={{ cursor: "pointer" }}
           onClick={() => setShowAssignModal(row.id)}
         >
           {row.work_assignment_status || "Assign Project"}
         </span>
       ),
-    },
+    }
+    ,
     {
       name: "RM",
       selector: (row) => row.city || "N/A",
