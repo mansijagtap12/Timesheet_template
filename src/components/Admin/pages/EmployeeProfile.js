@@ -22,15 +22,31 @@ const EmployeeProfile = () => {
       try {
         const stateEmployee = location.state?.employee;
         if (stateEmployee && stateEmployee.id === id) {
-          setEmployee(stateEmployee);
-          setFormData(stateEmployee);
+          setEmployee({
+            ...stateEmployee,
+            skills: Array.isArray(stateEmployee.skills) ? stateEmployee.skills : [],
+            education: Array.isArray(stateEmployee.education) ? stateEmployee.education : [],
+          });
+          setFormData({
+            ...stateEmployee,
+            skills: Array.isArray(stateEmployee.skills) ? stateEmployee.skills : [],
+            education: Array.isArray(stateEmployee.education) ? stateEmployee.education : [],
+          });
           setLoading(false);
         } else {
           const response = await axios.get(
             `https://vkrafthrportalbackend.onrender.com/api/users/get_by_id/${id}`
           );
-          setEmployee(response.data);
-          setFormData(response.data);
+          setEmployee({
+            ...response.data,
+            skills: Array.isArray(response.data.skills) ? response.data.skills : [],
+            education: Array.isArray(response.data.education) ? response.data.education : [],
+          });
+          setFormData({
+            ...response.data,
+            skills: Array.isArray(response.data.skills) ? response.data.skills : [],
+            education: Array.isArray(response.data.education) ? response.data.education : [],
+          });
           setLoading(false);
         }
       } catch (error) {
@@ -50,19 +66,19 @@ const EmployeeProfile = () => {
   const handleSave = async () => {
     try {
       const formDataToSend = new FormData();
-      
+
       // Append all text fields to FormData
       Object.keys(formData).forEach((key) => {
         if (key !== "certification") {
-          formDataToSend.append(key, formData[key]);
+          formDataToSend.append(key, formData[key] || ""); // Handle undefined/null values
         }
       });
-  
+
       // Append certification file if it exists
       if (formData.certification instanceof File) {
         formDataToSend.append("certification", formData.certification);
       }
-  
+
       // Use the id from useParams() in the API call
       const response = await axios.put(
         `https://vkrafthrportalbackend.onrender.com/api/users/edit_user/${id}`,
@@ -73,9 +89,13 @@ const EmployeeProfile = () => {
           },
         }
       );
-      
-      // Update the employee state with the response data
-      setEmployee(response.data);
+
+      // Update the employee state with the response data, ensuring skills and education are arrays
+      setEmployee({
+        ...response.data,
+        skills: Array.isArray(response.data.skills) ? response.data.skills : [],
+        education: Array.isArray(response.data.education) ? response.data.education : [],
+      });
       setShowEditModal(false);
       toast.success(`Employee with ID ${id} updated successfully!`);
     } catch (error) {
@@ -270,7 +290,7 @@ const EmployeeProfile = () => {
                         Skills
                       </h6>
                       <div className="mb-4 d-flex flex-wrap gap-2">
-                        {employee.skills?.length > 0 ? (
+                        {employee.skills.length > 0 ? (
                           employee.skills.map((skill, index) => (
                             <span
                               key={index}
@@ -308,7 +328,7 @@ const EmployeeProfile = () => {
                       >
                         Education
                       </h6>
-                      {employee.education?.length > 0 ? (
+                      {employee.education.length > 0 ? (
                         <table
                           className="table table-borderless table-hover"
                           style={{ fontSize: "0.9rem" }}

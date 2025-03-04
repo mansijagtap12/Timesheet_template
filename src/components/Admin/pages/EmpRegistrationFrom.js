@@ -176,13 +176,13 @@ const EmpRegistrationFrom = () => {
       setActiveTab(1);
       return;
     }
-    if (invalidProject) {
-      toast.error("Please complete all project details correctly");
+    if (invalidExperience) {
+      toast.error("Please complete all experience details correctly");
       setActiveTab(2);
       return;
     }
-    if (invalidExperience) {
-      toast.error("Please complete all experience details correctly");
+    if (invalidProject) {
+      toast.error("Please complete all project details correctly");
       setActiveTab(3);
       return;
     }
@@ -509,8 +509,8 @@ const EmpRegistrationFrom = () => {
           >
             <Tab label="Employee Details" />
             <Tab label="Education" disabled={!employeeRegistered} />
-            <Tab label="Project" disabled={!employeeRegistered} />
             <Tab label="Previous Experience" disabled={!employeeRegistered} />
+            <Tab label="Project" disabled={!employeeRegistered} />
           </Tabs>
 
           {activeTab === 0 && (
@@ -901,6 +901,35 @@ const EmpRegistrationFrom = () => {
 
           {activeTab === 2 && (
             <Form noValidate validated={validated}>
+              <DataTable
+                columns={experienceColumns}
+                data={rowsExperience}
+                customStyles={customStyles}
+                highlightOnHover
+                pointerOnHover
+                noHeader
+              />
+              <div className="mt-3 text-end">
+                <Button
+                  variant="outline-success"
+                  onClick={() => addRow("experience")}
+                  className="rounded-pill"
+                >
+                  <FaPlus className="me-2" /> Add Experience
+                </Button>
+                <Button
+                  variant="primary"
+                  onClick={() => setActiveTab(3)}
+                  className="ms-2 rounded-pill"
+                >
+                  Next
+                </Button>
+              </div>
+            </Form>
+          )}
+
+          {activeTab === 3 && (
+            <Form noValidate validated={validated}>
               <div className="row g-3">
                 <div className="col-md-6">
                   <Form.Label>
@@ -1006,44 +1035,15 @@ const EmpRegistrationFrom = () => {
                 <div className="col-12 text-end mt-2">
                   <Button
                     variant="primary"
-                    onClick={() => setActiveTab(3)}
+                    onClick={(e) => {
+                      setValidated(true);
+                      handleFinalSubmit(e);
+                    }}
                     className="px-4 rounded-pill"
                   >
-                    Next
+                    Register Employee
                   </Button>
                 </div>
-              </div>
-            </Form>
-          )}
-
-          {activeTab === 3 && (
-            <Form noValidate validated={validated}>
-              <DataTable
-                columns={experienceColumns}
-                data={rowsExperience}
-                customStyles={customStyles}
-                highlightOnHover
-                pointerOnHover
-                noHeader
-              />
-              <div className="mt-3 text-end">
-                <Button
-                  variant="outline-success"
-                  onClick={() => addRow("experience")}
-                  className="rounded-pill"
-                >
-                  <FaPlus className="me-2" /> Add Experience
-                </Button>
-                <Button
-                  variant="primary"
-                  onClick={(e) => {
-                    setValidated(true);
-                    handleFinalSubmit(e);
-                  }}
-                  className="ms-2 rounded-pill"
-                >
-                  Register Employee
-                </Button>
               </div>
             </Form>
           )}

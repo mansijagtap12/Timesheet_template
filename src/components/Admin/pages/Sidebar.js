@@ -105,15 +105,14 @@ const Sidebar = () => {
             </ul>
           </div>
         </li>
-       <li className="nav-item">
+        <li className="nav-item">
           <a
             className="nav-link"
             data-bs-toggle="collapse"
             href="#charts"
             aria-expanded="false"
             aria-controls="charts"
-          >
-            <span className="menu-title">Projects</span>
+          ><span className="menu-title">Projects</span>
             <i className="mdi mdi-chart-bar menu-icon"></i>
           </a>
           <div className="collapse" id="charts">
@@ -130,7 +129,7 @@ const Sidebar = () => {
               </li>
             </ul>
           </div>
-        </li> 
+        </li>
         <li className="nav-item">
           <a
             className="nav-link"
@@ -138,8 +137,7 @@ const Sidebar = () => {
             href="#timesheet"
             aria-expanded="false"
             aria-controls="timesheet"
-          >
-            <span className="menu-title">Timesheets</span>
+          ><span className="menu-title">Timesheets</span>
             <i className="mdi mdi-timer-sand menu-icon"></i>
           </a>
           <div className="collapse" id="timesheet">
@@ -167,8 +165,8 @@ const Sidebar = () => {
             </ul>
           </div>
         </li>
-        
-        <li className="nav-item">
+
+        {/* <li className="nav-item">
           <a
             className="nav-link"
             data-bs-toggle="collapse"
@@ -188,7 +186,7 @@ const Sidebar = () => {
               </li>
             </ul>
           </div>
-        </li>
+        </li> */}
         {/* <li className="nav-item">
           <a
             className="nav-link"
